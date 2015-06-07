@@ -4,7 +4,7 @@ TAudioConverter is an audio converter that uses many powerful backends to conver
 
 Downloads
 =========
-If you want to get stable version please visit [http://taudioconverter.sourceforge.net/](http://taudioconverter.sourceforge.net/).
+If you want to get stable version please visit [http://www.fosshub.com/TAudioConverter.html).
 
 For beta versions please visit [bitbucket page](https://bitbucket.org/ozok/taudioconverter-audio-converter/downloads).
 
