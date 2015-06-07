@@ -1,0 +1,541 @@
+--0.9.9
+-Added: [General] Option to switch between codecs and presets is now more user-friendly
+-Added: [General] Presets for Monkey's Audio format
+-Fixed: [General] MP3 VBR presets would not update vbr bar in codec settings window
+-Updated: Skin component
+-Updated: FFMpeg to N-72709-g42db4aa
+-Updated: Tag libraries
+-Updated: MediaInfo
+-Updated: lossyWav to 1.4.0
+-Updated: FDKAAC to 0.6.2
+-Updated: WavPack to 4.75.0
+-updated: Monkey's Audio to 4.16
+-updated: OggEnc2 to 2.87 using libVorbis v1.3.5
+
+--0.9.8
+-Added: [General] An option to switch between codecs and presets
+-Added: [General] Presets for AC3, ALAC, FLAC, Mp3, MPC and WMA
+-Fixed: [General] A few small bugs
+-Updated: Skin component to 9.19
+-Updated: WMA and Mp4 tag libraries
+-Updated: FLAC to 1.3.1
+-Updated: FDKAAC to 0.6.1
+-Updated: MediaInfo to 0.7.71
+
+--0.9.7
+-Added: [CueSheet] Genre and date tags will be extracted
+-Added: [General] Replaced refalac with ffmpeg as alac encoder
+-Fixed: [General] Folder tree options weren't used if "Same as Source" button was checked
+-Fixed: [CueSheet] Default output file name will be generate from tags instead of wave file
+-Fixed: [CueSheet] Value shown in "Title" column in file list was wrong
+-Fixed: [CueSheet] Padding applied to extracted duration information was wrong in some cases
+-Removed: RefAlac from the package
+-Removed: Ads from installers
+
+--0.9.6
+-Added: [General] Progress list now shows a new item for each step
+-Added: [General] Opus profiles
+-Added: [General] Tag editor for audio merging (thx to Meeko)
+-Fixed: [General] Skin enable/disable option wasn't saved
+-Fixed: [CDRipper] CD ripping would fail if no tag info was found or no internet connection existed
+-Fixed: [General] Writing artwork to OPUS files with opusenc failed (thx to o-l-a-v)
+-Fixed: [CDRipper] Writing artwork to files ripped from CD with encoders didn't work
+-Fixed: [CDRipper] "JPEG error #53" when refreshing cd track list
+-Fixed: [General] Empty file name problem if "Custom folder tree" was selected and a tag contained a dot (thx to o-l-a-v)
+-Fixed: [General] Updater showed an update while there wasn't one
+-Fixed: [General] File adding duration info was wrong
+-Fixed: [General] A few interface problems
+-Updated: opusenc to 0.1.9
+-Updated: QAAC to 2.42
+-Updated: RefAlac to 1.42
+-Updated: FDKAAC to 0.6.0
+
+--0.9.5
+-Added: [General] "Merge Audio" mode
+-Added: [General] Several presets for aac, mp3 and ogg vorbis
+-Added: [General] An option to use MediaInfo or libraries from 3delite.hu to read tags
+-Added: [General] TAC will rename files right after they are encoded
+-Added: [General] TAC will try to create temp folder at startup
+-Added: [General] "Filters" button's icon will go grey if filters are disabled
+-Added: [General] "Create log.zip" option to "Help" menu
+-Added: [General] TAC will remember it's last position, window state and size
+-Added: [General] Number of files will be shown at the bottom of the file list
+-Added: [General] "Title", "Album", "Artist" and "Genre" columns to file list (thx to o-l-a-v)
+-Added: [General] Clicking to column in the file list will sort the list (thx to o-l-a-v)
+-Added: [General] "Album Artist" (%albumartist%) tag to custom folder/file option
+-Added: [General] Improved FLAC tag writing and reading
+-Added: [CDRipper] Will now ask confirmation when user wants to stop ripping
+-Added: [General] A few minor features and UI changes
+-Added: [General] Skinning is disabled as default
+-Fixed: [General] TAC couldn't rename some files if "Custom Folder Tree" was selected and tags contained invalid chars (thx to o-l-a-v)
+-Fixed: [General] TAC wouldn't search external gif and bmp artwork files
+-Fixed: [General] TAC wouldn't pad track no when "Custom folder tree" was selected
+-Fixed: [General] TAC didn't respect start/end points during playback
+-Fixed: [General] Codec list and related controls didn't resize/move when window was resized
+-Fixed: [General] Main window's dimensions are now smaller
+-Fixed: [General] Custom folder tree would fail with some cue files
+-Fixed: [General] Lame channel option wasn't saved/loaded propery
+-Fixed: [CDRipper] Wouldn't restore window title and menu items when stopped by user
+-Fixed: [CDRipper] Wouldn't write artwork to ogg/opus files due to a bug in tag library
+-Fixed: [CDRipper] Encoding speed information was missing
+-Fixed: [TTagger] A bug where tags couldn't be written because external artwork file was being used by an other process (thx to o-l-a-v)
+-Fixed: [TTagger] A bug where ttagger would write cover art path as a tag
+-Updated: Opusenc to 0.1.8-git (using libopus 1.1.x-git)
+-Updated: Tag libraries
+-Updated: QAAC to 2.41
+-Updated: RefAlac to 1.41
+
+--0.9.4
+-Added: [General] New UI
+-Added: [General] CD ripper is now a part of the main window
+-Added: [General] Default codec option is now "Lame VBR 2"
+-Added: [General] Audio player
+-Added: [General] CD ripper will now download cover art (uses Last.fm)
+-Added: [General] CD tracks' tags can be now edited in batch
+-Added: [General] An option to resize embedded and CD artwork
+-Added: [General] TAC will try to rename files one more time if first attempt fails
+-Fixed: [General] "Tool" tag wasn't written properly 
+-Fixed: [General] A few minor interface problems
+-Fixed: [General] Skinned hints weren't disabled even if skinning was disabled
+-Fixed: [TTagger] Writing "Tool" tag to AAC files caused other tags to disappear in some rare cases
+-Fixed: [General] TAC would create custom file names even if "Custom folder tree" options wasn't selected
+-Fixed: [General] "Trim" list menu option was working even if trimming was disabled
+-Fixed: [General] "Access violation at address" in file info
+-Fixed: [General] TAC didn't delete some temp files/folder in portable mode (thx to eahm) 
+-Fixed: [TArtworkExtractor] Couldn't extract artwork from Ogg&Opus files (thx to o-l-a-v)
+-Fixed: [TArtworkExtractor] Couldn't write artwork to Ogg&Opus files (thx to o-l-a-v)
+-Removed: TCDRipper, option summary list in the main window
+-Updated: FLAC, ID3, MP4 and WMA tag libraries
+-Updated: FFmpeg to N-62058-gfd2bcfc
+
+--0.9.3
+-Added: [General] An option to write "Tool" tag whenever it's possible (thx to eahm) 
+-Added: [General] An option to filter file extensions (thx to ChronoSphere)
+-Added: [General] Two new skins
+-Fixed: [General] A bug where wavpack correction files weren't renamed (thx to ChronoSphere)
+-Fixed: [General] A bug that caused "Custom Folder Tree" to fail if %title%, %artist% or %album% keywords were used
+-Fixed: [General] If "Close TAudioConverter" post-encode option was selected output files weren't renamed
+-Fixed: [General] If "Close TAudioConverter" post-encode option was selected settings weren't saved
+-Fixed: [General] A bug where progress would revert back to zero and would show negative values
+-Fixed: [General] Some WavPack streams were detected as Wav when copying audio
+-Fixed: [General] A bug where over write options were ignored when "Copy Audio" was selected
+-Fixed: [TCDRipper] Driver tray eject/close problem (thx to kolpotoru)
+-Updated: ID3v2 and FLACTag libraries
+-Updated: FDKAAC to 0.5.3
+-Updated: QAAC to 2.35
+-Updated: RefALAC to 1.35
+
+--0.9.2
+-Added: [General] Tag editor
+-Added: [General] An option to specify the depth of the folders to be created in the output (thx to ChronoSphere)
+-Added: [Lame/Mp3] Added tag fields "Composer", "Album Artist", "Album Artist Sort" and "Album Sort" (thx to o-l-a-v)
+-Added: [Lame/Mp3] "Total Disc" and "Total Track" tags will be written
+-Added: [General] An option to show/hide toolbar button captions (thx to midas)
+-Added: [AC3] An option to disable "Dialogue Norm."
+-Fixed: [General] Embedded arwork couldn't be extracted
+-Fixed: [WMA] Couldn't get embedded artwork type
+-Fixed: [General] Couldn't extract audio from some MPEG files
+-Fixed: [Lame/Mp3] "Comment" tag wasn't written properly (thx to o-l-a-v)
+-Fixed: [General] A bug where "Artist" couldn't be extracted from WMA files
+-Updated: FDKAAC to 0.5.2
+-Updated: AlphaControls to 8.53
+-Updated: Monkey's Audio to 4.12
+
+--0.9.1
+-Added: Limited CUE Sheet support
+-Added: CD ripper
+-Added: Max. process count is now 16
+-Added: Support for dcaenc (encoding to dts)
+-Added: Tag support for APE, TAK and TTA (APEv2)
+-Added: Tag support for FLACCL
+-Added: Artwork support for WMA
+-Added: ReplayGain support for AAC encoders, WavPack, FLAC Encoders, Musepack
+-Added: New UI layout
+-Added: New codec options window
+-Added: Custom command line options for each encoder
+-Added: New columns to file list and an option to hide them
+-Added: Option to time-strech audio files (thx to hello_hello)
+-Added: TAC automatically mixdowns multichannel sources to stereo for mp3 and AAC-HEv2(thx to hello_hello)
+-Added: Option to send TAC to tray when encoding
+-Added: Double clicking to tray icon will hide/show TAC
+-Added: Portable/Installed and 32bit/64bit information will be added to mail body
+-Added: Option to disable trimming
+-Added: Option to ignore .cue files when adding files
+-Added: FFProbe to show information about files
+-Added: "Albumartist" is first fallback for "Artist" (thx to jkauff)
+-Added: TAC will now use GUID for temp wav files to prevent problems with unicode file names
+-Added: "No delay" options to qaac (thx to eahm)
+-Added: Option to see codec options summary on main window (thx to whitezombie455)
+-Added: Option to filter added files according to duration
+-Added: TAC will use 64bit version of refalac when it's possible
+-Added: Trimming is now milisecond based
+-Added: An option to clear file list after encoding (thx to o-l-a-v)
+-Added: Some options for FLAC and TAK (thx to ChronoSphere))
+-Fixed: AAC files with ADTS header couldn't be opened
+-Fixed: Artwork couldn't be written if copying tags was disabled
+-Fixed: Open file dialog filter was broken
+-Fixed: "Couldn't find/write to version.txt" errors
+-Fixed: Summary for FLACCL was missing
+-Fixed: Trimming didn't work for "Extract/Copy audio" (some formats aren't supported) (thx to kolpotoru)
+-Fixed: "Index out of bounds" during encode
+-Fixed: Huge memory leak when extracting embedded artwork
+-Fixed: "Create folder tree" didn't work when file was from a network (thx to ChronoSphere)
+-Fixed: TAC detected mp2 streams in video files as mp3
+-Improved: Encoding starting speed
+-Improved: "Same as source" option will be added to log
+-Removed: All animations (minimize, restore etc)
+-Updated: FFmpeg to latest shared build from ffmpeg.zeranoe.com/builds/
+-Updated: QAAC and refalac to 2.33
+-Updated: Opusenc to 0.1.8
+-Updated: Wavpack to 4.7.0
+-Updated: LossyWAV to 1.3.1g
+-Updated: fdkaac to 0.5.1
+-updated: MediaInfo to 0.7.67
+-Updated: AlphaControls to 8.52 stable
+
+--0.9.0
+-Added: New skins "Steam2" and "GPlus"
+-Added: Hints to some options (thx to  Trinket)
+-Added: Option to pass blocksize option to lossless encoders for losswav (thx to elubron)
+-Added: Support for extensions mpa, mp2 and mka (thx to kleen)
+-Fixed: LossyWAV failed if temp folder path ended with "\"
+-Fixed: FDKAAC always used CBR even if VBR was selected (NePaC)
+-Fixed: Removing files from list didn't reset trim values (thx to elubron)
+-Fixed: Moving files in the list caused problems with duration etc
+-Fixed: Musepack, TAK, Wavpack couldn't overwrite files even if it was enabled
+-Updated: SoX build with unicode by Lord_Mulder
+-Updated: AlphaControls to 8.41 Stable
+-Updated: MediaInfo to 0.7.64
+-Updated: OpusEnc to 1.1-beta
+
+--0.8.9
+-Added: Trimmer tool
+-Added: TAC will now ignore files in the list that do not exist
+-Fixed: TAC tried to save some text files to "C:\" (thx to Capsbackup)
+-Fixed: TAC will now use UTF-8 when saving logs (thx to ChronoSphere)
+
+--0.8.8
+-Added: Support for encoder FLACCL (thx to ChronoSphere)
+-Added: Support for pre-processor lossyWAV
+-Added: Support for ".dtsma" extension (thx to hubblec4)
+-Added: Channel options for lame (thx to  Trinket)
+-Added: Replaygain option to FLAC encoder
+-Added: Option to play a sound after encoding was done
+-Added: Option to overwrite if output file alread exists (thx to ChronoSphere)
+-Fixed: Temp wav files couldn't be deleted right after an encode
+-Fixed: SoX temp files weren't deleted right after an encode (thx to kolpotoru)
+-Fixed: Logs weren't saved in "logs" folder by portable TAC (thx to o-l-a-v) 
+-Fixed: SoX effects weren't shown in the summary
+-Fixed: Output folder edit was enabled after an encode to source folder (thx to ChronoSphere)
+-Fixed: "Clear All" button in log window didn't work
+-Updated: TAK to 2.3.0
+-Updated: AlphaControls to 8.40 Stable
+
+--0.8.7
+-Added: Seperate 32bit and 64bit builds
+-Added: Temp. wav files will be used again instead of stdin/stdout
+-Added: SoX is added to package
+-Added: Portable TAC will now save logs under "logs" folder (thx to o-l-a-v)
+-Added: Some changes to info window
+-Added: TAC will now delet temp wav files after encoding is done or stopped
+-Added: TAC now won't write date to empty log entries
+-Added: Support for sampling rates 96khz and 192khz (thx to o-l-a-v)
+-Added: Option to jump latest files in progress list
+-Fixed: Using FFMpeg as encoder caused channel problems
+-Updated: FLAC to 1.3.0
+
+--0.8.6
+-Added: "Volume" filter is now percentage based
+-Fixed: "x,yy is not a float" error when TAC started
+-Fixed: Encoding failed if effects were actived but not changed from defaults (thx to Glenn Gomes)
+-Updated: FFmpeg to latest static build from ffmpeg.zeranoe.com/builds/
+
+--0.8.5
+-Added: Using pipes with encoders that support it
+-Added: New skin "DarkMetro"
+-Added: Option to skip a file if it's output exists (thx to henrikk)
+-Fixed: FFMpeg AAC encoding bitrate was always 128kbps problem (thx to norc426)
+-Fixed: It took too long to save logs
+-Fixed: A possible error which caused source files to be deleted
+-Fixed: Ctrl+A combination caused strange behaviour (thx to o-l-a-v)
+-Fixed: Some codec settings obscured other controls
+-Removed: SoX
+-Removed: Some audio filters
+-Updated: OpusEnc to 0.1.6 using libopus 1.1.x [2013-04-23]
+-Updated: AltiVec/SSE optimized lame (thx to Brazil2)
+-Updated: madExcept to 4.0.7
+
+--0.8.4
+-Added: More skins
+-Added: Option to disable keeping encoder logs (thx to o-l-a-v)
+-Added: Ability to convert to uncompressed aiff files (thx to eahm)
+-Added: Temp. wav files will be deleted right after encoding is done (thx to NappyHead)
+-Fixed: Too long log save times when encoding to MP3 (Lame) (thx to o-l-a-v)
+-Fixed: Mp3 (Lame) progress wasn't shown properly (thx to o-l-a-v)
+-Fixed: "Invalid floating point operation" errors
+-Improved: Lowered GUI's CPU usage while converting
+-Removed: CPU and memory usage bars
+-Updated: FLAC to 1.2.1 mod4 by Case (thx to eahm)
+-Updated: MadExcept to 4.0.6
+-Updated: QAAC and refalac to 2.18
+
+--0.8.3
+-Added: Support for fdkaac (thx to o-l-a-v for binaries)
+-Added: Support for .aiff and .aif files (thx to eahm)
+-Added: Custom output folder structures (thx to NappyHead and eahm)
+-Added: New textboxes, trackbars, etc (some settings are reseted)
+-Added: New progress view layout
+-Fixed: Summary didn't show if custom tags were used
+-Fixed: Some texts couldn't be seen if skins were disabled
+-Updated: AlphaControls full version 8.31 Beta  (thx for donations)
+
+--0.8.2
+-Added: Option to select all files in the list (Ctrl+A) (thx to o-l-a-v)
+-Added: Option to keep TAC always on top (thx to Daffy)
+-Added: Option to edit some tags to be used by encoders
+-Added: Option to decide priority of external and embedded artwork (thx to Daffy)
+-Fixed: Embedded artworks couldn't be extracted
+-Fixed: Audio ID problem with some vob and mpeg files (thx to o-l-a-v)
+-Updated: AlphaControls to 8.30
+-Updated: QAAC and refalac to 2.17
+-Updated: WMAEncode to 0.2.9b
+
+--0.8.1
+-Added: Clearing a log will remove it from disk
+-Added: Commands for each encoder will be added to that encoder's log
+-Fixed: DTS streams couldn't be extracted (thx to o-l-a-v)
+-Fixed: Output folders with invalid chars couldn't be created (thx to Brazil2)
+-Fixed: Wrong artwork command was passed to QAAC (thx to Daffy)
+-Fixed: A few minor GUI problems
+-Updated: MediaInfo to 0.7.62
+
+--0.8.0
+-Added: Embedding artwork for some encoders (both external and embedded artworks)
+-Added: Logs will be kept on the disk instead of memory
+-Added: NeroAAC tools now must be placed in program folder
+-Added: FFMpeg will be used instead of FAAC (thx to eahm)
+-Added: Default encoder is now Lame instead of FAAC (thx to eahm)
+-Added: Codecs are now listed with pattern "CodecName (Encoder)" (thx to eahm)
+-Added: Option to make TAC create only one parent folder in output (thx to javmaclean and eahm)
+-Added: "M4R" extension for AAC encoders (thx to eahm)
+-Added: A few minor GUI changes
+-Fixed: A few minor GUI problems
+-Removed: FAAC
+-updated: Alphacontrols to 8.19
+
+--0.7.9
+-Added: Categories for codecs (lossless, lossy etc) (thx to eahm and o-l-a-v)
+-Added: Support for DTS file extension
+-Added: Categories for settings
+-Fixed: Bitrate for AC3 (FFMpeg) was too low
+
+--0.7.8
+-Added: Support for WavPack
+-Added: Empty tag fields will not be replaced with "Unkown" (thx to o-l-a-v)
+-Added: More tag fields for MPC, Qaac and ALAC (thx to o-l-a-v and cyberdux) 
+-Added: A log showing deleted files
+-Fixed: A bug where duration info for encoding was calculated wrong
+-Fixed: Opus files could not be opened (thx to o-l-a-v)
+-Fixed: TAC tried to open output folder even if "Same as source" is checked (thx to detmek)
+-Updated: MediaInfo to 0.7.61
+-updated: Alphacontrols to 8.18
+
+--0.7.7
+-Added: NeroAACTag will be used to write tags to files encoded with FHGAAC
+-Added: FFMpeg will be used for AC3 encoding (thx to lvqcl)
+-Added: Option to copy external artwork (jpg, jpeg and png)
+-Added: Option to download lyrics for converted files from http://www.lyricstime.com/
+-Added: Option to enable/disable adding suffix to created folders (thx to javmaclean)
+-Added: Option to rename extracted artwork to match file's name
+-Removed: Aften
+
+--0.7.6
+-Added: Support for WMAEncoder
+-Added: Changed "Copy Audio" to "Extract Audio"
+-Added: Selecting "Extract Audio" will disable all the codec-related controls (thx to o-l-a-v)
+-Added: Donation button
+-Added: SoXr library will be used for resampling (thx to jkauff)
+-Added: New icon set
+-Fixed: SoX effects/filters were not applied because created temp files were not uniquely named
+-Fixed: Volume effect info was shown in summary even if it was not enabled
+-Fixed: Speed will be shown correctly for "Extract Audio" option
+-Fixed: Progress was wrong if SoX effects were enabled
+-Fixed: WAV output could not be created due to empty file name
+-Updated: SoX to 14.4.1
+-Updated: AlphaControls to 8.17
+-Updated: QAAC and refalac to 2.15
+-Updated: FFmpeg to latest static build from ffmpeg.zeranoe.com/builds/ (thx to Zeranoe for libsoxr support)
+
+--0.7.5
+-Added: Support for ALAC (thx to iSunrise)
+-Added: TAC will now show file's full path and file size when clicked
+-Improved: Audio extraction (thx to cengizhan)
+-Improved: FFMpeg will be used for audio track detection for video files
+-Fixed: Output folder will be created only when necessary (thx to cengizhan and o-l-a-v)
+-Fixed: "Reset" button for temp directory did not work
+-Fixed: For portable version TAC will use current system's temp folder (thx to cengizhan)
+-Fixed: Nero options were not disabled if "Copy Audio" option was selected
+-Updated: FFMpeg to latest static build from http://ffmpeg.zeranoe.com/builds/
+
+--0.7.4
+-Added: NeroAACEnc and NeroAACTag support
+-Added: Seperated each process' and TAC's logs
+-Added: Option to disable skinning
+-Added: New skin "AlterMetro"
+-Added: Saving logs on close is disabled by default
+-Improved: File adding and command line creating performance
+-Fixed: Set Lame VBR max value to 9
+-Fixed: Moving items up/down could cause some problems
+-Updated: AlphaControls to 8.16
+-Updated: QAAC to 2.13
+
+--0.7.3
+-Added: Folder drag&drop support
+-Added: Edit colors will now match skin color
+-Added: Copying artwork is disabled by default
+-Added: Support for tak files (thx to carpman)
+-Added: Log will be cleared after each encode
+-Fixed: TAudioConverter will not delete files in its folder
+-Fixed: Files' sample rates were changed even if user disabled it (thx to carpman)
+-Fixed: Reverted to MediaInfo version 0.7.56 in order to fix "invalid float operation" error
+-Updated: AlphaControls to 8.15
+-Updated: Monkey's Audio to 4.11
+-Updated: QAAC to 2.12
+-Reverted: MediaInfo to 0.7.56
+
+---0.7.2
+--Added: option to extract embedded artworks to output folder (jpg, png) (thx to gottkaiser)
+--Added: A better command creation algorithm
+--Added: Info balloon will now show encoding time and speed
+--Added: More skins
+--Added: Some shortcuts (del, shift+del etc)
+--Added: Option to select between extensions for aac output (thx to kokuyo)
+--Added: Support for m4b and aac files
+--Fixed: Adding files with shell content menu will be disabled while encoding
+--Fixed: Could not write tags to TAK files (thx to jkauff)
+--Fixed: Change log could not be viewed with installer version
+
+---0.7.1
+--Added: Setup and portable versions
+--Added: Bit depth will be shown in audio tracks list
+--Added: Settings window
+--Added: Option to disable creating folder structing
+--Added: Folder structure creating will now create all folders
+--Added: "Comment" tag "TAudioConverter" will be added if source "Comment" tag is empty
+--Added: Support for AMR files
+--Added: Option to select between Id3v1 and Id3v2 for Lame (thx to gottkaiser)
+--Added: Shell content menu extension
+--Fixed: File list scroll bars not showing
+--Fixed: "Comment" tag was not copied (thx to botface)
+--Fixed: Lame progress was not captured properly
+--Updated: FFMpeg
+
+---0.7.0
+--Added: A new GUI layout
+--Added: Skins
+--Added: Support for TAK codec
+--Added: Support for m2ts and thd files
+--Added: Support to copy TrueHD streams
+--Added: Option to disable CPU and Memory usage bars
+--Added: A few minor improvements/additions
+--Removed: Predefs
+--Fixed: "Date" was not passed to QAAC (thx to Stop the Noise)
+--Updated: AlphaControls to 8.14
+
+---0.6.2
+--Added: Support for Monkey's Audio and TTA codecs
+--Added: Support for 3ga files (thx to botface)
+--Added: More tag fields for Opus
+--Added: Option to reset number of process to ideal value
+--Fixed: Wma and 3gp files could not be drag&dropped
+--Fixed: Problems while extracting FLAC and AMR streams from videos (thx to Rollin)
+--Fixed: MPC quality value was not saved
+--Fixed: "Year" tag converted to "Date" for FLAC files
+--Fixed: Wrong "Year" tag was passed to Lame.exe
+--Updated: AlphaControls to 8.13
+--Updated: QAAC to 2.10
+
+---0.6.1
+--Added: Support for 3gp files (thx to Rollin)
+--Fixed: "m4a" will be used instead of "aac" when extracting streams (thx to Rollin)
+--Fixed: Copied streams will be extracted to their own folders
+--Fixed: Created temp. wav files will be always little-endian (thx to Rollin)
+
+---0.6
+--Added: Files without an audio stream will not be added to list
+--Added: Summary will be added to log
+--Removed: "Custom Options" tab
+--Removed: enc_fhgaac.dll, libmp4v2.dll and nsutil.dll (Please see \Tools\fhgaacenc\Readme.txt)
+--Fixed: Selecting "Bit Depth" as "Original" did not have any effect 
+--Fixed: If encoding stopped and re-started progress window shows wrong info
+--Fixed: Some audio only files could not be encoded (thx to jkauff and soneca)
+--Fixed: If output folder does not exist, it will be created (thx to Meeko)
+--Fixed: Some VOB files caused "x not integer" error (thx to Rollin)
+--Updated: QAAC to 2.09
+--Updated: OpusEnc to build using libopus 1.0.2
+
+---0.5
+--Added: Support for .wma files
+--Added: Option to specify bit depth (thx to jkauff and soneca)
+--Improved: Deleting files from file list is now faster
+--Improved: Process count warning is now added to log (thx to jkauff)
+--Fixed: Changing sampling rate caused problems
+--Fixed: Memory bar now shows memory used (thx to soneca)
+--Fixed: Some UI problems occuring after encoding is done
+--Fixed: Tags with '"' in them caused problems
+--Updated: QAAC to 2.07
+--Updated: OpusEnc to build using libopus 1.0.1
+
+---0.4
+--Added: Only one instance can be run
+--Added: Process count info will be added to the log
+--Added: Support for MPC codec
+--Added: Support for .shn, .mpc, .ape and .wv files
+--Fixed: Log window could not be opened after an encode (thx to soneca)
+--Fixed: GUI shows encoding is done while it continues if SoX options are enabled
+
+---0.3.1
+--Removed: 64bit FFMpeg
+--Fixed: Progress got stuck at 50% while converting to WAV (thx to soneca)
+--Fixed: "Index out of bounds" problem for some process count values (thx to soneca) 
+--Fixed: GUI got distorted after encoding (thx to soneca)
+
+---0.3
+--Added: Multithreading!
+--Added: Option to specify number of processes
+--Added: Skin (thx to AlphaControls team)
+--Added: Options to disable tag copying
+--Added: Progress for Opus encoder
+--Added: Progress for Lame encoder
+--Added: Progress label showing number of encoded files
+--Added: A few UI changes
+--Added: Source is now included with package
+--Fixed: Progress errors if Opus was selected
+--Fixed: Summary for Opus was wrong
+--Fixed: Progress bars would go 0 sometimes during encoding
+--Fixed: Output folder will be created if it does not exist
+--Fixed: A few minor UI problems
+--Updated: AlphaControls to 8.10
+
+---0.2
+--Added: Tag copying for some encoders
+--Added: support for Opus codec
+--Added: Support for Speex and Opus files
+--Added: "Shutdown", "Restart" and "Log off" post-encode options
+--Added: Parent folder of input file will be created in the output with encoder name at the end
+--Added: Balloon notifications
+--Removed: "No Audio" option
+--Removed: Skin
+--Removed Language options
+--Removed: NeroAACEnc support
+--Fixed: Some UI Errors
+--Fixed: Unable to use Ogg Vorbis bitrate mode
+--Fixed: Updater showed new update eventhough there wasn't one
+--Fixed: Default video ID is 0 and default audio ID is 1
+--Fixed: "Copy audio" failed because files were saved to temp folder
+--Fixed: A bug where audio only files could not be encoded
+--Fixed: Saving WAV files did not work
+--Updated: FFMpeg, QAAC and MediaInfo
+
+---0.1
+--Initial release

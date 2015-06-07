@@ -1,0 +1,13 @@
+--0.9.9
+-Added: [General] Option to switch between codecs and presets is now more user-friendly
+-Added: [General] Presets for Monkey's Audio format
+-Fixed: [General] MP3 VBR presets would not update vbr bar in codec settings window
+-Updated: Skin component
+-Updated: FFMpeg to N-72709-g42db4aa
+-Updated: Tag libraries
+-Updated: MediaInfo
+-Updated: lossyWav to 1.4.0
+-Updated: FDKAAC to 0.6.2
+-Updated: WavPack to 4.75.0
+-updated: Monkey's Audio to 4.16
+-updated: OggEnc2 to 2.87 using libVorbis v1.3.5

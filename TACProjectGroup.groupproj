@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{7ECE5CE4-4371-46FD-98F3-B78DD2D2F917}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TTagger.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="TAudioConverter.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="TArtworkExtractor.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="renametool.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TTagger">
+        <MSBuild Projects="TTagger.dproj"/>
+    </Target>
+    <Target Name="TTagger:Clean">
+        <MSBuild Projects="TTagger.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TTagger:Make">
+        <MSBuild Projects="TTagger.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TAudioConverter">
+        <MSBuild Projects="TAudioConverter.dproj"/>
+    </Target>
+    <Target Name="TAudioConverter:Clean">
+        <MSBuild Projects="TAudioConverter.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TAudioConverter:Make">
+        <MSBuild Projects="TAudioConverter.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="TArtworkExtractor">
+        <MSBuild Projects="TArtworkExtractor.dproj"/>
+    </Target>
+    <Target Name="TArtworkExtractor:Clean">
+        <MSBuild Projects="TArtworkExtractor.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TArtworkExtractor:Make">
+        <MSBuild Projects="TArtworkExtractor.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="renametool">
+        <MSBuild Projects="renametool.dproj"/>
+    </Target>
+    <Target Name="renametool:Clean">
+        <MSBuild Projects="renametool.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="renametool:Make">
+        <MSBuild Projects="renametool.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TTagger;TAudioConverter;TArtworkExtractor;renametool"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TTagger:Clean;TAudioConverter:Clean;TArtworkExtractor:Clean;renametool:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TTagger:Make;TAudioConverter:Make;TArtworkExtractor:Make;renametool:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

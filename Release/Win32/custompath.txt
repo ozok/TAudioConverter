@@ -1,0 +1,12 @@
+Currently supported tags:
+Title: %title%
+Artist: %artist%
+Album: %album%
+Album Artist: %albumartist%
+Track No: %tracknumber%
+Genre: %genre%
+Date: %date%
+Disk No: %discnumber%
+Use "\" to separate folders.
+If a field is not found, it will be replaced with "" (empty). 
+If output string becomes empty, complete folder structure will be used.
