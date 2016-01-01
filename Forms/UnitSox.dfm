@@ -115,15 +115,6 @@ object FiltersForm: TFiltersForm
     Text = '100'
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Caption = '%'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
     MaxValue = 0
     MinValue = 0
     Value = 100

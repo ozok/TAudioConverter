@@ -23,11 +23,10 @@ unit UnitTagEditor;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, sSkinProvider, Vcl.StdCtrls,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, sSkinProvider, Vcl.StdCtrls,
   Vcl.Buttons, sBitBtn, Vcl.ComCtrls, sListView, sLabel, sEdit, Vcl.ImgList,
-  acAlphaImageList, UnitTagTypes;
+  acAlphaImageList, UnitTagTypes, System.ImageList;
 
 type
   TTagEditorForm = class(TForm)
@@ -67,7 +66,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TTagEditorForm.ApplyBtnClick(Sender: TObject);
 var
@@ -294,3 +294,4 @@ begin
 end;
 
 end.
+

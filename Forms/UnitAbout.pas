@@ -25,8 +25,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, ShellAPI, sSkinProvider, sButton, Vcl.Buttons,
-  sBitBtn, JvExControls, JvXPCore, JvXPButtons, acPNG, sMemo, sLabel,
-  Vcl.ComCtrls, sPageControl;
+  sBitBtn, JvExControls, JvXPCore, JvXPButtons, acPNG, sMemo, sLabel, Vcl.ComCtrls,
+  sPageControl;
 
 type
   TAboutForm = class(TForm)
@@ -74,7 +74,8 @@ const
 
 implementation
 
-uses UnitMain;
+uses
+  UnitMain;
 
 {$R *.dfm}
 
@@ -135,3 +136,4 @@ begin
 end;
 
 end.
+

@@ -5,7 +5,9 @@ program renametool;
 {$R *.res}
 
 uses
-  System.SysUtils, System.Classes, Winapi.Windows;
+  System.SysUtils,
+  System.Classes,
+  Winapi.Windows;
 
 const
   _ERROR_CANNOT_DELETE_OLD = 1;
@@ -111,3 +113,4 @@ begin
   end;
 
 end.
+

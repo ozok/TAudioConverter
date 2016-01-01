@@ -4641,6 +4641,10 @@ object AboutForm: TAboutForm
       Caption = 'Licence'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object Memo2: TsMemo
         Left = 0
         Top = 0
@@ -4687,15 +4691,6 @@ object AboutForm: TAboutForm
           'copy of the GNU General Public License'#13#10'along with this program;' +
           ' if not, write to the Free Software'#13#10'Foundation, Inc., 51 Frankl' +
           'in Street, Fifth Floor, Boston, MA 02110'#8722'1301, USA.'#13#10
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'EDIT'
       end
     end
@@ -4703,6 +4698,10 @@ object AboutForm: TAboutForm
       Caption = 'Thanks'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         393
         107)
@@ -4734,15 +4733,7 @@ object AboutForm: TAboutForm
           'tions'#13#10
         BoundLabel.Active = True
         BoundLabel.Caption = 'This project owes a lot to'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'EDIT'
       end
     end

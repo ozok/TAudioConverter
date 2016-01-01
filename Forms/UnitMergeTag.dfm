@@ -41,15 +41,11 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Artist:'
-    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clBlack
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object AlbumEdit: TsEdit
     Left = 63
@@ -69,15 +65,11 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Album:'
-    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clBlack
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object GenreEdit: TsEdit
     Left = 63
@@ -97,15 +89,11 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Genre:'
-    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clBlack
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object PerformerEdit: TsEdit
     Left = 63
@@ -125,15 +113,11 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Performer:'
-    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clBlack
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object UseValuesBtn: TsCheckBox
     Left = 8
@@ -192,7 +176,6 @@ object MergeTagForm: TMergeTagForm
     TabOrder = 8
     OnClick = CloseBtnClick
     SkinData.SkinSection = 'BUTTON'
-    ExplicitTop = 162
   end
   object DateEdit: TsSpinEdit
     Left = 63
@@ -212,15 +195,11 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Date:'
-    BoundLabel.Indent = 0
     BoundLabel.Font.Charset = DEFAULT_CHARSET
     BoundLabel.Font.Color = clBlack
     BoundLabel.Font.Height = -11
     BoundLabel.Font.Name = 'Tahoma'
     BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
     MaxValue = 0
     MinValue = 0
     Value = 2014
@@ -241,15 +220,6 @@ object MergeTagForm: TMergeTagForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Title:'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object ArtworkPathEdit: TsFilenameEdit
     Left = 63
@@ -270,15 +240,6 @@ object MergeTagForm: TMergeTagForm
     CheckOnExit = True
     BoundLabel.Active = True
     BoundLabel.Caption = 'Artwork:'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
     SkinData.SkinSection = 'EDIT'
     GlyphMode.Blend = 0
     GlyphMode.Grayed = False

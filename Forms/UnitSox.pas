@@ -23,11 +23,9 @@ unit UnitSox;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.Buttons, sBitBtn, Vcl.Mask, JvExMask, JvSpin, sComboBox, sCheckBox,
-  Inifiles,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  sBitBtn, Vcl.Mask, JvExMask, JvSpin, sComboBox, sCheckBox, Inifiles,
   JvExControls, JvXPCore, JvXPButtons, acPNG, sSkinProvider, sEdit, sSpinEdit,
   sGroupBox, sLabel;
 
@@ -47,7 +45,6 @@ type
     procedure CloseBtnClick(Sender: TObject);
     procedure VolumeBtnClick(Sender: TObject);
     procedure EnableBtnClick(Sender: TObject);
-
     procedure LoadSettings();
     procedure SaveSettings();
     procedure FormCreate(Sender: TObject);
@@ -66,7 +63,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TFiltersForm.CloseBtnClick(Sender: TObject);
 begin
@@ -190,3 +188,4 @@ begin
 end;
 
 end.
+

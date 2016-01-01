@@ -147,15 +147,6 @@ object InfoForm: TInfoForm
         ReadOnly = True
         RowSelect = True
         TabOrder = 0
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'EDIT'
       end
     end
@@ -179,15 +170,6 @@ object InfoForm: TInfoForm
         ReadOnly = True
         ScrollBars = ssBoth
         TabOrder = 0
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'EDIT'
       end
     end
@@ -195,20 +177,15 @@ object InfoForm: TInfoForm
       Caption = 'Tags'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object TagList: TsListView
         Left = 0
         Top = 0
         Width = 660
         Height = 351
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'EDIT'
         Align = alClient
         Color = 15921906
@@ -245,6 +222,7 @@ object InfoForm: TInfoForm
     AddedTitle.Font.Height = -11
     AddedTitle.Font.Name = 'Tahoma'
     AddedTitle.Font.Style = []
+    FormHeader.AdditionalHeight = 0
     SkinData.SkinSection = 'FORM'
     TitleButtons = <>
     Left = 208

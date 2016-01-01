@@ -22,7 +22,8 @@ unit UnitRGInfoExtractor;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils;
 
 type
   TRGInfoStatus = (rsReading, rsDone);
@@ -43,15 +44,12 @@ type
     FFileName: string;
     FFFProbePath: string;
     FRGInfo: TRGInfo;
-
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
   public
     property RGInfoStatus: TRGInfoStatus read FStatus;
     property RGInfo: TRGInfo read FRGInfo;
-
     constructor Create(const FileName: string; const FFProbePath: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -93,8 +91,7 @@ begin
   FProcess.Free;
 end;
 
-procedure TRGInfoExtractor.ProcessTerminate(Sender: TObject;
-  ExitCode: Cardinal);
+procedure TRGInfoExtractor.ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
 const
   ALBUM_GAIN_STR = '"REPLAYGAIN_ALBUM_GAIN":';
   ALBUM_PEAK_STR = '"REPLAYGAIN_ALBUM_PEAK":';
@@ -166,10 +163,9 @@ end;
 procedure TRGInfoExtractor.Start;
 begin
   FProcess.ApplicationName := FFFProbePath;
-  FProcess.CommandLine :=
-    '  -print_format json -show_streams -show_format -pretty -i "' +
-    FFileName + '"';
+  FProcess.CommandLine := '  -print_format json -show_streams -show_format -pretty -i "' + FFileName + '"';
   FProcess.Run;
 end;
 
 end.
+

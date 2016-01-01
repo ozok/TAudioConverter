@@ -54,15 +54,6 @@ object TrimmerForm: TTrimmerForm
     TabOrder = 5
     Text = '00:00:00.000'
     SkinData.SkinSection = 'EDIT'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object StartEdit: TsEdit
     Left = 562
@@ -83,15 +74,6 @@ object TrimmerForm: TTrimmerForm
     TabOrder = 6
     Text = '00:00:00.000'
     SkinData.SkinSection = 'EDIT'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object StartBar: TsTrackBar
     Left = 40
@@ -99,6 +81,8 @@ object TrimmerForm: TTrimmerForm
     Width = 516
     Height = 25
     Anchors = [akLeft, akTop, akRight]
+    DoubleBuffered = False
+    ParentDoubleBuffered = False
     ShowSelRange = False
     TabOrder = 0
     TickMarks = tmBoth
@@ -114,6 +98,8 @@ object TrimmerForm: TTrimmerForm
     Width = 516
     Height = 25
     Anchors = [akLeft, akTop, akRight]
+    DoubleBuffered = False
+    ParentDoubleBuffered = False
     ShowSelRange = False
     TabOrder = 1
     TickMarks = tmBoth
@@ -177,15 +163,6 @@ object TrimmerForm: TTrimmerForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Selected duration:'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object OrigDurEdit: TsEdit
     Left = 96
@@ -207,15 +184,6 @@ object TrimmerForm: TTrimmerForm
     SkinData.SkinSection = 'EDIT'
     BoundLabel.Active = True
     BoundLabel.Caption = 'Original duration:'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
   end
   object sSkinProvider1: TsSkinProvider
     AddedTitle.Font.Charset = DEFAULT_CHARSET

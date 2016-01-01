@@ -21,7 +21,8 @@ unit UnitPresets;
 
 interface
 
-uses Generics.Collections, IniFiles, System.SysUtils;
+uses
+  Generics.Collections, IniFiles, System.SysUtils;
 
 type
   TPreset = class(TObject)
@@ -53,3 +54,4 @@ begin
 end;
 
 end.
+

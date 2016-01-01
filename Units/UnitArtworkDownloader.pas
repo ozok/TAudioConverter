@@ -2,10 +2,10 @@ unit UnitArtworkDownloader;
 
 interface
 
-uses Classes, Windows, SysUtils, Messages, StrUtils, IdBaseComponent,
+uses
+  Classes, Windows, SysUtils, Messages, StrUtils, IdBaseComponent,
   IdThreadComponent, Vcl.ComCtrls, IdThread, Generics.Collections,
-  JvComponentBase, JvUrlListGrabber, JvUrlGrabbers,
-  JvTypes, UnitImageResize;
+  JvComponentBase, JvUrlListGrabber, JvUrlGrabbers, JvTypes, UnitImageResize;
 
 type
   TDownloadStatus = (idle = 0, downloading = 1, done = 2, error = 3, gettinginfo = 4);
@@ -19,7 +19,7 @@ type
     Height: Integer;
   end;
 
-Type
+type
   TArtworkDownloader = class(TObject)
   private
     FDownloadThread: TIdThreadComponent;
@@ -55,10 +55,8 @@ Type
     property ImageURL: string read FImageURL;
     property ImagePath: string read FImagePath write FImagePath;
     property DownloaderErrorMsg: string read GetErrorMsg;
-
     constructor Create(const Params: TDownloadParams);
     destructor Destroy; override;
-
     procedure Start();
     procedure Stop();
   end;
@@ -222,7 +220,8 @@ begin
         FErrorCode := ERROR_OK;
         FStatus := downloading;
         FPicDownloader.Url := FImageURL;
-        FPicDownloader.FileName := FImagePath;;
+        FPicDownloader.FileName := FImagePath;
+        ;
         FPicDownloader.Start;
       end;
     finally
@@ -292,3 +291,4 @@ begin
 end;
 
 end.
+

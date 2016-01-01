@@ -22,7 +22,8 @@ unit UnitFileInfo;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
 
 type
   TStatus = (fsReading, fsDone);
@@ -36,17 +37,13 @@ type
     FFFprobePath: string;
     FAudioTrackIndexes: TStringList;
     FTempFolder: string;
-
     procedure ProcessRead(Sender: TObject; const S: string; const StartsOnNewLine: Boolean);
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
-
   public
     property FileInfoStatus: TStatus read FStatus;
     property AudioStreamIndexes: TStringList read FAudioTrackIndexes;
-
     constructor Create(const FileName: string; const FFMpegPath: string; const TempFolder: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -93,8 +90,7 @@ begin
   FreeAndNil(FAudioTrackIndexes);
 end;
 
-procedure TFileInfo.ProcessRead(Sender: TObject; const S: string;
-  const StartsOnNewLine: Boolean);
+procedure TFileInfo.ProcessRead(Sender: TObject; const S: string; const StartsOnNewLine: Boolean);
 const
   Output = 'Output';
   Input = 'Input';
@@ -124,7 +120,7 @@ begin
     LSections := TStringList.Create;
     try
       LIni.ReadSections(LSections);
-      for I := 0 to LSections.Count-1 do
+      for I := 0 to LSections.Count - 1 do
       begin
         if Audio = LIni.ReadString(LSections[i], 'codec_type', '') then
         begin
@@ -151,3 +147,4 @@ begin
 end;
 
 end.
+

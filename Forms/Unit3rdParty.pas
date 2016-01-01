@@ -23,10 +23,9 @@ unit Unit3rdParty;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, sListView, sSkinProvider,
-  Vcl.StdCtrls, sButton;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, sListView,
+  sSkinProvider, Vcl.StdCtrls, sButton;
 
 type
   TComponentsForm = class(TForm)
@@ -51,7 +50,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TComponentsForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -115,3 +115,4 @@ begin
 end;
 
 end.
+

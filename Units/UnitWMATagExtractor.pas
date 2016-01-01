@@ -2,21 +2,19 @@ unit UnitWMATagExtractor;
 
 interface
 
-uses Classes, Windows, SysUtils, Messages, StrUtils, UnitTagTypes,
-  WMATagLibrary;
+uses
+  Classes, Windows, SysUtils, Messages, StrUtils, UnitTagTypes, WMATagLibrary;
 
 type
   TWMATagExtractor = class(TObject)
   private
     FFileName: string;
     FTags: TTagInfo;
-
     procedure ReadTags();
     function GetCoverStream: TStream;
   public
     property Tags: TTagInfo read FTags;
     property CoverStream: TStream read GetCoverStream;
-
     constructor Create(const FileName: string);
     destructor Destroy(); override;
   end;
@@ -83,3 +81,4 @@ begin
 end;
 
 end.
+

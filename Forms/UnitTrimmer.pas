@@ -23,10 +23,9 @@ unit UnitTrimmer;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, sBitBtn,
-  Vcl.ComCtrls, sTrackBar, sEdit, sSkinProvider, sLabel;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  sBitBtn, Vcl.ComCtrls, sTrackBar, sEdit, sSkinProvider, sLabel;
 
 type
   TTrimmerForm = class(TForm)
@@ -65,7 +64,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TTrimmerForm.CancelBtnClick(Sender: TObject);
 begin
@@ -172,3 +172,4 @@ begin
 end;
 
 end.
+

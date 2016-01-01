@@ -1,3 +1,7 @@
+--0.9.10
+-updated: OggEnc2 to 2.88 using libVorbis v1.3.5
+-Updated: Skin component
+
 --0.9.9
 -Added: [General] Option to switch between codecs and presets is now more user-friendly
 -Added: [General] Presets for Monkey's Audio format

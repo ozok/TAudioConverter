@@ -22,7 +22,8 @@ unit UnitCueParser;
 
 interface
 
-uses Classes, Windows, SysUtils, Messages, StrUtils, Generics.Collections;
+uses
+  Classes, Windows, SysUtils, Messages, StrUtils, Generics.Collections;
 
 type
   TCueTrackDurationInfo = packed record
@@ -78,20 +79,16 @@ type
     FTrackStartIndexes: TList<integer>;
     FFileDuration: integer;
     FCueSheetPath: string;
-
     function StringStartsWith(const Str: string; const StartStr: string): Boolean;
     function IsLineTrack(const Str: string): Boolean;
-
     function REMtoList(const Str: string): TExtraComments;
     function GetPerformer(const Str: string): string;
     function GetFile(const Str: string): string;
     function GetTitle(const Str: string): string;
     function GetTrackTagInfo(const InfoList: TStringList): TCueTrackInfo;
     function GetIndex(const Str: string): string;
-
     function IndexToMiliSeconds(const Str: string): Integer;
     function RemoveInvalidPathChars(const SourceStr: string): string;
-
     function GetTrackCount: integer;
     function GetSongFileName: string;
   public
@@ -101,10 +98,8 @@ type
     property FileDuration: integer read FFileDuration write FFileDuration;
     property TrackCount: integer read GetTrackCount;
     property SongFileName: string read GetSongFileName;
-
     constructor Create(const CueSheetPath: string);
     destructor Destroy; override;
-
     procedure ParseCueSheet();
   end;
 
@@ -564,7 +559,7 @@ end;
 
 function TCueSplitter.RemoveInvalidPathChars(const SourceStr: string): string;
 const
-  InvalidChars: array [0 .. 8] of Char = ('<', '>', ':', '"', '/', '\', '|', '?', '*');
+  InvalidChars: array[0..8] of Char = ('<', '>', ':', '"', '/', '\', '|', '?', '*');
 var
   I: Integer;
   TempStr: string;
@@ -632,3 +627,4 @@ begin
 end;
 
 end.
+

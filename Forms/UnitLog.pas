@@ -24,9 +24,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, JvExStdCtrls, JvListBox, Vcl.ComCtrls, sSkinProvider,
-  Vcl.ExtCtrls, sPanel, sListBox, Vcl.Buttons, sBitBtn, JvExControls,
-  JvEditorCommon,
+  Dialogs, StdCtrls, JvExStdCtrls, JvListBox, Vcl.ComCtrls, sSkinProvider, Vcl.ExtCtrls,
+  sPanel, sListBox, Vcl.Buttons, sBitBtn, JvExControls, JvEditorCommon,
   JvUnicodeEditor, JvUnicodeHLEditor, JvXPCore, JvXPButtons, acPNG, sComboBox,
   sDialogs, sMemo, sPageControl, System.Zip;
 
@@ -79,7 +78,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TLogForm.ClearAllBtnClick(Sender: TObject);
 var
@@ -326,8 +326,7 @@ begin
     begin
       if FileExists(MainForm.AppDataFolder + LogFolder + '\log_encoder' + FloatToStr(i + 1) + '.txt') then
       begin
-        CopyFile(PWideChar(MainForm.AppDataFolder + LogFolder + '\log_encoder' + FloatToStr(i + 1) + '.txt'),
-          PWideChar(MainForm.SystemInfo.Folders.Desktop + '\tac_bugs\encoder' + FloatToStr(i + 1) + '.txt'), False);
+        CopyFile(PWideChar(MainForm.AppDataFolder + LogFolder + '\log_encoder' + FloatToStr(i + 1) + '.txt'), PWideChar(MainForm.SystemInfo.Folders.Desktop + '\tac_bugs\encoder' + FloatToStr(i + 1) + '.txt'), False);
       end;
     end;
     DeletedLog.Lines.SaveToFile(MainForm.SystemInfo.Folders.Desktop + '\tac_bugs\deleted.txt', TEncoding.Unicode);
@@ -383,3 +382,4 @@ begin
 end;
 
 end.
+

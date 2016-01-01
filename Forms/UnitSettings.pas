@@ -23,11 +23,9 @@ unit UnitSettings;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  sSkinProvider,
-  Vcl.StdCtrls, sComboBox, sCheckBox, sEdit, sButton, IniFiles, Registry,
-  ShellAPI, JvSpin,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, sSkinProvider, Vcl.StdCtrls,
+  sComboBox, sCheckBox, sEdit, sButton, IniFiles, Registry, ShellAPI, JvSpin,
   Vcl.ExtCtrls, sPanel, sDialogs, Vcl.ComCtrls, sPageControl, sTrackBar, sLabel,
   sSpinEdit, sGroupBox;
 
@@ -146,7 +144,6 @@ type
     // shell extension
     procedure ShellExtensionRegister();
     procedure ShellExtensionUnRegister();
-
   public
     { Public declarations }
   end;
@@ -158,7 +155,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain, UnitAbout, UnitInfo, UnitLog, UnitProgress, UnitSox, UnitTag,
+uses
+  UnitMain, UnitAbout, UnitInfo, UnitLog, UnitProgress, UnitSox, UnitTag,
   UnitUpdater;
 
 { TForm1 }
@@ -756,3 +754,4 @@ begin
 end;
 
 end.
+

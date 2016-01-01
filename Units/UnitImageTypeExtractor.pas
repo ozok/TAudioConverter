@@ -22,7 +22,8 @@ unit UnitImageTypeExtractor;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
 
 type
   TImageTypeExtractorStatus = (ieReading, ieDone);
@@ -35,16 +36,12 @@ type
     FFileName: string;
     FArtworkExtractorPath: string;
     FExtension: string;
-
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
   public
     property IEStatus: TImageTypeExtractorStatus read FStatus;
     property Extension: string read FExtension;
-
-    constructor Create(const FileName: string;
-      const ArtworkExtractorPath: string);
+    constructor Create(const FileName: string; const ArtworkExtractorPath: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -52,8 +49,7 @@ implementation
 
 { TImageTypeExtractor }
 
-constructor TImageTypeExtractor.Create(const FileName: string;
-  const ArtworkExtractorPath: string);
+constructor TImageTypeExtractor.Create(const FileName: string; const ArtworkExtractorPath: string);
 begin
   inherited Create;
 
@@ -89,8 +85,7 @@ begin
   FProcess.Free;
 end;
 
-procedure TImageTypeExtractor.ProcessTerminate(Sender: TObject;
-  ExitCode: Cardinal);
+procedure TImageTypeExtractor.ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
 begin
   FStatus := ieReading;
   try
@@ -117,3 +112,4 @@ begin
 end;
 
 end.
+

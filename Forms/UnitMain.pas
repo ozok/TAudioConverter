@@ -24,27 +24,20 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, Mask, JvExMask, XPMan, ExtCtrls, Menus,
-  JvBaseDlg,
-  JvBrowseFolder, JvExStdCtrls, JvToolEdit, JvComponentBase,
-  JvThread,
-  ComCtrls, JvExComCtrls, ShellAPI, StrUtils, MediaInfoDll, JvComputerInfoEx,
-  IniFiles, JvDragDrop, JvUrlListGrabber, JvUrlGrabbers, CommCtrl,
-  sSkinProvider,
+  Dialogs, StdCtrls, Buttons, Mask, JvExMask, XPMan, ExtCtrls, Menus, JvBaseDlg,
+  JvBrowseFolder, JvExStdCtrls, JvToolEdit, JvComponentBase, JvThread, ComCtrls,
+  JvExComCtrls, ShellAPI, StrUtils, MediaInfoDll, JvComputerInfoEx, IniFiles,
+  JvDragDrop, JvUrlListGrabber, JvUrlGrabbers, CommCtrl, sSkinProvider,
   sSkinManager, sPanel, sButton, sLabel, sListBox, sCheckBox, sComboBox, sEdit,
-  sGauge, System.Types,
-  sBitBtn, Vcl.ImgList, acAlphaImageList, JvSearchFiles,
-  acPNG, JvTrayIcon, UnitEncoder, TlHelp32, UnitFileInfo,
-  sDialogs, sTrackBar, sTreeView, sListView, sSpinEdit, MMSystem,
-  acAlphaHints, acProgressBar, UnitCueParser,
-  UnitTagTypes, Generics.Collections, UnitAudioDurationExtractor,
-  UnitFFProbeInformer, UnitImageTypeExtractor, UnitArtworkExtractor,
-  Vcl.ToolWin, sToolBar, UnitRGInfoExtractor, UnitCommonTypes,
-  UnitWMATagExtractor,
-  sPageControl, UnitTypes, ACS_Classes, ACS_Wave, ACS_CDROM, mr_cddb,
-  UnitPlayer, UnitArtworkDownloader, UnitImageResize,
-  JvAppStorage, JvAppIniStorage, JvFormPlacement, UnitTagReader, sBevel,
-  UnitPresets, acSlider;
+  sGauge, System.Types, sBitBtn, Vcl.ImgList, acAlphaImageList, JvSearchFiles,
+  acPNG, JvTrayIcon, UnitEncoder, TlHelp32, UnitFileInfo, sDialogs, sTrackBar,
+  sTreeView, sListView, sSpinEdit, MMSystem, acAlphaHints, acProgressBar,
+  UnitCueParser, UnitTagTypes, Generics.Collections, UnitAudioDurationExtractor,
+  UnitFFProbeInformer, UnitImageTypeExtractor, UnitArtworkExtractor, Vcl.ToolWin,
+  sToolBar, UnitRGInfoExtractor, UnitCommonTypes, UnitWMATagExtractor,
+  sPageControl, UnitTypes, ACS_Classes, ACS_Wave, ACS_CDROM, mr_cddb, UnitPlayer,
+  UnitArtworkDownloader, UnitImageResize, JvAppStorage, JvAppIniStorage,
+  JvFormPlacement, UnitTagReader, sBevel, UnitPresets, acSlider, System.ImageList;
 
 type
   TRenamePair = record
@@ -179,7 +172,6 @@ type
     TrackNoEdit: TsSpinEdit;
     CDDBInfo: TCDDBInfo;
     CDIn: TCDIn;
-    WaveOut: TWaveOut;
     WaitPanel: TsPanel;
     ProgressStatePanel: TsPanel;
     StatusLabel: TsLabel;
@@ -236,6 +228,7 @@ type
     NextCodecBtn: TsButton;
     SummaryLabel: TsLabel;
     ModeSelectionList: TsComboBox;
+    WaveOut: TWaveOut;
     procedure AddFiles1Click(Sender: TObject);
     procedure AddFolder1Click(Sender: TObject);
     procedure AddBtnClick(Sender: TObject);
@@ -256,9 +249,7 @@ type
     procedure DragDropDrop(Sender: TObject; Pos: TPoint; Value: TStrings);
     procedure InfoBtnClick(Sender: TObject);
     procedure UpdateThreadExecute(Sender: TObject; Params: Pointer);
-
     procedure UpdateListboxScrollBox(ListBox: TsListBox);
-
     procedure UpdateBtnClick(Sender: TObject);
     procedure Exit1Click(Sender: TObject);
     procedure OpenDirectory1Click(Sender: TObject);
@@ -384,17 +375,12 @@ type
 {$ENDREGION}
     FTotalLength: Int64;
     FMergeTotalDuration: Integer;
-
     FLastDirectory: string;
-
     FTimePassed: Int64;
-
-    FEncoders: array [0 .. 15] of TEncoder;
+    FEncoders: array[0..15] of TEncoder;
     FMergeProcess: TEncoder;
-
     FTotalCMDCount: integer;
     FAudioEncoderType: TEncoderType;
-
     FPlayer: TPlayer;
     FPlaybackIndex: Integer;
     FPrevStateIndex: Integer;
@@ -406,10 +392,8 @@ type
     FTrackIndex: integer;
     FSelectedTracksCount: integer;
     FRippedTracks: integer;
-
     FTrackInfoList: TList<TTrackInfo>;
     FTracksToBeRipped: TList<TTrackIndexes>;
-
     FMergeFileList: TStringList;
 
     // column sort
@@ -422,20 +406,13 @@ type
     // presets
     FPresets: TLamePresetList;
     FPresetFilesList: TStringList;
-
     procedure GetTracks;
     procedure LoadDrivers;
-
     function PadInteger(const Int: integer): string;
-
     procedure FillCDProgressList;
-
     function PlayItem(const ItemIndex: Integer): integer;
-
     procedure LoadPresets;
-
     procedure LaunchProcesses(const ProcessCount: integer);
-
     function SubStringOccurences(const subString, sourceString: string): integer;
 
     // get full info for selected file
@@ -485,12 +462,10 @@ type
     function CreateTagCMD(const FileName: string; const FileIndex: integer): string;
     function CDCreateTagCMD(const TotalTracks: Integer; const TrackIndex: Integer): string;
     procedure CreateMergeTagTextFile;
-
     function GetFileFolderName(const FileName: string; const FileIndex: Integer): string;
     function ParseFolderStr(const FolderStr: string; const FileName: string; const FileIndex: Integer): string;
     function GetCustomFileName(const FileNameStr: string; const FileName: string; const FileIndex: Integer): string;
     function GetCueCustomFileName(const Tags: TTagInfo; const FileNameStr: string): string;
-
     procedure SaveLogs();
     procedure DeleteLogs();
 
@@ -518,7 +493,6 @@ type
 
     // writes given line to given file
     procedure WriteLnToFile(const FileName: string; const Line: string);
-
     function CanUseLossyWAV: Boolean;
 
     // reads tags from file
@@ -533,20 +507,14 @@ type
 
     // log compression percentages
     procedure CompressionPercentages;
-
     procedure DebugMsg(const Str: string);
-
     function CalcFileSize(const FilePath: string): int64;
-
     function CreateTempFileName(): string;
     // adds temp wav files' commands
     procedure AddCDTracks;
     procedure AddCDTrack(const Track: integer; const TrackCount: integer; const EncoderIndex: Integer);
-
     procedure CalcTotalCompression;
-
     function PadTrackIndex(const TrackNo: integer): string;
-
     function IsHEv2Selected: Boolean;
 
     // checks if file is in filtered extensions
@@ -585,7 +553,6 @@ type
     function FDKPercentage(const FDKOutput: string): integer;
     function LossyWAVPercentage(const LossyWAVOutput: string): integer;
     function dcaencPercentage(const dcaencOutput: string): integer;
-
     function GetPercentage(const EncoderIndex: integer): integer;
     function GetMergeProgress: integer;
     procedure UpdateProgress;
@@ -601,7 +568,6 @@ type
 
     // converts int to hh:mm:ss
     function IntToTime(IntTime: Integer): string;
-
     procedure AssignLabelToProgressBar(Lbl: TsLabel; PB: TsProgressBar);
 
     // check if string is numeric
@@ -609,10 +575,8 @@ type
 
     // removes invalid chars from string
     function RemoveInvalidChars(const Str: string): string;
-
     function PadString(const Str: string): string;
     function PadString2(const Str: string): string;
-
     procedure UpdateSummaryLabel;
     procedure GenerateSummaryString;
   end;
@@ -629,9 +593,10 @@ var
 
 implementation
 
-uses UnitLog, windows7taskbar, UnitInfo, UnitAbout,
-  UnitUpdater, UnitSox, UnitProgress, UnitSettings, UnitTag, UnitTrimmer,
-  UnitCodecSettings, Unit3rdParty, UnitTagEditor, UnitMergeTag;
+uses
+  UnitLog, windows7taskbar, UnitInfo, UnitAbout, UnitUpdater, UnitSox,
+  UnitProgress, UnitSettings, UnitTag, UnitTrimmer, UnitCodecSettings,
+  Unit3rdParty, UnitTagEditor, UnitMergeTag;
 
 {$R *.dfm}
 
@@ -689,8 +654,7 @@ begin
   FileName := FTrackInfoList[Track - 1].TempFileName;
 
   // add to progress list
-  LProgressItem := PadInteger(StrToInt(FTrackInfoList[Track - 1].TrackTagInfo.TrackNo)) + ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Artist + ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Album +
-    ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Title;
+  LProgressItem := PadInteger(StrToInt(FTrackInfoList[Track - 1].TrackTagInfo.TrackNo)) + ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Artist + ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Album + ' - ' + FTrackInfoList[Track - 1].TrackTagInfo.Title;
 
   TmpAudioFileName := FileName;
 
@@ -722,7 +686,8 @@ begin
       end;
     etLAME:
       begin
-        OutputExt := '.mp3';;
+        OutputExt := '.mp3';
+        ;
       end;
     etWAV:
       begin
@@ -794,8 +759,7 @@ begin
   // generate output file path
   TmpAudioFileName := FileName;
 
-  RP.Output := PadInteger(StrToInt(FTrackInfoList[Track - 1].TrackTagInfo.TrackNo)) + ' - ' + RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Artist) + ' - ' +
-    RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Album) + ' - ' + RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Title);
+  RP.Output := PadInteger(StrToInt(FTrackInfoList[Track - 1].TrackTagInfo.TrackNo)) + ' - ' + RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Artist) + ' - ' + RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Album) + ' - ' + RemoveInvalidChars(FTrackInfoList[Track - 1].TrackTagInfo.Title);
   RP.Output := ExcludeTrailingPathDelimiter(DirectoryEdit.Text) + '\' + ExtractFileName(RP.Output) + OutputExt;
   RP.Input := ChangeFileExt(TmpAudioFileName, OutputExt);
   RP.Input := ExcludeTrailingPathDelimiter(DirectoryEdit.Text) + '\' + ExtractFileName(TmpAudioFileName) + OutputExt;
@@ -2280,7 +2244,8 @@ begin
             end;
           etLAME:
             begin
-              OutputExt := '.mp3';;
+              OutputExt := '.mp3';
+              ;
             end;
           etWAV:
             begin
@@ -2588,8 +2553,7 @@ begin
               FS.DecimalSeparator := '.';
               LStartPos := StrToInt(StartPositions[Index]);
               LDur := StrToInt(EndPositions[Index]) - StrToInt(StartPositions[Index]);
-              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-                FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
             end
             else
             begin
@@ -2605,8 +2569,7 @@ begin
                 LDur := StrToInt(EndPositions[Index]) - StrToInt(StartPositions[Index]);
                 if LDur <> StrToInt(ConstantDurations[Index]) then
                 begin
-                  DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-                    FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+                  DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
                 end;
               end;
             end;
@@ -4055,16 +4018,14 @@ begin
           // we must use trim values for cue sheets
           if TagsList[Index].FileType = 'cue' then
           begin
-            DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-              FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+            DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
           end
           else
           begin
             // do not use trimming if user didn't change it
             if LDur <> StrToInt(ConstantDurations[Index]) then
             begin
-              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-                FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
             end;
           end;
 
@@ -4273,8 +4234,7 @@ begin
                             ExtensionLine := ACodec;
                             CopyExtension.Add(ACodec);
 
-                            NewItemStr := '1, ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' +
-                              IntToTime(CueParser.CueTracksInfos[i].CueTrackDurationInfo.Duration div 1000) + ', ' + BitDepth + ' bit, ' + FileSize;
+                            NewItemStr := '1, ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' + IntToTime(CueParser.CueTracksInfos[i].CueTrackDurationInfo.Duration div 1000) + ', ' + BitDepth + ' bit, ' + FileSize;
 
                             // add tags extracted from cue file to tags list
                             with LTag do
@@ -4308,10 +4268,8 @@ begin
                               with CueParser.CueTracksInfos[i] do
                               begin
                                 Caption := ExtractFileName(CueParser.SongFileName) + ' - ' + CueTrackTagInfo.Title;
-                                SubItems.Add(IntToTime(CueTrackDurationInfo.StartPos div 1000) + '.' +
-                                  PadString(FloatToStr((CueTrackDurationInfo.StartPos / 1000) - (CueTrackDurationInfo.StartPos div 1000))));
-                                SubItems.Add(IntToTime(CueTrackDurationInfo.EndPos div 1000) + '.' +
-                                  PadString(FloatToStr((CueTrackDurationInfo.EndPos / 1000) - (CueTrackDurationInfo.EndPos div 1000))));
+                                SubItems.Add(IntToTime(CueTrackDurationInfo.StartPos div 1000) + '.' + PadString(FloatToStr((CueTrackDurationInfo.StartPos / 1000) - (CueTrackDurationInfo.StartPos div 1000))));
+                                SubItems.Add(IntToTime(CueTrackDurationInfo.EndPos div 1000) + '.' + PadString(FloatToStr((CueTrackDurationInfo.EndPos / 1000) - (CueTrackDurationInfo.EndPos div 1000))));
                                 LIndexItem := TIndexItem.Create;
                                 LIndexItem.RealIndex := Index;
                                 SubItems.AddObject(ABitrate, LIndexItem);
@@ -4568,8 +4526,7 @@ begin
                           AudioIndexes.Add(AudioID);
                         end;
 
-                        NewItemStr := AudioID + ', ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' + IntToTime(FileDuration) + ', ' + BitDepth + ' bit, '
-                          + FileSize;
+                        NewItemStr := AudioID + ', ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' + IntToTime(FileDuration) + ', ' + BitDepth + ' bit, ' + FileSize;
                         ExtensionLine := ACodec;
                         CopyExtension.Add(ACodec);
                       end
@@ -4581,8 +4538,7 @@ begin
                           AudioID := '0';
                         end;
 
-                        NewItemStr := NewItemStr + '|' + AudioID + ', ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' + IntToTime(FileDuration) + ', ' +
-                          BitDepth + ' bit, ' + FileSize;
+                        NewItemStr := NewItemStr + '|' + AudioID + ', ' + ACodec + ', ' + ABitrate + ', ' + AChannels + ', ' + ASampleRate + ', ' + ALang + ', ' + IntToTime(FileDuration) + ', ' + BitDepth + ' bit, ' + FileSize;
                         ExtensionLine := ExtensionLine + ',' + ACodec;
                       end;
 
@@ -4675,11 +4631,7 @@ var
   LNow: TDateTime;
 begin
   OpenDialog.InitialDir := FLastDirectory;
-  OpenDialog.Filter := 'Supported|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*' + '.mpg;*.flv;*.vob;*.divx;*.wmv;*.mp3;*.wav;*.m4a;*.mpa;*.mp2;*.mka;*.flac;*.ogg;*' +
-    '.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3gp;*.3ga;*.m2ts;' + '*.thd;*.amr;*.m4b;*.aac;*.tak;*.dts;*.mts;*.m2ts;*.aiff;*.aif;*.dtsma;*.cue|Video Files' +
-    '|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*.mpg;*.flv;*.vob;*.divx;*.wmv;*.3gp;*.' +
-    'm2ts;*.mts|Audio Files|*.mp3;*.wav;*.m4a;*.flac;*.ogg;*.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3ga;' +
-    '*.thd;*.amr;*.aac;*.m4b;*.tak;*.dts;*.aiff;*.aif;*.dtsma;*.mpa;*.mp2;*.mka|Cue Sheets|*.cue|All Files|*.*';
+  OpenDialog.Filter := 'Supported|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*' + '.mpg;*.flv;*.vob;*.divx;*.wmv;*.mp3;*.wav;*.m4a;*.mpa;*.mp2;*.mka;*.flac;*.ogg;*' + '.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3gp;*.3ga;*.m2ts;' + '*.thd;*.amr;*.m4b;*.aac;*.tak;*.dts;*.mts;*.m2ts;*.aiff;*.aif;*.dtsma;*.cue|Video Files' + '|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*.mpg;*.flv;*.vob;*.divx;*.wmv;*.3gp;*.' + 'm2ts;*.mts|Audio Files|*.mp3;*.wav;*.m4a;*.flac;*.ogg;*.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3ga;' + '*.thd;*.amr;*.aac;*.m4b;*.tak;*.dts;*.aiff;*.aif;*.dtsma;*.mpa;*.mp2;*.mka|Cue Sheets|*.cue|All Files|*.*';
   AddingStopped := False;
   LprevCount := FileList.Items.Count;
   LNow := Now;
@@ -4717,8 +4669,8 @@ end;
 procedure TMainForm.AddFolder1Click(Sender: TObject);
 var
   Search: TSearchRec;
-  FileName: String;
-  Extension: String;
+  FileName: string;
+  Extension: string;
   LprevCount: Integer;
   LNow: TDateTime;
 begin
@@ -4733,7 +4685,7 @@ begin
     LprevCount := FileList.Items.Count;
     try
       if (FindFirst(OpenFolderDialog.Directory + '\*.*', faAnyFile, Search) = 0) then
-      Begin
+      begin
         repeat
           Application.ProcessMessages;
           if AddingStopped then
@@ -4742,13 +4694,7 @@ begin
           begin
             FileName := OpenFolderDialog.Directory + '\' + Search.Name;
             Extension := LowerCase(ExtractFileExt(FileName));
-            if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or
-              (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or
-              (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension = '.aac') or
-              (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or
-              (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or
-              (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or
-              (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.cue') or (Extension = '.3gpp') then
+            if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension = '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.cue') or (Extension = '.3gpp') then
             begin
               ProgressForm.CurrentFileLabel.Caption := ExtractFileName(FileName);
               AddFile(FileName);
@@ -4914,8 +4860,7 @@ begin
           FS.DecimalSeparator := '.';
           LStartPos := StrToInt(StartPositions[Index]);
           LDur := StrToInt(EndPositions[Index]) - StrToInt(StartPositions[Index]);
-          DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-            FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+          DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
         end
         else
         begin
@@ -4931,8 +4876,7 @@ begin
             LDur := StrToInt(EndPositions[Index]) - StrToInt(StartPositions[Index]);
             if LDur <> StrToInt(ConstantDurations[Index]) then
             begin
-              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) +
-                FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
+              DurationStr := ' -ss ' + IntToTime(LStartPos div 1000) + FormatFloat('#.###', ((LStartPos / 1000) - (LStartPos div 1000)), FS) + ' -t ' + IntToTime(LDur div 1000) + FormatFloat('#.###', ((LDur / 1000) - (LDur div 1000)), FS);
             end;
           end;
         end;
@@ -5429,8 +5373,7 @@ begin
     Result := False;
     Exit;
   end;
-  Result := (FAudioEncoderType = etFFmpegALAC) or (FAudioEncoderType = etFLAC) or (FAudioEncoderType = etFLACCL) or (FAudioEncoderType = etTAK) or (FAudioEncoderType = etTTA) or
-    (FAudioEncoderType = etAPE) or ((FAudioEncoderType = etWavPack) and (CodecSettingsForm.WavPackMethodList.ItemIndex = 0));
+  Result := (FAudioEncoderType = etFFmpegALAC) or (FAudioEncoderType = etFLAC) or (FAudioEncoderType = etFLACCL) or (FAudioEncoderType = etTAK) or (FAudioEncoderType = etTTA) or (FAudioEncoderType = etAPE) or ((FAudioEncoderType = etWavPack) and (CodecSettingsForm.WavPackMethodList.ItemIndex = 0));
 end;
 
 function TMainForm.CDCreateArtworkCMD(const CoverPath: string): string;
@@ -5499,6 +5442,7 @@ function TMainForm.CDCreateTagCMD(const TotalTracks: Integer; const TrackIndex: 
 var
   FTagIniFile: TMemIniFile;
   LArtist, LGenre, LPerformer, LAlbum, LRecordDate, LTrackNo, LComment, LTitle: string;
+
   procedure WriteTagsToIni(const AudioEncoder: TEncoderType; const TotalTracks: Integer; const Track: Integer);
   begin
     with FTagIniFile do
@@ -5633,14 +5577,12 @@ begin
             end
             else
             begin
-              Result := ' --id3v2-ucs2 --ta "' + LArtist + '" --tt "' + LTitle + '" --tg "' + LGenre + '" --tl "' + LAlbum + '" --ty "' + LRecordDate + '" --tn "' + LTrackNo + '" --tc "' +
-                LComment + '"';
+              Result := ' --id3v2-ucs2 --ta "' + LArtist + '" --tt "' + LTitle + '" --tg "' + LGenre + '" --tl "' + LAlbum + '" --ty "' + LRecordDate + '" --tn "' + LTrackNo + '" --tc "' + LComment + '"';
             end;
           end;
         etMPC:
           begin
-            Result := ' --ape2 --artist "' + LArtist + '" --title "' + LTitle + '" --album "' + LAlbum + '" --year "' + LRecordDate + '" --track "' + LTrackNo + '" --genre "' + LGenre +
-              '" --comment "' + LComment + '"'
+            Result := ' --ape2 --artist "' + LArtist + '" --title "' + LTitle + '" --album "' + LAlbum + '" --year "' + LRecordDate + '" --track "' + LTrackNo + '" --genre "' + LGenre + '" --comment "' + LComment + '"'
           end;
         etOgg:
           begin
@@ -5663,8 +5605,7 @@ begin
             end
             else
             begin
-              Result := ' --artist "' + LArtist + '" --title "' + LTitle + '" --comment "genre=' + LGenre + '" --comment "composer=' + LTitle + '" --comment "album=' + LAlbum + '" --comment "date=' +
-                LRecordDate + '" --comment "TRACKNUMBER=' + LTrackNo + '" --comment "comment=' + LComment + '"';
+              Result := ' --artist "' + LArtist + '" --title "' + LTitle + '" --comment "genre=' + LGenre + '" --comment "composer=' + LTitle + '" --comment "album=' + LAlbum + '" --comment "date=' + LRecordDate + '" --comment "TRACKNUMBER=' + LTrackNo + '" --comment "comment=' + LComment + '"';
             end;
           end;
         etWMA:
@@ -5677,7 +5618,7 @@ begin
             WriteString('taginfo', 'type', 'alac');
             WriteTagsToIni(etFFmpegALAC, TotalTracks, TrackIndex);
           end;
-        etFLAC .. etFLACCL:
+        etFLAC..etFLACCL:
           begin
             WriteString('taginfo', 'type', 'flac');
             if CodecSettingsForm.FLACUseTTaggerBtn.Checked then
@@ -5686,8 +5627,7 @@ begin
             end
             else
             begin
-              Result := ' --tag=artist="' + LArtist + '" --tag=title="' + LTitle + '" --tag=genre="' + LGenre + '" --tag=composer="' + LArtist + '" --tag=album="' + LAlbum + '" --tag=date="' +
-                LRecordDate + '" --tag=TRACKNUMBER="' + LTrackNo + '" --tag=comment="' + LComment + '" ';
+              Result := ' --tag=artist="' + LArtist + '" --tag=title="' + LTitle + '" --tag=genre="' + LGenre + '" --tag=composer="' + LArtist + '" --tag=album="' + LAlbum + '" --tag=date="' + LRecordDate + '" --tag=TRACKNUMBER="' + LTrackNo + '" --tag=comment="' + LComment + '" ';
             end;
           end;
         etAPE:
@@ -5715,8 +5655,7 @@ begin
   finally
     FTagIniFile.Free;
     // some FEncoders might be selected to write their own cover art and tags
-    if ((FAudioEncoderType = etLAME) and (not CodecSettingsForm.LameUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLAC) and (not CodecSettingsForm.FLACUseTTaggerBtn.Checked)) or
-      ((FAudioEncoderType = etFLACCL) and (not CodecSettingsForm.FLACCLUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etOpus) and (not CodecSettingsForm.OpusUseTTaggerBtn.Checked)) then
+    if ((FAudioEncoderType = etLAME) and (not CodecSettingsForm.LameUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLAC) and (not CodecSettingsForm.FLACUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLACCL) and (not CodecSettingsForm.FLACCLUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etOpus) and (not CodecSettingsForm.OpusUseTTaggerBtn.Checked)) then
     begin
       Result := Result + CDCreateArtworkCMD(FTrackInfoList[TrackIndex].TrackTagInfo.CoverPath);
     end;
@@ -5846,8 +5785,7 @@ end;
 procedure TMainForm.CodecSettingsBtnClick(Sender: TObject);
 begin
   Self.Enabled := False;
-  if (FAudioEncoderType = etFFmpegALAC) or (FAudioEncoderType = etFLAC) or (FAudioEncoderType = etFLACCL) or (FAudioEncoderType = etTAK) or (FAudioEncoderType = etTTA) or (FAudioEncoderType = etAPE)
-    or ((FAudioEncoderType = etWavPack) and (CodecSettingsForm.WavPackMethodList.ItemIndex = 0)) then
+  if (FAudioEncoderType = etFFmpegALAC) or (FAudioEncoderType = etFLAC) or (FAudioEncoderType = etFLACCL) or (FAudioEncoderType = etTAK) or (FAudioEncoderType = etTTA) or (FAudioEncoderType = etAPE) or ((FAudioEncoderType = etWavPack) and (CodecSettingsForm.WavPackMethodList.ItemIndex = 0)) then
   begin
     CodecSettingsForm.LossyWAVQualityList.Enabled := True;
     CodecSettingsForm.LossyWAVEncoderOptBtn.Enabled := CodecSettingsForm.LossyWAVQualityList.ItemIndex <> 0;
@@ -6170,7 +6108,7 @@ begin
                 // try external files
                 // get all image files in the file's folder
                 if (FindFirst(ExtractFileDir(FileName) + '\*.*', faAnyFile, Search) = 0) then
-                Begin
+                begin
                   repeat
                     Application.ProcessMessages;
 
@@ -6181,9 +6119,7 @@ begin
 
                     if (Extension = '.png') or (Extension = '.jpeg') or (Extension = '.jpg') then
                     begin
-                      if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or
-                        ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or
-                        ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
+                      if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
                       begin
                         ImageFiles.Add(ExtractFileDir(FileName) + '\' + Search.Name);
                       end;
@@ -6208,16 +6144,14 @@ begin
             begin
               // try external artwork first
               if (FindFirst(ExtractFileDir(FileName) + '\*.*', faAnyFile, Search) = 0) then
-              Begin
+              begin
                 repeat
                   Application.ProcessMessages;
                   Extension := LowerCase(ExtractFileExt(Search.Name));
 
                   if (Extension = '.png') or (Extension = '.jpeg') or (Extension = '.jpg') or (Extension = '.gif') or (Extension = '.bmp') then
                   begin
-                    if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or
-                      ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or
-                      ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
+                    if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
                     begin
                       ImageFiles.Add(ExtractFileDir(FileName) + '\' + Search.Name);
                     end;
@@ -6465,7 +6399,8 @@ begin
       end;
     etLAME:
       begin
-        OutputExt := '.mp3';;
+        OutputExt := '.mp3';
+        ;
       end;
     etWAV:
       begin
@@ -7352,7 +7287,8 @@ begin
           end;
         etOpus:
           begin
-            WriteString('taginfo', 'type', 'ogg');;
+            WriteString('taginfo', 'type', 'ogg');
+            ;
           end;
         etWMA:
           begin
@@ -7362,7 +7298,7 @@ begin
           begin
             WriteString('taginfo', 'type', 'alac');
           end;
-        etFLAC .. etFLACCL:
+        etFLAC..etFLACCL:
           begin
             WriteString('taginfo', 'type', 'flac');
           end;
@@ -7710,14 +7646,12 @@ begin
                 end
                 else
                 begin
-                  Result := ' --id3v2-ucs2 --ta "' + LArtist + '" --tt "' + Title + '" --tg "' + LGenre + '" --tl "' + LAlbum + '" --ty "' + LRecordDate + '" --tn "' + TrackNo + '" --tc "' +
-                    Comment + '"';
+                  Result := ' --id3v2-ucs2 --ta "' + LArtist + '" --tt "' + Title + '" --tg "' + LGenre + '" --tl "' + LAlbum + '" --ty "' + LRecordDate + '" --tn "' + TrackNo + '" --tc "' + Comment + '"';
                 end;
               end;
             etMPC:
               begin
-                Result := ' --ape2 --artist "' + LArtist + '" --title "' + Title + '" --album "' + LAlbum + '" --year "' + LRecordDate + '" --track "' + TrackNo + '" --genre "' + LGenre +
-                  '" --comment "' + Comment + '"'
+                Result := ' --ape2 --artist "' + LArtist + '" --title "' + Title + '" --album "' + LAlbum + '" --year "' + LRecordDate + '" --track "' + TrackNo + '" --genre "' + LGenre + '" --comment "' + Comment + '"'
               end;
             etOgg:
               begin
@@ -7740,8 +7674,7 @@ begin
                 end
                 else
                 begin
-                  Result := ' --artist "' + LArtist + '" --title "' + Title + '" --comment "genre=' + LGenre + '" --comment "composer=' + Composer + '" --comment "album=' + LAlbum +
-                    '" --comment "date=' + LRecordDate + '" --comment "TRACKNUMBER=' + TrackNo + '" --comment "comment=' + Comment + '"';
+                  Result := ' --artist "' + LArtist + '" --title "' + Title + '" --comment "genre=' + LGenre + '" --comment "composer=' + Composer + '" --comment "album=' + LAlbum + '" --comment "date=' + LRecordDate + '" --comment "TRACKNUMBER=' + TrackNo + '" --comment "comment=' + Comment + '"';
                 end;
               end;
             etWMA:
@@ -7754,7 +7687,7 @@ begin
                 WriteString('taginfo', 'type', 'alac');
                 WriteTagsToIni(etFFmpegALAC, FileName, FileIndex);
               end;
-            etFLAC .. etFLACCL:
+            etFLAC..etFLACCL:
               begin
                 WriteString('taginfo', 'type', 'flac');
                 if CodecSettingsForm.FLACUseTTaggerBtn.Checked then
@@ -7763,8 +7696,7 @@ begin
                 end
                 else
                 begin
-                  Result := ' --tag=artist="' + Artist + '" --tag=title="' + Title + '" --tag=genre="' + Genre + '" --tag=composer="' + Composer + '" --tag=album="' + Album + '" --tag=date="' +
-                    RecordDate + '" --tag=TRACKNUMBER="' + TrackNo + '" --tag=comment="' + Comment + '" ';
+                  Result := ' --tag=artist="' + Artist + '" --tag=title="' + Title + '" --tag=genre="' + Genre + '" --tag=composer="' + Composer + '" --tag=album="' + Album + '" --tag=date="' + RecordDate + '" --tag=TRACKNUMBER="' + TrackNo + '" --tag=comment="' + Comment + '" ';
                   if Length(ArtistSort) > 1 then
                   begin
                     Result := Result + ' --tag=ALBUMARTIST="' + ArtistSort + '"';
@@ -7775,8 +7707,7 @@ begin
                   end;
                   if TagsList[FileIndex].IsLossless and SettingsForm.RGLToLBtn.Checked then
                   begin
-                    Result := Result + ' --tag=REPLAYGAIN_ALBUM_GAIN="' + TagsList[FileIndex].RGInfo.ALBUM_GAIN + '" --tag=REPLAYGAIN_ALBUM_PEAK="' + TagsList[FileIndex].RGInfo.ALBUM_PEAK +
-                      '" --tag=REPLAYGAIN_TRACK_GAIN="' + TagsList[FileIndex].RGInfo.TRACK_GAIN + '" --tag=REPLAYGAIN_TRACK_PEAK="' + TagsList[FileIndex].RGInfo.TRACK_PEAK + '" ';
+                    Result := Result + ' --tag=REPLAYGAIN_ALBUM_GAIN="' + TagsList[FileIndex].RGInfo.ALBUM_GAIN + '" --tag=REPLAYGAIN_ALBUM_PEAK="' + TagsList[FileIndex].RGInfo.ALBUM_PEAK + '" --tag=REPLAYGAIN_TRACK_GAIN="' + TagsList[FileIndex].RGInfo.TRACK_GAIN + '" --tag=REPLAYGAIN_TRACK_PEAK="' + TagsList[FileIndex].RGInfo.TRACK_PEAK + '" ';
                   end;
                 end;
               end;
@@ -7814,8 +7745,7 @@ begin
 
     finally
       // some FEncoders might be selected to write their own cover art and tags
-      if ((FAudioEncoderType = etLAME) and (not CodecSettingsForm.LameUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLAC) and (not CodecSettingsForm.FLACUseTTaggerBtn.Checked)) or
-        ((FAudioEncoderType = etFLACCL) and (not CodecSettingsForm.FLACCLUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etOpus) and (not CodecSettingsForm.OpusUseTTaggerBtn.Checked)) then
+      if ((FAudioEncoderType = etLAME) and (not CodecSettingsForm.LameUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLAC) and (not CodecSettingsForm.FLACUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etFLACCL) and (not CodecSettingsForm.FLACCLUseTTaggerBtn.Checked)) or ((FAudioEncoderType = etOpus) and (not CodecSettingsForm.OpusUseTTaggerBtn.Checked)) then
       begin
         Result := Result + CreateArtworkCMD(FileName, FileIndex);
       end;
@@ -7951,7 +7881,7 @@ begin
 
   // clear temp folder
   if (FindFirst(SettingsForm.TempEdit.Text + '\*.*', faAnyFile, Search) = 0) then
-  Begin
+  begin
     repeat
       Application.ProcessMessages;
 
@@ -7989,7 +7919,7 @@ begin
   if DeleteCDTemp then
   begin
     if (FindFirst(SettingsForm.TempEdit.Text + '\TCDRipper\*.*', faAnyFile, Search) = 0) then
-    Begin
+    begin
       repeat
         Application.ProcessMessages;
 
@@ -8183,13 +8113,17 @@ begin
         end
         else
         begin
-          if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or
-            (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or
-            (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension = '.aac') or
-            (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or
-            (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or
-            (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or
-            (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.ts') or (Extension = '.3gpp') or (Extension = '.cue') then
+          if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv')
+          or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi')
+          or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv')
+          or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a')
+          or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc')
+          or (Extension = '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus')
+          or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape')
+          or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts')
+          or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b')
+          or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif')
+          or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.ts') or (Extension = '.3gpp') or (Extension = '.cue') then
           begin
             AddFile(Value[i]);
             ProgressForm.CurrentFileLabel.Caption := ExtractFileName(Value[i]);
@@ -8501,9 +8435,9 @@ function TMainForm.FFMpegPercentage(const FFMpegOutput: string; const DurationSt
 var
   pos1: Integer;
   pos2: Integer;
-  Text: String;
-  prog: String;
-  last: String;
+  Text: string;
+  prog: string;
+  last: string;
   PositionInt: Integer;
 begin
   Result := 0;
@@ -11055,7 +10989,7 @@ var
   Minute: Integer;
   strhour: string;
   strminute: string;
-  strsecond: String;
+  strsecond: string;
 begin
 
   if (Time > 0) then
@@ -11109,8 +11043,7 @@ begin
 
   Result := False;
 
-  if (FileExists(FileName)) and ((LowerCase(ExtractFileExt(FileName)) = '.m4a') or (LowerCase(ExtractFileExt(FileName)) = '.m4b') or (LowerCase(ExtractFileExt(FileName)) = '.aac') or
-    (LowerCase(ExtractFileExt(FileName)) = '.mp4')) then
+  if (FileExists(FileName)) and ((LowerCase(ExtractFileExt(FileName)) = '.m4a') or (LowerCase(ExtractFileExt(FileName)) = '.m4b') or (LowerCase(ExtractFileExt(FileName)) = '.aac') or (LowerCase(ExtractFileExt(FileName)) = '.mp4')) then
   begin
 
     // New handle for mediainfo
@@ -11263,7 +11196,7 @@ begin
   begin
     Application.ProcessMessages;
 
-    if (Not CharInSet(P^, ['0' .. '9'])) then
+    if (not CharInSet(P^, ['0'..'9'])) then
     begin
       Exit;
     end;
@@ -11278,7 +11211,7 @@ function TMainForm.LamePercentage(const LameOutput: string): Integer;
 var
   pos1: Integer;
   pos2: Integer;
-  prog: String;
+  prog: string;
   Tmp: string;
 begin
   Result := 0;
@@ -11314,18 +11247,23 @@ var
   i: Integer;
 begin
   DriversList.Items.Clear;
-  if CDIn.DrivesCount > 0 then
-  begin
-    for i := 0 to CDIn.DrivesCount - 1 do
+  try
+    if CDIn.DrivesCount > 0 then
     begin
-      CDIn.CurrentDrive := i;
-      DriversList.Items.Add(CDIn.DriveName);
+      for i := 0 to CDIn.DrivesCount - 1 do
+      begin
+        CDIn.CurrentDrive := i;
+        DriversList.Items.Add(CDIn.DriveName);
+      end;
+      if DriversList.Items.Count > 0 then
+      begin
+        DriversList.ItemIndex := 0;
+        CDIn.CurrentDrive := 0;
+      end;
     end;
-    if DriversList.Items.Count > 0 then
-    begin
-      DriversList.ItemIndex := 0;
-      CDIn.CurrentDrive := 0;
-    end;
+  except
+    on E: Exception do
+
   end;
 end;
 
@@ -11536,7 +11474,8 @@ begin
       EndPositions.Clear;
       ConstantDurations.Clear;
       TagsList.Clear;
-      FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';;
+      FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';
+      ;
     end;
 
     DeleteTempFiles(False);
@@ -11556,8 +11495,7 @@ begin
             end;
             EncodingSpeed := FTotalLength / FTimePassed;
             TrayIcon.Active := True;
-            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', EncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' +
-              IntToTime(FTimePassed) + ').', btInfo, 5000);
+            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', EncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').', btInfo, 5000);
 
             AddToLog(0, 'TAudioConverter converted files with speed x' + FormatFloat('#,##', EncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').');
             AddToLog(0, '');
@@ -12214,7 +12152,8 @@ begin
       EndPositions.Clear;
       ConstantDurations.Clear;
       TagsList.Clear;
-      FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';;
+      FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';
+      ;
     end;
 
     DeleteTempFiles(False);
@@ -12233,8 +12172,7 @@ begin
             end;
             LEncodingSpeed := FTotalLength / FTimePassed;
             TrayIcon.Active := True;
-            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' +
-              IntToTime(FTimePassed) + ').', btInfo, 5000);
+            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').', btInfo, 5000);
 
             AddToLog(0, 'TAudioConverter converted files with speed x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').');
             AddToLog(0, '');
@@ -12259,8 +12197,7 @@ begin
             end;
             LEncodingSpeed := FTotalLength / FTimePassed;
             TrayIcon.Active := True;
-            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' +
-              IntToTime(FTimePassed) + ').', btInfo, 5000);
+            TrayIcon.BalloonHint('TAudioConverter', 'TAudioConverter converted files with speed of x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').', btInfo, 5000);
 
             AddToLog(0, 'TAudioConverter converted files with speed x' + FormatFloat('#,##', LEncodingSpeed) + ' (Converted ' + IntToTime(FTotalLength) + ' in ' + IntToTime(FTimePassed) + ').');
             AddToLog(0, '');
@@ -12349,7 +12286,8 @@ begin
             begin
               AftenEncodeList.ItemIndex := ReadInteger('general', 'AftenEncode', 0);
               AftenQualityEdit.Text := ReadString('general', 'AftenQuality', '240');
-              AftenBitrateEdit.Text := ReadString('general', 'AftenBitrate', '320');;
+              AftenBitrateEdit.Text := ReadString('general', 'AftenBitrate', '320');
+              ;
               AftenEncodeListChange(Self);
             end;
           end;
@@ -12655,7 +12593,8 @@ begin
     EndPositions.Clear;
     ConstantDurations.Clear;
     TagsList.Clear;
-    FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';;
+    FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';
+    ;
     StopPlaybackBtnClick(Self);
   end;
 
@@ -12707,7 +12646,8 @@ begin
   finally
     FileList.Items.EndUpdate;
     FileList.OnClick(Self);
-    FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';;
+    FileCountLabel.Caption := FloatToStr(FileList.Items.Count) + ' file(s)';
+    ;
     // UpdateListboxScrollBox(FileList);
   end;
 
@@ -12715,7 +12655,7 @@ end;
 
 function TMainForm.RemoveInvalidChars(const Str: string): string;
 const
-  InvalidChars = ['<', '>', ':', '"', '|', '/', '?', '*'];
+  InvalidChars =['<', '>', ':', '"', '|', '/', '?', '*'];
 var
   TmpStr: string;
   C: Char;
@@ -12747,7 +12687,7 @@ begin
   for C in InputStr do
   begin
     Application.ProcessMessages;
-    if CharInSet(C, ['0' .. '9']) then
+    if CharInSet(C, ['0'..'9']) then
     begin
       TmpStr := TmpStr + C;
     end;
@@ -12900,7 +12840,7 @@ begin
 end;
 
 procedure TMainForm.SaveArtwork(const SourceFileName: string; const OutputFolder: string; const FileIndex: integer; const DestFile: string);
-Const
+const
   Jpeg = '/9j/';
   PNG = 'iVBOR';
 var
@@ -12938,7 +12878,7 @@ begin
   begin
     // try external artwork first
     if (FindFirst(FileDir + '\*.*', faAnyFile, Search) = 0) then
-    Begin
+    begin
       repeat
         Application.ProcessMessages;
 
@@ -12949,9 +12889,7 @@ begin
 
         if (Extension = '.png') or (Extension = '.jpeg') or (Extension = '.jpg') then
         begin
-          if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or
-            ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or
-            ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
+          if ContainsText(Search.Name, 'FRONT') or ContainsText((Search.Name), 'BACK') or ContainsText((Search.Name), 'DISC') or ContainsText((Search.Name), 'CD') or ContainsText((Search.Name), 'INLAY') or ContainsText((Search.Name), 'CASE') or ContainsText((Search.Name), 'BOX') or ContainsText((Search.Name), 'TRAY') or ContainsText((Search.Name), 'FOLDER') or ContainsText((Search.Name), 'COVER') or ContainsText((Search.Name), 'ALBUM') then
           begin
             CopyFile(PChar(FileDir + '\' + Search.Name), PChar(ExcludeTrailingPathDelimiter(OutputFolder) + '\' + Search.Name), True);
           end;
@@ -13283,8 +13221,7 @@ begin
 
   ItemProgressBar.Position := WaveOut.Progress;
   RipProgregressBar.Position := ((100 * FRippedTracks) div FSelectedTracksCount) + (ItemProgressBar.Position div FSelectedTracksCount);
-  StatusLabel.Caption := 'Ripping to wav [' + FloatToStr(FRippedTracks) + '/' + FloatToStr(FSelectedTracksCount) + '] | Progress: [' + FloatToStr(WaveOut.Progress) + '%/' +
-    FloatToStr(RipProgregressBar.Position) + '%]';
+  StatusLabel.Caption := 'Ripping to wav [' + FloatToStr(FRippedTracks) + '/' + FloatToStr(FSelectedTracksCount) + '] | Progress: [' + FloatToStr(WaveOut.Progress) + '%/' + FloatToStr(RipProgregressBar.Position) + '%]';
   LT := FTrackInfoList[FTracksToBeRipped[FTrackIndex].ListIndex];
   LT.TrackState := tsRipping;
   FTrackInfoList[FTracksToBeRipped[FTrackIndex].ListIndex] := LT;
@@ -14055,8 +13992,7 @@ end;
 procedure TMainForm.UpdateProgress;
 begin
   TotalProgressBar.Position := TotalProgressBar.Position + 1;
-  TotalProgressLabel.Caption := FloatToStr((100 * TotalProgressBar.Position) div TotalProgressBar.Max) + '% ' + FloatToStr(TotalProgressBar.Position) + ' steps of ' + FloatToStr(FTotalCMDCount) +
-    ' total steps so far';
+  TotalProgressLabel.Caption := FloatToStr((100 * TotalProgressBar.Position) div TotalProgressBar.Max) + '% ' + FloatToStr(TotalProgressBar.Position) + ' steps of ' + FloatToStr(FTotalCMDCount) + ' total steps so far';
 end;
 
 procedure TMainForm.UpdateSummaryLabel;
@@ -14217,3 +14153,4 @@ begin
 end;
 
 end.
+

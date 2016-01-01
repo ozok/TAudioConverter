@@ -2,9 +2,10 @@ unit UnitPlayer;
 
 interface
 
-uses System.Classes, BASS, BASS_AAC, BASSFLAC, BassWMA, BASSWV, BASS_AC3,
-  BASS_ALAC, BASS_APE, BASS_MPC, BASS_OFR, BASS_SPX, BASS_TTA, BassOPUS,
-  Windows, SysUtils, StrUtils, Generics.Collections, MediaInfoDll;
+uses
+  System.Classes, BASS, BASS_AAC, BASSFLAC, BassWMA, BASSWV, BASS_AC3, BASS_ALAC,
+  BASS_APE, BASS_MPC, BASS_OFR, BASS_SPX, BASS_TTA, BassOPUS, Windows, SysUtils,
+  StrUtils, Generics.Collections, MediaInfoDll;
 
 type
   TPlayerStatus = (psPlaying = 0, psPaused = 1, psStopped = 2, psStalled = 3, psUnkown = 4);
@@ -21,7 +22,6 @@ type
     FPositionAsSec: integer;
     FStartPoint: Integer;
     FEndPoint: Integer;
-
     function GetBassStreamStatus: TPlayerStatus;
     function GetTotalLength(): int64;
     function GetPosition(): int64;
@@ -45,10 +45,8 @@ type
     property EndPoint: Integer read FEndPoint write FEndPoint;
     property BassError: Integer read FBassError;
     property ReachedEnd: Boolean read HasReachedEnd;
-
     constructor Create(const WinHandle: Cardinal);
     destructor Destroy; override;
-
     procedure Play;
     procedure Stop;
     procedure Pause;
@@ -163,7 +161,7 @@ var
   minute: Integer;
   strhour: string;
   strminute: string;
-  strsecond: String;
+  strsecond: string;
 begin
 
   if (Time > 0) then
@@ -372,3 +370,4 @@ begin
 end;
 
 end.
+

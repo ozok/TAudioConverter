@@ -22,7 +22,8 @@ unit UnitFFProbeInformer;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils;
 
 type
   TFFProbeInfoStatus = (ffiReading, ffiDone);
@@ -35,15 +36,12 @@ type
     FFileName: string;
     FFFProbePath: string;
     FFFProbeOutput: TStringList;
-
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
   public
     property FFProbeStatus: TFFProbeInfoStatus read FStatus;
     property FFProbeOutput: TStringList read FFFProbeOutput;
-
     constructor Create(const FileName: string; const FFProbePath: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -51,8 +49,7 @@ implementation
 
 { TFFProbeInformer }
 
-constructor TFFProbeInformer.Create(const FileName: string;
-  const FFProbePath: string);
+constructor TFFProbeInformer.Create(const FileName: string; const FFProbePath: string);
 begin
   inherited Create;
 
@@ -89,8 +86,7 @@ begin
   FProcess.Free;
 end;
 
-procedure TFFProbeInformer.ProcessTerminate(Sender: TObject;
-  ExitCode: Cardinal);
+procedure TFFProbeInformer.ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
 begin
   FStatus := ffiReading;
   try
@@ -110,3 +106,4 @@ begin
 end;
 
 end.
+

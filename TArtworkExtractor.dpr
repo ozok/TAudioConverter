@@ -66,7 +66,7 @@ end;
 
 // saves artwork to dest. folder
 procedure SaveArtwork(const ArtworkData: AnsiString; const FOutputFileName: string);
-Const
+const
   JPEG = '/9j/';
   PNG = 'iVBOR';
 var
@@ -112,7 +112,7 @@ begin
 end;
 
 function GetImageExt(const ArtworkData: AnsiString): string;
-Const
+const
   JPEG = '/9j/';
   PNG = 'iVBOR';
 var
@@ -165,7 +165,7 @@ begin
             begin
               MIMEType := LowerCase(MIMEType);
               PictureStream.Seek(0, soBeginning);
-              if (MIMEType = 'image/jpeg') OR (MIMEType = 'image/jpg') then
+              if (MIMEType = 'image/jpeg') or (MIMEType = 'image/jpg') then
               begin
                 Result := '.jpg'
               end;
@@ -215,7 +215,7 @@ begin
             begin
               MIMEType := LowerCase(MIMEType);
               PictureStream.Seek(0, soBeginning);
-              if (MIMEType = 'image/jpeg') OR (MIMEType = 'image/jpg') then
+              if (MIMEType = 'image/jpeg') or (MIMEType = 'image/jpg') then
               begin
                 LFS := TFileStream.Create(FOutputFileName + '.jpg', fmCreate);
                 try
@@ -268,7 +268,7 @@ begin
           if LOggTag.GetCoverArtFromFrame(LIndex, LStream, LCoverArt) then
           begin
             LCoverArt.MIMEType := LowerCase(LCoverArt.MIMEType);
-            if (LCoverArt.MIMEType = 'image/jpeg') OR (LCoverArt.MIMEType = 'image/jpg') then
+            if (LCoverArt.MIMEType = 'image/jpeg') or (LCoverArt.MIMEType = 'image/jpg') then
             begin
               Result := '.jpg';
             end;
@@ -317,7 +317,7 @@ begin
           LStream.Seek(0, soFromBeginning);
 
           LCoverArt.MIMEType := LowerCase(LCoverArt.MIMEType);
-          if (LCoverArt.MIMEType = 'image/jpeg') OR (LCoverArt.MIMEType = 'image/jpg') then
+          if (LCoverArt.MIMEType = 'image/jpeg') or (LCoverArt.MIMEType = 'image/jpg') then
           begin
             LExt := '.jpg';
           end;
@@ -430,3 +430,4 @@ begin
   end;
 
 end.
+

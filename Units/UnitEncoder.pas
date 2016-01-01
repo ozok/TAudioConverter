@@ -22,7 +22,8 @@ unit UnitEncoder;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, Psapi,
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, Psapi,
   tlhelp32, Dialogs, Generics.Collections, UnitCommonTypes, ComCtrls;
 
 type
@@ -48,10 +49,8 @@ type
     FItem: TListItem;
     FListItems: TStringList;
     FUpdateCounter: integer;
-
     procedure ProcessRead(Sender: TObject; const S: string; const StartsOnNewLine: Boolean);
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
-
     function GetProcessID: integer;
     function GetFileName: string;
     function GetCurrentProcessType: TEncoderType;
@@ -84,10 +83,8 @@ type
     property TempFiles: TStringList read FTempFiles write FTempFiles;
     property UsingSox: Boolean read FUsingSox write FUsingSox;
     property ListItems: TStringList read FListItems write FListItems;
-
     constructor Create();
     destructor Destroy(); override;
-
     procedure Start();
     procedure Stop();
     procedure ResetValues();
@@ -97,7 +94,8 @@ type
 
 implementation
 
-uses UnitMain;
+uses
+  UnitMain;
 
 { TEncoder }
 
@@ -565,3 +563,4 @@ begin
 end;
 
 end.
+

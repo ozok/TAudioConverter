@@ -21,10 +21,10 @@ unit UnitTagReader;
 
 interface
 
-uses Classes, Windows, SysUtils, Messages, StrUtils, UnitTagTypes,
-  WMATagLibrary, APEv2Library, MP4TagLibrary,
-  FlacTagLibrary, ID3v2Library, ID3v1Library, OggVorbisAndOpusTagLibrary,
-  WAVTagLibrary;
+uses
+  Classes, Windows, SysUtils, Messages, StrUtils, UnitTagTypes, WMATagLibrary,
+  APEv2Library, MP4TagLibrary, FlacTagLibrary, ID3v2Library, ID3v1Library,
+  OggVorbisAndOpusTagLibrary, WAVTagLibrary;
 
 type
   TTagReader = class(TObject)
@@ -38,16 +38,13 @@ type
     FOPUSTag: TOpusTag;
     FWAVTag: TWAVTag;
     LPicStream: TStream;
-
     function GetCoverStream: TStream;
     function SplitTrackNo(const Str: string): string;
     function SplitTotalTrackNo(const Str: string): string;
   public
     property CoverStream: TStream read GetCoverStream;
-
     constructor Create;
     destructor Destroy(); override;
-
     function ReadTags(const FileName: string): TTagInfo;
   end;
 
@@ -101,6 +98,7 @@ var
   LOpusCoverInfo: TOpusVorbisCoverArtInfo;
   LWMAPicType: Byte;
   // todo: convert image type. maybe destination doesn't support this format
+
   function MIME2Extension(const MIME: string): string;
   begin
     if (MIME = 'image/jpeg') or (MIME = 'image/jpg') then
@@ -130,7 +128,8 @@ begin
       with Result do
       begin
         Title := FID3v2Tag.GetUnicodeText('TIT2');
-        Artist := FID3v2Tag.GetUnicodeText('TPE1');;
+        Artist := FID3v2Tag.GetUnicodeText('TPE1');
+        ;
         Genre := FID3v2Tag.GetUnicodeText('TCON');
         TrackNo := FID3v2Tag.GetUnicodeText('TRCK');
         Performer := FID3v2Tag.GetUnicodeText('ARTIST');
@@ -458,3 +457,4 @@ begin
 end;
 
 end.
+

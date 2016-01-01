@@ -3,7 +3,8 @@ unit ImgSize;
 
 interface
 
-uses Classes, SysUtils;
+uses
+  Classes, SysUtils;
 
 procedure GetJPGSize(const sFile: string; var wWidth, wHeight: word);
 
@@ -32,14 +33,14 @@ end;
 
 procedure GetJPGSize(const sFile: string; var wWidth, wHeight: word);
 const
-  ValidSig: array [0 .. 1] of byte = ($FF, $D8);
-  Parameterless = [$01, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D7];
+  ValidSig: array[0..1] of byte = ($FF, $D8);
+  Parameterless =[$01, $D0, $D1, $D2, $D3, $D4, $D5, $D6, $D7];
 var
-  Sig: array [0 .. 1] of byte;
+  Sig: array[0..1] of byte;
   f: TFileStream;
   x: integer;
   Seg: byte;
-  Dummy: array [0 .. 15] of byte;
+  Dummy: array[0..15] of byte;
   Len: word;
   ReadLen: LongInt;
 begin
@@ -68,7 +69,7 @@ begin
           end
           else
           begin
-            if not(Seg in Parameterless) then
+            if not (Seg in Parameterless) then
             begin
               Len := ReadMWord(f);
               f.Seek(Len - 2, 1);
@@ -87,7 +88,7 @@ end;
 
 procedure GetPNGSize(const sFile: string; var wWidth, wHeight: word);
 type
-  TPNGSig = array [0 .. 7] of byte;
+  TPNGSig = array[0..7] of byte;
 const
   ValidSig: TPNGSig = (137, 80, 78, 71, 13, 10, 26, 10);
 var
@@ -117,7 +118,7 @@ end;
 procedure GetGIFSize(const sGIFFile: string; var wWidth, wHeight: word);
 type
   TGIFHeader = record
-    Sig: array [0 .. 5] of char;
+    Sig: array[0..5] of char;
     ScreenWidth, ScreenHeight: word;
     Flags, Background, Aspect: byte;
   end;
@@ -151,8 +152,7 @@ begin
 
   { Read header and ensure valid file }
   BlockRead(f, Header, SizeOf(TGifHeader), nResult);
-  if (nResult <> SizeOf(TGifHeader)) or (IOResult <> 0)
-    or (StrLComp('GIF', Header.Sig, 3) <> 0) then
+  if (nResult <> SizeOf(TGifHeader)) or (IOResult <> 0) or (StrLComp('GIF', Header.Sig, 3) <> 0) then
   begin
     { Image file invalid }
     close(f);
@@ -162,7 +162,7 @@ begin
   { Skip color map, if there is one }
   if (Header.Flags and $80) > 0 then
   begin
-    x := 3 * (1 SHL ((Header.Flags and 7) + 1));
+    x := 3 * (1 shl ((Header.Flags and 7) + 1));
     Seek(f, x);
     if IOResult <> 0 then
     begin
@@ -202,3 +202,4 @@ begin
 end;
 
 end.
+

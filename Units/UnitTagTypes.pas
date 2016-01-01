@@ -22,14 +22,14 @@ unit UnitTagTypes;
 
 interface
 
-uses Classes, UnitRGInfoExtractor;
+uses
+  Classes, UnitRGInfoExtractor;
 
 type
   PTagInfo = ^TTagInfo;
 
   TTagInfo = record
-    Title, Artist, Genre, TrackNo, Performer, RecordDate, Composer, Album, Comment, ArtistSort, AlbumSort, ComposerSort, AlbumArtistSort, NameSort, TrackTotal, AlbumArtist, DiscNo, DiscTotal,
-      FileType, AlbumComposer: string;
+    Title, Artist, Genre, TrackNo, Performer, RecordDate, Composer, Album, Comment, ArtistSort, AlbumSort, ComposerSort, AlbumArtistSort, NameSort, TrackTotal, AlbumArtist, DiscNo, DiscTotal, FileType, AlbumComposer: string;
     ArtistForFileName: string;
     TitleForFileName: string;
     AlbumForFileName: string;
@@ -74,3 +74,4 @@ begin
 end;
 
 end.
+

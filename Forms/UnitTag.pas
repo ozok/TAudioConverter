@@ -23,11 +23,9 @@ unit UnitTag;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.Buttons, IniFiles, sSkinProvider, sBitBtn, sCheckBox, sEdit, sLabel,
-  sSpinEdit;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  IniFiles, sSkinProvider, sBitBtn, sCheckBox, sEdit, sLabel, sSpinEdit;
 
 type
   TTagForm = class(TForm)
@@ -58,7 +56,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TTagForm.CloseBtnClick(Sender: TObject);
 begin
@@ -118,3 +117,4 @@ begin
 end;
 
 end.
+

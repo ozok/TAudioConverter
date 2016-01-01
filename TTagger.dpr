@@ -99,8 +99,7 @@ begin
       REPLAYGAIN_TRACK_PEAK := IniFile.ReadString('tag', 'REPLAYGAIN_TRACK_PEAK', '');
 
       // check if tag type is valid
-      if (LowerCase(TagType) = 'apev2') or (LowerCase(TagType) = 'mp4') or (LowerCase(TagType) = 'flac') or (LowerCase(TagType) = 'wma') or (LowerCase(TagType) = 'id3v2') or
-        (LowerCase(TagType) = 'ogg') or (LowerCase(TagType) = 'alac') or (LowerCase(TagType) = 'wav') then
+      if (LowerCase(TagType) = 'apev2') or (LowerCase(TagType) = 'mp4') or (LowerCase(TagType) = 'flac') or (LowerCase(TagType) = 'wma') or (LowerCase(TagType) = 'id3v2') or (LowerCase(TagType) = 'ogg') or (LowerCase(TagType) = 'alac') or (LowerCase(TagType) = 'wav') then
       begin
         Result := True;
       end
@@ -725,3 +724,4 @@ begin
   end;
 
 end.
+

@@ -23,10 +23,10 @@ unit UnitInfo;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
-  Dialogs, StdCtrls, sSkinProvider, sListBox, Vcl.Buttons, sBitBtn, Vcl.ComCtrls, 
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, sSkinProvider, sListBox, Vcl.Buttons, sBitBtn, Vcl.ComCtrls,
   JvExControls, JvXPCore, JvXPButtons, acPNG, sDialogs, sListView, Vcl.ImgList,
-  acAlphaImageList, sTreeView, sPageControl, sMemo;
+  acAlphaImageList, sTreeView, sPageControl, sMemo, System.ImageList;
 
 type
   TInfoForm = class(TForm)
@@ -94,8 +94,7 @@ begin
 
 end;
 
-procedure TInfoForm.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TInfoForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
 
   if Key = VK_ESCAPE then
@@ -119,9 +118,12 @@ begin
   if InfoList.Items.Count > 0 then
   begin
     case sPageControl1.ActivePageIndex of
-      0: SaveDialog1.FileName := 'TAC_mediainfo.txt';
-      1: SaveDialog1.FileName := 'TAC_ffprobe.txt';
-      2: SaveDialog1.FileName := 'TAC_tags.txt';
+      0:
+        SaveDialog1.FileName := 'TAC_mediainfo.txt';
+      1:
+        SaveDialog1.FileName := 'TAC_ffprobe.txt';
+      2:
+        SaveDialog1.FileName := 'TAC_tags.txt';
     end;
 
     if SaveDialog1.Execute then
@@ -138,7 +140,7 @@ begin
       begin
         LTMPLst := TStringList.Create;
         try
-          for I := 0 to TagList.Items.Count-1 do
+          for I := 0 to TagList.Items.Count - 1 do
           begin
             LTMPLst.Add(TagList.Items[i].Caption + ': ' + TagList.Items[i].SubItems[0]);
           end;
@@ -153,4 +155,5 @@ begin
 
 end;
 
-end.
+end.
+

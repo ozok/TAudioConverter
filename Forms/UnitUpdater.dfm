@@ -37,15 +37,7 @@ object UpdaterForm: TUpdaterForm
     TabOrder = 0
     BoundLabel.Active = True
     BoundLabel.Caption = 'What'#39's new:'
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
     BoundLabel.Layout = sclTopLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
     SkinData.SkinSection = 'EDIT'
   end
   object HomeBtn: TsBitBtn

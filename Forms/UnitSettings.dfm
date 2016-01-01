@@ -33,6 +33,10 @@ object SettingsForm: TSettingsForm
       Caption = 'General'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object sLabel3: TsLabel
         Left = 8
         Top = 97
@@ -54,7 +58,7 @@ object SettingsForm: TSettingsForm
       object CheckUpdateBtn: TsCheckBox
         Left = 8
         Top = 14
-        Width = 155
+        Width = 154
         Height = 19
         Caption = 'Check updates on start up'
         Checked = True
@@ -131,20 +135,16 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Temp Folder:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object PlayWavBtn: TsCheckBox
         Left = 8
         Top = 116
-        Width = 199
+        Width = 198
         Height = 19
         Caption = 'Play a sound after encoding is done'
         Checked = True
@@ -157,7 +157,7 @@ object SettingsForm: TSettingsForm
       object RevertDefBtn: TsCheckBox
         Left = 8
         Top = 141
-        Width = 316
+        Width = 315
         Height = 19
         Caption = 'Revert to default output folder if output folder doesn'#39't exist'
         TabOrder = 8
@@ -170,6 +170,10 @@ object SettingsForm: TSettingsForm
       Caption = 'Encoding'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         637
         207)
@@ -181,15 +185,11 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'AAC extension:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -246,15 +246,11 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'Post-Encode Action:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -285,15 +281,11 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'Number of processes:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -352,15 +344,12 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Custom output folder structure:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object FolderStructList: TsComboBox
         Left = 193
@@ -369,15 +358,6 @@ object SettingsForm: TSettingsForm
         Height = 21
         Anchors = [akLeft, akBottom]
         Alignment = taLeftJustify
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -426,15 +406,12 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Custom file name:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object LogEnableBtn: TsCheckBox
         Left = 3
@@ -455,15 +432,11 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'If file exists at output:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -526,15 +499,6 @@ object SettingsForm: TSettingsForm
         TabOrder = 14
         Text = '1'
         SkinData.SkinSection = 'EDIT'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         MaxValue = 0
         MinValue = 1
         Value = 1
@@ -555,6 +519,10 @@ object SettingsForm: TSettingsForm
       Caption = 'Artwork && Tags'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object sLabel4: TsLabel
         Left = 276
         Top = 156
@@ -595,15 +563,6 @@ object SettingsForm: TSettingsForm
         Width = 191
         Height = 21
         Alignment = taLeftJustify
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -628,15 +587,6 @@ object SettingsForm: TSettingsForm
         Width = 172
         Height = 21
         Alignment = taLeftJustify
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -724,15 +674,7 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Width:'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         MaxValue = 0
         MinValue = 0
         Value = 300
@@ -757,15 +699,7 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Height:'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         MaxValue = 0
         MinValue = 0
         Value = 300
@@ -775,6 +709,10 @@ object SettingsForm: TSettingsForm
       Caption = 'ReplayGain'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object sLabel1: TsLabel
         Left = 8
         Top = 68
@@ -831,15 +769,6 @@ object SettingsForm: TSettingsForm
         TabOrder = 2
         Text = '89.0'
         SkinData.SkinSection = 'EDIT'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object RGResetBtn: TsButton
         Left = 8
@@ -879,6 +808,10 @@ object SettingsForm: TSettingsForm
       Caption = 'File Adding'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object sLabel2: TsLabel
         Left = 373
         Top = 40
@@ -905,15 +838,6 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'File length filter:'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList
@@ -951,15 +875,7 @@ object SettingsForm: TSettingsForm
         Text = '1800'
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Caption = 'seconds'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopRight
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         MaxValue = 0
         MinValue = 0
         Value = 1800
@@ -980,15 +896,7 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Filter out audio types (seperated with ";") (mp3;wma;wav)'
-        BoundLabel.Indent = 0
-        BoundLabel.Font.Charset = DEFAULT_CHARSET
-        BoundLabel.Font.Color = clWindowText
-        BoundLabel.Font.Height = -11
-        BoundLabel.Font.Name = 'Tahoma'
-        BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object UseMediaInfoBtn: TsCheckBox
         Left = 3
@@ -1006,6 +914,10 @@ object SettingsForm: TSettingsForm
       Caption = 'CD Ripper'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         637
         207)
@@ -1057,15 +969,6 @@ object SettingsForm: TSettingsForm
           SkinData.SkinSection = 'EDIT'
           BoundLabel.Active = True
           BoundLabel.Caption = 'User email:'
-          BoundLabel.Indent = 0
-          BoundLabel.Font.Charset = DEFAULT_CHARSET
-          BoundLabel.Font.Color = clWindowText
-          BoundLabel.Font.Height = -11
-          BoundLabel.Font.Name = 'Tahoma'
-          BoundLabel.Font.Style = []
-          BoundLabel.Layout = sclLeft
-          BoundLabel.MaxWidth = 0
-          BoundLabel.UseSkinColor = True
         end
         object CDServerEdit: TsEdit
           Left = 88
@@ -1084,15 +987,6 @@ object SettingsForm: TSettingsForm
           SkinData.SkinSection = 'EDIT'
           BoundLabel.Active = True
           BoundLabel.Caption = 'Freedb server:'
-          BoundLabel.Indent = 0
-          BoundLabel.Font.Charset = DEFAULT_CHARSET
-          BoundLabel.Font.Color = clWindowText
-          BoundLabel.Font.Height = -11
-          BoundLabel.Font.Name = 'Tahoma'
-          BoundLabel.Font.Style = []
-          BoundLabel.Layout = sclLeft
-          BoundLabel.MaxWidth = 0
-          BoundLabel.UseSkinColor = True
         end
         object sButton3: TsButton
           Left = 327
@@ -1146,15 +1040,12 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Custom file name:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object CDOutputFolderEdit: TsEdit
         Left = 417
@@ -1174,15 +1065,12 @@ object SettingsForm: TSettingsForm
         SkinData.SkinSection = 'EDIT'
         BoundLabel.Active = True
         BoundLabel.Caption = 'Custom output folder structure:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
         BoundLabel.Layout = sclTopLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
       end
       object sCheckBox1: TsCheckBox
         Left = 417
@@ -1201,6 +1089,10 @@ object SettingsForm: TSettingsForm
       Caption = 'Interface'
       SkinData.CustomColor = False
       SkinData.CustomFont = False
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object SkinBtn: TsCheckBox
         Left = 198
         Top = 13
@@ -1221,15 +1113,11 @@ object SettingsForm: TSettingsForm
         Alignment = taLeftJustify
         BoundLabel.Active = True
         BoundLabel.Caption = 'Skin:'
-        BoundLabel.Indent = 0
         BoundLabel.Font.Charset = DEFAULT_CHARSET
         BoundLabel.Font.Color = clBlack
         BoundLabel.Font.Height = -11
         BoundLabel.Font.Name = 'Tahoma'
         BoundLabel.Font.Style = []
-        BoundLabel.Layout = sclLeft
-        BoundLabel.MaxWidth = 0
-        BoundLabel.UseSkinColor = True
         SkinData.SkinSection = 'COMBOBOX'
         VerticalAlignment = taAlignTop
         Style = csDropDownList

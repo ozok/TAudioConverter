@@ -23,9 +23,8 @@ unit UnitCodecSettings;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, sPageControl,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, sPageControl,
   sSkinProvider, Vcl.StdCtrls, sButton, sTrackBar, sLabel, sEdit, sSpinEdit,
   sCheckBox, sComboBox, Vcl.ExtCtrls, sPanel, IniFiles, ShellAPI, Vcl.Buttons,
   sBitBtn, sGroupBox;
@@ -216,8 +215,9 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain, UnitSettings, UnitAbout, UnitInfo, UnitLog, UnitProgress,
-  UnitSox, UnitTag, UnitUpdater;
+uses
+  UnitMain, UnitSettings, UnitAbout, UnitInfo, UnitLog, UnitProgress, UnitSox,
+  UnitTag, UnitUpdater;
 { TCodecSettingsForm }
 
 procedure TCodecSettingsForm.AftenDialogBtnClick(Sender: TObject);
@@ -892,3 +892,4 @@ begin
 end;
 
 end.
+

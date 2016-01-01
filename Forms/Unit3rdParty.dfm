@@ -27,15 +27,6 @@ object ComponentsForm: TComponentsForm
     Top = 8
     Width = 541
     Height = 519
-    BoundLabel.Indent = 0
-    BoundLabel.Font.Charset = DEFAULT_CHARSET
-    BoundLabel.Font.Color = clWindowText
-    BoundLabel.Font.Height = -11
-    BoundLabel.Font.Name = 'Tahoma'
-    BoundLabel.Font.Style = []
-    BoundLabel.Layout = sclLeft
-    BoundLabel.MaxWidth = 0
-    BoundLabel.UseSkinColor = True
     SkinData.SkinSection = 'EDIT'
     Anchors = [akLeft, akTop, akRight, akBottom]
     Color = 15921906
@@ -46,8 +37,14 @@ object ComponentsForm: TComponentsForm
       item
         Caption = 'Version'
       end>
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
     ReadOnly = True
     RowSelect = True
+    ParentFont = False
     TabOrder = 0
     ViewStyle = vsReport
   end

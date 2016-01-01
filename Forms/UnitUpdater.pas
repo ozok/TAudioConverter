@@ -23,14 +23,11 @@ unit UnitUpdater;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  sListBox, sCheckListBox, Vcl.Buttons, sBitBtn, JvUrlListGrabber,
-  JvUrlGrabbers,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, sListBox,
+  sCheckListBox, Vcl.Buttons, sBitBtn, JvUrlListGrabber, JvUrlGrabbers,
   JvComponentBase, JvThread, sLabel, sGauge, ShellAPI, Vcl.ComCtrls,
-  JvExControls, JvXPCore,
-  JvXPButtons, acPNG, sSkinProvider;
+  JvExControls, JvXPCore, JvXPButtons, acPNG, sSkinProvider;
 
 type
   TUpdaterForm = class(TForm)
@@ -63,7 +60,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TUpdaterForm.DownloaderDoneStream(Sender: TObject; Stream: TStream; StreamSize: Integer; Url: string);
 var
@@ -167,3 +165,4 @@ begin
 end;
 
 end.
+

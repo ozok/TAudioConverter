@@ -23,11 +23,9 @@ unit UnitProgress;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.ComCtrls, Vcl.Buttons, sBitBtn, sSkinProvider, sGauge, JvExControls,
-  JvXPCore,
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ComCtrls,
+  Vcl.Buttons, sBitBtn, sSkinProvider, sGauge, JvExControls, JvXPCore,
   JvXPButtons, acPNG, sEdit, sLabel, Vcl.ExtCtrls, sPanel;
 
 type
@@ -51,7 +49,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TProgressForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -83,3 +82,4 @@ begin
 end;
 
 end.
+

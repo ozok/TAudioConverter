@@ -23,11 +23,10 @@ unit UnitMergeTag;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.Buttons, IniFiles, sSkinProvider, sBitBtn, sCheckBox, sEdit, sLabel,
-  sSpinEdit, Vcl.Mask, sMaskEdit, sCustomComboEdit, sToolEdit;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons,
+  IniFiles, sSkinProvider, sBitBtn, sCheckBox, sEdit, sLabel, sSpinEdit, Vcl.Mask,
+  sMaskEdit, sCustomComboEdit, sToolEdit;
 
 type
   TMergeTagForm = class(TForm)
@@ -60,7 +59,8 @@ implementation
 
 {$R *.dfm}
 
-uses UnitMain;
+uses
+  UnitMain;
 
 procedure TMergeTagForm.CloseBtnClick(Sender: TObject);
 begin
@@ -122,3 +122,4 @@ begin
 end;
 
 end.
+

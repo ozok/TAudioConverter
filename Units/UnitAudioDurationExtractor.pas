@@ -22,7 +22,8 @@ unit UnitAudioDurationExtractor;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
 
 type
   TFFProbeStatus = (ffpReading, ffpDone);
@@ -36,17 +37,13 @@ type
     FFFProbePath: string;
     FTempFolder: string;
     FDuration: Extended;
-
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
-
     function IsStringNumeric(Str: string): Boolean;
   public
     property FFProbeStatus: TFFProbeStatus read FStatus;
     property Duration: Extended read FDuration;
-
     constructor Create(const FileName: string; const FFProbePath: string; const TempFolder: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -108,7 +105,7 @@ begin
   while p^ <> #0 do
   begin
 
-    if (Not CharInSet(p^, ['0' .. '9'])) then
+    if (not CharInSet(p^, ['0'..'9'])) then
     begin
       exit;
     end;
@@ -182,3 +179,4 @@ begin
 end;
 
 end.
+

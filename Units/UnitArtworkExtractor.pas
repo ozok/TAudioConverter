@@ -22,7 +22,8 @@ unit UnitArtworkExtractor;
 
 interface
 
-uses Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
+uses
+  Classes, Windows, SysUtils, JvCreateProcess, Messages, StrUtils, IniFiles;
 
 type
   TArtworkExtractorStatus = (aeReading, aeDone);
@@ -36,16 +37,12 @@ type
     FDestFile: string;
     FArtworkExtractorPath: string;
     FExtension: string;
-
     procedure ProcessTerminate(Sender: TObject; ExitCode: Cardinal);
-
   public
     property AEStatus: TArtworkExtractorStatus read FStatus;
     property Extension: string read FExtension;
-
     constructor Create(const FileName: string; const DesFile: string; const ArtworkExtractorPath: string);
     destructor Destroy(); override;
-
     procedure Start();
   end;
 
@@ -117,3 +114,4 @@ begin
 end;
 
 end.
+

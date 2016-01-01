@@ -2,7 +2,9 @@ unit UnitImageResize;
 
 interface
 
-uses Classes, Windows, SysUtils, Messages, StrUtils, Jpeg, Graphics, PngImage, GIFImg;
+uses
+  Classes, Windows, SysUtils, Messages, StrUtils, Jpeg, Graphics, PngImage,
+  GIFImg;
 
 type
   TImageResizer = class(TObject)
@@ -11,7 +13,6 @@ type
     FHeight: Integer;
     FSourcePath: string;
     FDestPath: string;
-
     function ResizeJpg(const inFile, outFile: TFileName; const aQuality: TJPEGQualityRange = 95): Boolean;
     procedure ResizePNG(const Infile: string; const OutFile: string);
     procedure ResizeBMP(const Infile: string; const OutFile: string);
@@ -19,10 +20,8 @@ type
   public
     property Width: Integer read FWidth write FWidth;
     property Height: Integer read FHeight write FHeight;
-
     constructor Create(const SourceImg: string; const DestImg: string);
     destructor Destroy; override;
-
     procedure Resize;
   end;
 
@@ -45,7 +44,8 @@ procedure TImageResizer.Resize;
 var
   LExt: string;
 begin
-  if not FileExists(FSourcePath) then Exit;
+  if not FileExists(FSourcePath) then
+    Exit;
 
   LExt := LowerCase(ExtractFileExt(FSourcePath));
   if (LExt = '.jpeg') or (LExt = '.jpg') then
@@ -114,6 +114,7 @@ begin
 
 end;
 // code is from http://jetcracker.wordpress.com/2012/03/05/my-old-trash-resizing-images-in-delphi/
+
 function TImageResizer.ResizeJpg(const inFile, outFile: TFileName; const aQuality: TJPEGQualityRange): Boolean;
 var
   Jpeg: TJPEGImage;
@@ -182,3 +183,4 @@ begin
 end;
 
 end.
+
