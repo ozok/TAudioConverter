@@ -18,7 +18,7 @@ const
 
 const
 {$IFDEF MSWINDOWS}
-  bassalacdll = 'basslib\bass_alac.dll';
+  bassalacdll = 'bass_alac.dll';
 {$ENDIF}
 {$IFDEF LINUX}
   bassalacdll = 'libbass_alac.so';

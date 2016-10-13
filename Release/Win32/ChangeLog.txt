@@ -1,5 +1,6 @@
 --0.9.10
--updated: OggEnc2 to 2.88 using libVorbis v1.3.5
+-Fixed: bass.dll not found error under Windows 10
+-Updated: OggEnc2 to 2.88 using libVorbis v1.3.5
 -Updated: Skin component
 
 --0.9.9
