@@ -30,34 +30,14 @@ uses
   JvDragDrop, JvUrlListGrabber, JvUrlGrabbers, CommCtrl, sSkinProvider,
   sSkinManager, sPanel, sButton, sLabel, sListBox, sCheckBox, sComboBox, sEdit,
   sGauge, System.Types, sBitBtn, Vcl.ImgList, acAlphaImageList, JvSearchFiles,
-  acPNG, JvTrayIcon, UnitEncoder, TlHelp32, UnitFileInfo, sDialogs, sTrackBar,
-  sTreeView, sListView, sSpinEdit, MMSystem, acAlphaHints, acProgressBar,
-  UnitCueParser, UnitTagTypes, Generics.Collections, UnitAudioDurationExtractor,
-  UnitFFProbeInformer, UnitImageTypeExtractor, UnitArtworkExtractor, Vcl.ToolWin,
-  sToolBar, UnitRGInfoExtractor, UnitCommonTypes, UnitWMATagExtractor,
-  sPageControl, UnitTypes, ACS_Classes, ACS_Wave, ACS_CDROM, mr_cddb, UnitPlayer,
-  UnitArtworkDownloader, UnitImageResize, JvAppStorage, JvAppIniStorage,
-  JvFormPlacement, UnitTagReader, sBevel, UnitPresets, acSlider, System.ImageList;
-
-type
-  TRenamePair = record
-    Input: string;
-    Output: string;
-  end;
-
-type
-  TCompressionFileNamesPair = record
-    SourcePath: string;
-    DestinationPath: string;
-  end;
-
-type
-  TIndexItem = class(TObject)
-  private
-    FRealIndex: Integer;
-  public
-    property RealIndex: Integer read FRealIndex write FRealIndex;
-  end;
+  acPNG, JvTrayIcon, Encoder, TlHelp32, FileInfo, sDialogs, sTrackBar, sTreeView,
+  sListView, sSpinEdit, MMSystem, acAlphaHints, acProgressBar, CueParser,
+  TagTypes, Generics.Collections, AudioDurationExtractor, FFProbeInformer,
+  ImageTypeExtractor, ArtworkExtractor, Vcl.ToolWin, sToolBar, RGInfoExtractor,
+  CustomEnums, WMATagExtractor, sPageControl, ACS_Classes, ACS_Wave, ACS_CDROM,
+  mr_cddb, Player, ArtworkDownloader, ImageResize, JvAppStorage, JvAppIniStorage,
+  JvFormPlacement, TagReader, sBevel, Presets, acSlider, System.ImageList,
+  CustomTypes;
 
 type
   TMainForm = class(TForm)
@@ -14148,5 +14128,4 @@ begin
 end;
 
 end.
-
 

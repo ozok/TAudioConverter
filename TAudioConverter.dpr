@@ -12,33 +12,32 @@ uses
   SysUtils,
   Messages,
   Windows,
-  UnitMain in 'Forms\UnitMain.pas' {MainForm} ,
-  UnitLog in 'Forms\UnitLog.pas' {LogForm} ,
+  UnitMain in 'Forms\UnitMain.pas' {MainForm},
+  UnitLog in 'Forms\UnitLog.pas' {LogForm},
   windows7taskbar in 'Units\windows7taskbar.pas',
   MediaInfoDLL in 'Units\MediaInfoDLL.pas',
-  UnitInfo in 'Forms\UnitInfo.pas' {InfoForm} ,
-  UnitAbout in 'Forms\UnitAbout.pas' {AboutForm} ,
-  UnitUpdater in 'Forms\UnitUpdater.pas' {UpdaterForm} ,
-  UnitSox in 'Forms\UnitSox.pas' {FiltersForm} ,
-  UnitProgress in 'Forms\UnitProgress.pas' {ProgressForm} ,
-  UnitEncoder in 'Units\UnitEncoder.pas',
-  UnitSettings in 'Forms\UnitSettings.pas' {SettingsForm} ,
-  UnitFileInfo in 'Units\UnitFileInfo.pas',
-  UnitTag in 'Forms\UnitTag.pas' {TagForm} ,
-  UnitTrimmer in 'Forms\UnitTrimmer.pas' {TrimmerForm} ,
-  UnitCueParser in 'Units\UnitCueParser.pas',
-  UnitTagTypes in 'Units\UnitTagTypes.pas',
-  UnitAudioDurationExtractor in 'Units\UnitAudioDurationExtractor.pas',
-  UnitFFProbeInformer in 'Units\UnitFFProbeInformer.pas',
-  UnitImageTypeExtractor in 'Units\UnitImageTypeExtractor.pas',
-  UnitArtworkExtractor in 'Units\UnitArtworkExtractor.pas' {$R *.res},
-  UnitCodecSettings in 'Forms\UnitCodecSettings.pas' {CodecSettingsForm} ,
-  UnitRGInfoExtractor in 'Units\UnitRGInfoExtractor.pas',
-  UnitCommonTypes in 'Units\UnitCommonTypes.pas',
-  Unit3rdParty in 'Forms\Unit3rdParty.pas' {ComponentsForm} ,
-  UnitWMATagExtractor in 'units\UnitWMATagExtractor.pas',
-  UnitTagEditor in 'Forms\UnitTagEditor.pas' {TagEditorForm} ,
-  UnitTypes in 'Units\UnitTypes.pas',
+  UnitInfo in 'Forms\UnitInfo.pas' {InfoForm},
+  UnitAbout in 'Forms\UnitAbout.pas' {AboutForm},
+  UnitUpdater in 'Forms\UnitUpdater.pas' {UpdaterForm},
+  UnitSox in 'Forms\UnitSox.pas' {FiltersForm},
+  UnitProgress in 'Forms\UnitProgress.pas' {ProgressForm},
+  Encoder in 'Encoder\Encoder.pas',
+  UnitSettings in 'Forms\UnitSettings.pas' {SettingsForm},
+  FileInfo in 'FileInfo\FileInfo.pas',
+  UnitTag in 'Forms\UnitTag.pas' {TagForm},
+  UnitTrimmer in 'Forms\UnitTrimmer.pas' {TrimmerForm},
+  CueParser in 'FileInfo\CueParser.pas',
+  TagTypes in 'Types\TagTypes.pas',
+  AudioDurationExtractor in 'FileInfo\AudioDurationExtractor.pas',
+  FFProbeInformer in 'FileInfo\FFProbeInformer.pas',
+  ImageTypeExtractor in 'Image\ImageTypeExtractor.pas',
+  ArtworkExtractor in 'Artwork\ArtworkExtractor.pas' {$R *.res},
+  UnitCodecSettings in 'Forms\UnitCodecSettings.pas' {CodecSettingsForm},
+  RGInfoExtractor in 'FileInfo\RGInfoExtractor.pas',
+  CustomEnums in 'Types\CustomEnums.pas',
+  Unit3rdParty in 'Forms\Unit3rdParty.pas' {ComponentsForm},
+  WMATagExtractor in 'FileInfo\WMATagExtractor.pas',
+  UnitTagEditor in 'Forms\UnitTagEditor.pas' {TagEditorForm},
   bass in 'BassUnits\bass.pas',
   bass_aac in 'BassUnits\bass_aac.pas',
   bass_ac3 in 'BassUnits\bass_ac3.pas',
@@ -52,11 +51,11 @@ uses
   bassopus in 'BassUnits\bassopus.pas',
   basswma in 'BassUnits\basswma.pas',
   basswv in 'BassUnits\basswv.pas',
-  UnitPlayer in 'Units\UnitPlayer.pas',
-  UnitArtworkDownloader in 'Units\UnitArtworkDownloader.pas',
-  UnitImageResize in 'Units\UnitImageResize.pas',
-  UnitTagReader in 'Units\UnitTagReader.pas',
-  UnitPresets in 'Units\UnitPresets.pas',
+  Player in 'Player\Player.pas',
+  ArtworkDownloader in 'Artwork\ArtworkDownloader.pas',
+  ImageResize in 'Image\ImageResize.pas',
+  TagReader in 'FileInfo\TagReader.pas',
+  Presets in 'Types\Presets.pas',
   APEv2Library in 'TagLibraries\APEv2Library.pas',
   FlacTagLibrary in 'TagLibraries\FlacTagLibrary.pas',
   ID3v1Library in 'TagLibraries\ID3v1Library.pas',
@@ -64,8 +63,9 @@ uses
   MP4TagLibrary in 'TagLibraries\MP4TagLibrary.pas',
   OggVorbisAndOpusTagLibrary in 'TagLibraries\OggVorbisAndOpusTagLibrary.pas',
   WMATagLibrary in 'TagLibraries\WMATagLibrary.pas',
-  UnitMergeTag in 'Forms\UnitMergeTag.pas' {MergeTagForm} ,
-  WAVTagLibrary in 'TagLibraries\WAVTagLibrary.pas';
+  UnitMergeTag in 'Forms\UnitMergeTag.pas' {MergeTagForm},
+  WAVTagLibrary in 'TagLibraries\WAVTagLibrary.pas',
+  CustomTypes in 'Types\CustomTypes.pas';
 
 {$R *.res}
 
@@ -89,20 +89,20 @@ begin
     // ReportMemoryLeaksOnShutdown := True;
     Application.Title := 'TAudioConverter';
     Application.CreateForm(TMainForm, MainForm);
-    Application.CreateForm(TLogForm, LogForm);
-    Application.CreateForm(TInfoForm, InfoForm);
-    Application.CreateForm(TAboutForm, AboutForm);
-    Application.CreateForm(TUpdaterForm, UpdaterForm);
-    Application.CreateForm(TFiltersForm, FiltersForm);
-    Application.CreateForm(TProgressForm, ProgressForm);
-    Application.CreateForm(TSettingsForm, SettingsForm);
-    Application.CreateForm(TTagForm, TagForm);
-    Application.CreateForm(TTrimmerForm, TrimmerForm);
-    Application.CreateForm(TCodecSettingsForm, CodecSettingsForm);
-    Application.CreateForm(TComponentsForm, ComponentsForm);
-    Application.CreateForm(TTagEditorForm, TagEditorForm);
-    Application.CreateForm(TMergeTagForm, MergeTagForm);
-    Application.Run;
+  Application.CreateForm(TLogForm, LogForm);
+  Application.CreateForm(TInfoForm, InfoForm);
+  Application.CreateForm(TAboutForm, AboutForm);
+  Application.CreateForm(TUpdaterForm, UpdaterForm);
+  Application.CreateForm(TFiltersForm, FiltersForm);
+  Application.CreateForm(TProgressForm, ProgressForm);
+  Application.CreateForm(TSettingsForm, SettingsForm);
+  Application.CreateForm(TTagForm, TagForm);
+  Application.CreateForm(TTrimmerForm, TrimmerForm);
+  Application.CreateForm(TCodecSettingsForm, CodecSettingsForm);
+  Application.CreateForm(TComponentsForm, ComponentsForm);
+  Application.CreateForm(TTagEditorForm, TagEditorForm);
+  Application.CreateForm(TMergeTagForm, MergeTagForm);
+  Application.Run;
   end
   else
   begin

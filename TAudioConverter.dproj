@@ -176,11 +176,11 @@
         <DCCReference Include="Forms\UnitProgress.pas">
             <Form>ProgressForm</Form>
         </DCCReference>
-        <DCCReference Include="Units\UnitEncoder.pas"/>
+        <DCCReference Include="Encoder\Encoder.pas"/>
         <DCCReference Include="Forms\UnitSettings.pas">
             <Form>SettingsForm</Form>
         </DCCReference>
-        <DCCReference Include="Units\UnitFileInfo.pas"/>
+        <DCCReference Include="FileInfo\FileInfo.pas"/>
         <DCCReference Include="Forms\UnitTag.pas">
             <Form>TagForm</Form>
         </DCCReference>
@@ -188,28 +188,27 @@
             <Form>TrimmerForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Units\UnitCueParser.pas"/>
-        <DCCReference Include="Units\UnitTagTypes.pas"/>
-        <DCCReference Include="Units\UnitAudioDurationExtractor.pas"/>
-        <DCCReference Include="Units\UnitFFProbeInformer.pas"/>
-        <DCCReference Include="Units\UnitImageTypeExtractor.pas"/>
-        <DCCReference Include="Units\UnitArtworkExtractor.pas">
+        <DCCReference Include="FileInfo\CueParser.pas"/>
+        <DCCReference Include="Types\TagTypes.pas"/>
+        <DCCReference Include="FileInfo\AudioDurationExtractor.pas"/>
+        <DCCReference Include="FileInfo\FFProbeInformer.pas"/>
+        <DCCReference Include="Image\ImageTypeExtractor.pas"/>
+        <DCCReference Include="Artwork\ArtworkExtractor.pas">
             <Form>$R *.res</Form>
         </DCCReference>
         <DCCReference Include="Forms\UnitCodecSettings.pas">
             <Form>CodecSettingsForm</Form>
         </DCCReference>
-        <DCCReference Include="Units\UnitRGInfoExtractor.pas"/>
-        <DCCReference Include="Units\UnitCommonTypes.pas"/>
+        <DCCReference Include="FileInfo\RGInfoExtractor.pas"/>
+        <DCCReference Include="Types\CustomEnums.pas"/>
         <DCCReference Include="Forms\Unit3rdParty.pas">
             <Form>ComponentsForm</Form>
         </DCCReference>
-        <DCCReference Include="units\UnitWMATagExtractor.pas"/>
+        <DCCReference Include="FileInfo\WMATagExtractor.pas"/>
         <DCCReference Include="Forms\UnitTagEditor.pas">
             <Form>TagEditorForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="Units\UnitTypes.pas"/>
         <DCCReference Include="BassUnits\bass.pas"/>
         <DCCReference Include="BassUnits\bass_aac.pas"/>
         <DCCReference Include="BassUnits\bass_ac3.pas"/>
@@ -223,11 +222,11 @@
         <DCCReference Include="BassUnits\bassopus.pas"/>
         <DCCReference Include="BassUnits\basswma.pas"/>
         <DCCReference Include="BassUnits\basswv.pas"/>
-        <DCCReference Include="Units\UnitPlayer.pas"/>
-        <DCCReference Include="Units\UnitArtworkDownloader.pas"/>
-        <DCCReference Include="Units\UnitImageResize.pas"/>
-        <DCCReference Include="Units\UnitTagReader.pas"/>
-        <DCCReference Include="Units\UnitPresets.pas"/>
+        <DCCReference Include="Player\Player.pas"/>
+        <DCCReference Include="Artwork\ArtworkDownloader.pas"/>
+        <DCCReference Include="Image\ImageResize.pas"/>
+        <DCCReference Include="FileInfo\TagReader.pas"/>
+        <DCCReference Include="Types\Presets.pas"/>
         <DCCReference Include="TagLibraries\APEv2Library.pas"/>
         <DCCReference Include="TagLibraries\FlacTagLibrary.pas"/>
         <DCCReference Include="TagLibraries\ID3v1Library.pas"/>
@@ -240,6 +239,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="TagLibraries\WAVTagLibrary.pas"/>
+        <DCCReference Include="Types\CustomTypes.pas"/>
         <None Include="Release\Win32\ChangeLog.txt"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
@@ -299,9 +299,15 @@
                 <Platform value="Win64">True</Platform>
             </Platforms>
             <Deployment Version="3">
-                <DeployFile LocalName="Debug\Win32\TX264.rsm" Configuration="Debug" Class="DebugSymbols">
+                <DeployFile LocalName="Release\Win32\ChangeLog.txt" Configuration="Release" Class="ProjectFile">
                     <Platform Name="Win32">
-                        <RemoteName>TX264.rsm</RemoteName>
+                        <RemoteDir>.\</RemoteDir>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Release\Win32\TAudioConverter.exe" Configuration="Release" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>TAudioConverter.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -310,12 +316,27 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -667,27 +688,12 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
