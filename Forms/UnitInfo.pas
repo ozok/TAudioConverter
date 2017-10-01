@@ -1,5 +1,5 @@
 {*
- * Copyright (C) 2012-2015 ozok <ozok26@gmail.com>
+ * Copyright (C) 2012-2017 ozok <ozok26@gmail.com>
  *
  * This file is part of TAudioConverter.
  *

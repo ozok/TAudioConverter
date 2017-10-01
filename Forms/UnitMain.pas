@@ -1,5 +1,5 @@
 ﻿{ *
-  * Copyright (C) 2012-2015 ozok <ozok26@gmail.com>
+  * Copyright (C) 2012-2017 ozok <ozok26@gmail.com>
   *
   * This file is part of TAudioConverter.
   *
@@ -347,31 +347,31 @@ type
     CompressionPairs: TList<TCompressionFileNamesPair>;
 
 {$REGION 'EncoderPaths'}
-    FFMpegPath, QaacPath, OggEncPath, LamePath, FLACPath: string;
-    FHGPath, OpusPath: string;
-    MPCPath: string;
-    MACPath: string;
-    TTAPath: string;
-    TAKPath: string;
-    NeroEncPath: string;
-    NeroTagPath: string;
-    WmaEncodePath: string;
-    WavPackPath: string;
-    FdkAACPath: string;
-    SoxPath: string;
-    FLACCLPath: string;
-    LossyWAVPath: string;
-    TTaggerPath: string;
-    FFProbePath: string;
-    ArtworkExtractorPath: string;
-    AACGainPath: string;
-    Mp3GainPath: string;
-    VorbisGainPath: string;
-    WVGainPath: string;
-    MetaFlacPath: string;
-    MPCGainPath: string;
-    DCAENCPath: string;
-    RenameToolPath: string;
+    FFFMpegPath, FQaacPath, FOggEncPath, FLamePath, FFLACPath: string;
+    FFHGPath, FOpusPath: string;
+    FMPCPath: string;
+    FMACPath: string;
+    FTTAPath: string;
+    FTAKPath: string;
+    FNeroEncPath: string;
+    FNeroTagPath: string;
+    FWmaEncodePath: string;
+    FWavPackPath: string;
+    FFdkAACPath: string;
+    FSoxPath: string;
+    FFLACCLPath: string;
+    FLossyWAVPath: string;
+    FTTaggerPath: string;
+    FFFProbePath: string;
+    FArtworkExtractorPath: string;
+    FAACGainPath: string;
+    FMp3GainPath: string;
+    FVorbisGainPath: string;
+    FWVGainPath: string;
+    FMetaFlacPath: string;
+    FMPCGainPath: string;
+    FDCAENCPath: string;
+    FRenameToolPath: string;
 {$ENDREGION}
     FTotalLength: Int64;
     FMergeTotalDuration: Integer;
@@ -808,7 +808,8 @@ begin
       AddToLog(0, RP.Output + ' already exists, overwriting.');
     end;
   end;
-  RP.Output := StringReplace(RP.Output, '\\\', '\', [rfReplaceAll]);
+//  RP.Output := StringReplace(RP.Output, '\\\', '\', [rfReplaceAll]);
+  RP.Output := ExtractFilePath(RP.Output) + ExtractFileName(RP.Output);
   // create dest folder
   if not DirectoryExists(ExtractFileDir(RP.Output)) then
   begin
@@ -864,7 +865,7 @@ begin
     TmpAudioFileName := ChangeFileExt(TmpAudioFileName, '.lossy.wav');
 
     Encoder.CommandLines.Add(AudioStr);
-    Encoder.Paths.Add(LossyWAVPath);
+    Encoder.Paths.Add(FLossyWAVPath);
     Encoder.FileNames.Add(FileName);
     Encoder.Infos.Add('lossyWAV');
     Encoder.Durations.Add('1');
@@ -890,7 +891,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + ' -y -i "' + TmpAudioFileName + '" ' + AudioStr + ' "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -900,13 +901,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -932,7 +933,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(AACGainPath);
+          Encoder.Paths.Add(FAACGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -980,7 +981,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' --ignorelength --rate keep "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(QaacPath);
+        Encoder.Paths.Add(FQaacPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Durations.Add('1');
@@ -990,13 +991,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1022,7 +1023,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(AACGainPath);
+          Encoder.Paths.Add(FAACGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -1057,7 +1058,7 @@ begin
         AudioStr := ' -y -i "' + TmpAudioFileName + '" ' + AudioStr + ' -acodec ac3 "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -1096,7 +1097,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + '  "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(OggEncPath);
+        Encoder.Paths.Add(FOggEncPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1106,13 +1107,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OggUseTTaggerBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OggUseTTaggerBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('Writing Tags');
@@ -1128,7 +1129,7 @@ begin
           AudioStr := AudioStr + ' -a "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(VorbisGainPath);
+          Encoder.Paths.Add(FVorbisGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1192,7 +1193,7 @@ begin
         AudioStr := AudioStr + '  "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(LamePath);
+        Encoder.Paths.Add(FLamePath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1204,13 +1205,13 @@ begin
         if CodecSettingsForm.LameUseTTaggerBtn.Checked then
         begin
           // write tag
-          if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+          if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
           begin
             AudioStr := '';
             AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(TTaggerPath);
+            Encoder.Paths.Add(FTTaggerPath);
             Encoder.FileNames.Add(FileName);
             Encoder.TempFiles.Add('');
             Encoder.Durations.Add('1');
@@ -1238,7 +1239,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(Mp3GainPath);
+          Encoder.Paths.Add(FMp3GainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -1291,7 +1292,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + '  "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FLACPath);
+        Encoder.Paths.Add(FFLACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1303,13 +1304,13 @@ begin
         if CodecSettingsForm.FLACUseTTaggerBtn.Checked then
         begin
           // write tag
-          if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+          if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
           begin
             AudioStr := '';
             AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(TTaggerPath);
+            Encoder.Paths.Add(FTTaggerPath);
             Encoder.FileNames.Add(FileName);
             Encoder.TempFiles.Add('');
             Encoder.Durations.Add('1');
@@ -1333,7 +1334,7 @@ begin
             AudioStr := ' --add-replay-gain "' + RP.Input + '"';
 
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(MetaFlacPath);
+            Encoder.Paths.Add(FMetaFlacPath);
             Encoder.FileNames.Add(FileName);
             Encoder.TempFiles.Add('');
             Encoder.Infos.Add('ReplayGain');
@@ -1376,7 +1377,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + AudioStr + ' "' + TmpAudioFileName + '" "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FHGPath);
+        Encoder.Paths.Add(FFHGPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1386,13 +1387,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1418,7 +1419,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(AACGainPath);
+          Encoder.Paths.Add(FAACGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -1456,7 +1457,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(OpusPath);
+        Encoder.Paths.Add(FOpusPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -1466,13 +1467,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OpusUseTTaggerBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OpusUseTTaggerBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('Writing Tags');
@@ -1495,7 +1496,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(MPCPath);
+        Encoder.Paths.Add(FMPCPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1511,7 +1512,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(MPCGainPath);
+          Encoder.Paths.Add(FMPCGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1542,7 +1543,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '" ' + AudioStr;
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(MACPath);
+        Encoder.Paths.Add(FMACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1552,13 +1553,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1576,7 +1577,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + ' -e "' + TmpAudioFileName + '" -o "' + RP.Input + '" ';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(TTAPath);
+        Encoder.Paths.Add(FTTAPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1586,13 +1587,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1641,7 +1642,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '" ';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(TAKPath);
+        Encoder.Paths.Add(FTAKPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1651,13 +1652,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1701,7 +1702,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + AudioStr + ' -if "' + TmpAudioFileName + '" -of "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(NeroEncPath);
+        Encoder.Paths.Add(FNeroEncPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -1711,13 +1712,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1743,7 +1744,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(AACGainPath);
+          Encoder.Paths.Add(FAACGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -1760,7 +1761,7 @@ begin
         AudioStr := ' -y -i "' + TmpAudioFileName + '" -c:a alac -vn "' + RP.Input + '" ' + CDCreateTagCMD(TrackCount, Track - 1) + ' ' + CodecSettingsForm.ALACCMD;
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1770,13 +1771,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('Writing Tags');
@@ -1815,7 +1816,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(WmaEncodePath);
+        Encoder.Paths.Add(FWmaEncodePath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1825,13 +1826,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1883,7 +1884,7 @@ begin
         AudioStr := AudioStr + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + TmpAudioFileName + '" "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(WavPackPath);
+        Encoder.Paths.Add(FWavPackPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1893,13 +1894,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1949,7 +1950,7 @@ begin
         AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + AudioStr + ' "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FdkAACPath);
+        Encoder.Paths.Add(FFdkAACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -1959,13 +1960,13 @@ begin
         Encoder.ListItems.Add(LProgressItem);
 
         // write tag
-        if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+        if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
         begin
           AudioStr := '';
           AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(TTaggerPath);
+          Encoder.Paths.Add(FTTaggerPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Durations.Add('1');
@@ -1992,7 +1993,7 @@ begin
           AudioStr := AudioStr + ' "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(AACGainPath);
+          Encoder.Paths.Add(FAACGainPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -2009,7 +2010,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.AIFFCMD;
         AudioStr := ' -y -i "' + FileName + '" -f aiff ' + CDCreateTagCMD(TrackCount, Track - 1) + ' "' + RP.Input + '"';
 
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -2025,7 +2026,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.FLACCLCMD;
         AudioStr := ' -' + CodecSettingsForm.FLACCLLevelList.Text + ' "' + TmpAudioFileName + '" -o "' + RP.Input + '"';
 
-        Encoder.Paths.Add(FLACCLPath);
+        Encoder.Paths.Add(FFLACCLPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -2039,7 +2040,7 @@ begin
         if CodecSettingsForm.FLACCLUseTTaggerBtn.Checked then
         begin
           // use ttagger
-          if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+          if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
           begin
             // to create tag.txt file
             AudioStr := CDCreateTagCMD(TrackCount, Track - 1);
@@ -2047,7 +2048,7 @@ begin
             AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Track - 1) + 'tag.txt" "' + RP.Input + '"';
 
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(TTaggerPath);
+            Encoder.Paths.Add(FTTaggerPath);
             Encoder.FileNames.Add(FileName);
             Encoder.TempFiles.Add('');
             Encoder.Infos.Add('Writing Tags');
@@ -2063,7 +2064,7 @@ begin
           AudioStr := CDCreateTagCMD(TrackCount, Track - 1) + '  "' + RP.Input + '" -f -o "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(FLACPath);
+          Encoder.Paths.Add(FFLACPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add(FileToDeleteStr);
           Encoder.Infos.Add('Writing tags');
@@ -2079,7 +2080,7 @@ begin
           AudioStr := ' --add-replay-gain "' + RP.Input + '"';
 
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(MetaFlacPath);
+          Encoder.Paths.Add(FMetaFlacPath);
           Encoder.FileNames.Add(FileName);
           Encoder.TempFiles.Add('');
           Encoder.Infos.Add('ReplayGain');
@@ -2095,7 +2096,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.DcaencCMD;
         AudioStr := ' -i "' + TmpAudioFileName + '" -o "' + RP.Input + '" -b ' + CodecSettingsForm.DCABitrateEdit.Text;
 
-        Encoder.Paths.Add(DCAENCPath);
+        Encoder.Paths.Add(FDCAENCPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -2122,7 +2123,7 @@ begin
   end;
   AudioStr := '" " "' + ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\rename' + FloatToStr(Track) + '.txt"';
 
-  Encoder.Paths.Add(RenameToolPath);
+  Encoder.Paths.Add(FRenameToolPath);
   Encoder.CommandLines.Add(AudioStr);
   Encoder.FileNames.Add(FileName);
   Encoder.TempFiles.Add('');
@@ -2150,7 +2151,7 @@ begin
   for I := 0 to FTrackInfoList.Count - 1 do
   begin
     Application.ProcessMessages;
-    AddCDTrack(i + 1, FTrackInfoList.Count, (i mod NumberOfProcesses) + 1);
+    AddCDTrack(I + 1, FTrackInfoList.Count, (I mod NumberOfProcesses) + 1);
   end;
 end;
 
@@ -2194,11 +2195,11 @@ begin
   // if file is cue
   if TagsList[Index].FileType = 'cue' then
   begin
-    LProgressItem := TagsList[Index].TrackNo + ' - ' + TagsList[Index].ArtistForFileName + ' - ' + TagsList[Index].AlbumForFileName + ' - ' + TagsList[index].TitleForFileName;
+    LProgressItem := TagsList[Index].TrackNo + ' - ' + TagsList[Index].ArtistForFileName + ' - ' + TagsList[Index].AlbumForFileName + ' - ' + TagsList[Index].TitleForFileName;
   end
   else if TagsList[Index].FileType = 'cd' then
   begin
-    LProgressItem := TagsList[Index].TrackNo + ' - ' + TagsList[Index].ArtistForFileName + ' - ' + TagsList[Index].AlbumForFileName + ' - ' + TagsList[index].TitleForFileName;
+    LProgressItem := TagsList[Index].TrackNo + ' - ' + TagsList[Index].ArtistForFileName + ' - ' + TagsList[Index].AlbumForFileName + ' - ' + TagsList[Index].TitleForFileName;
   end
   else
   begin
@@ -2589,7 +2590,7 @@ begin
               AudioStr := AudioStr + DurationStr + ' "' + LTmpAudioFileName + '"';
             end;
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(FFMpegPath);
+            Encoder.Paths.Add(FFFMpegPath);
             Encoder.FileNames.Add(FileName);
             Encoder.Durations.Add(FileDuration);
             Encoder.Infos.Add('Decoding');
@@ -2598,7 +2599,7 @@ begin
             FileToDeleteStr := LTmpAudioFileName + '|';
 
             Encoder.ProcessTypes.Add(etFFMpeg);
-            Encoder.FileIndexes.Add(FloatToStr(index));
+            Encoder.FileIndexes.Add(FloatToStr(Index));
           end;
 
           // in order to show speed
@@ -2658,7 +2659,7 @@ begin
                 AudioStr := AudioStr + ' -V6 --show-progress "' + LTmpAudioFileName + '" speed ' + SpeedStr;
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(SoxPath);
+                Encoder.Paths.Add(FSoxPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.Infos.Add('Applying effects');
                 Encoder.ListItems.Add(LProgressItem);
@@ -2666,7 +2667,7 @@ begin
                 Encoder.TempFiles.Add('');
                 FileToDeleteStr := FileToDeleteStr + LTmpAudioFileName + '|';
                 Encoder.ProcessTypes.Add(etSox);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.UsingSox := True;
               end
               else
@@ -2703,14 +2704,14 @@ begin
 
             Encoder.CommandLines.Add(AudioStr);
             Encoder.ListItems.Add(LProgressItem);
-            Encoder.Paths.Add(LossyWAVPath);
+            Encoder.Paths.Add(FLossyWAVPath);
             Encoder.FileNames.Add(FileName);
             Encoder.Infos.Add('lossyWAV');
             Encoder.Durations.Add('1');
             Encoder.TempFiles.Add('');
             FileToDeleteStr := FileToDeleteStr + LTmpAudioFileName + '|';
             Encoder.ProcessTypes.Add(etLossyWAV);
-            Encoder.FileIndexes.Add(FloatToStr(index));
+            Encoder.FileIndexes.Add(FloatToStr(Index));
           end;
 
           // audio encoding
@@ -2725,32 +2726,32 @@ begin
 
                 // last cmd
                 AudioStr := AudioStr + ' ' + CodecSettingsForm.FFMpegAACCMD;
-                AudioStr := CreateTagCMD(FileName, index) + ' -y -i "' + LTmpAudioFileName + '" ' + AudioStr + ' "' + RP.Input + '"';
+                AudioStr := CreateTagCMD(FileName, Index) + ' -y -i "' + LTmpAudioFileName + '" ' + AudioStr + ' "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FFMpegPath);
+                Encoder.Paths.Add(FFFMpegPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etFFMpegAAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -2770,13 +2771,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(AACGainPath);
+                  Encoder.Paths.Add(FAACGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.ProcessTypes.Add(etAACGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -2818,29 +2819,29 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' --ignorelength --rate keep "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(QaacPath);
+                Encoder.Paths.Add(FQaacPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Durations.Add('1');
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etQAAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -2860,13 +2861,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(AACGainPath);
+                  Encoder.Paths.Add(FAACGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etAACGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -2895,13 +2896,13 @@ begin
                 AudioStr := ' -y -i "' + LTmpAudioFileName + '" ' + AudioStr + ' -acodec ac3 "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FFMpegPath);
+                Encoder.Paths.Add(FFFMpegPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etFFMpegAC3);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
               end;
             etOgg: // oggenc
@@ -2934,28 +2935,28 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + '  "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(OggEncPath);
+                Encoder.Paths.Add(FOggEncPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etOgg);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OggUseTTaggerBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OggUseTTaggerBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -2966,13 +2967,13 @@ begin
                   AudioStr := AudioStr + ' -a "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(VorbisGainPath);
+                  Encoder.Paths.Add(FVorbisGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.ProcessTypes.Add(etVorbisGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3030,31 +3031,31 @@ begin
                 AudioStr := AudioStr + '  "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(LamePath);
+                Encoder.Paths.Add(FLamePath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etLAME);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 if CodecSettingsForm.LameUseTTaggerBtn.Checked then
                 begin
                   // write tag
-                  if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                  if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                   begin
                     AudioStr := '';
                     AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                     Encoder.CommandLines.Add(AudioStr);
-                    Encoder.Paths.Add(TTaggerPath);
+                    Encoder.Paths.Add(FTTaggerPath);
                     Encoder.FileNames.Add(FileName);
                     Encoder.TempFiles.Add('');
                     Encoder.Durations.Add('1');
                     Encoder.Infos.Add('Writing Tags');
                     Encoder.ProcessTypes.Add(etTTagger);
-                    Encoder.FileIndexes.Add(FloatToStr(index));
+                    Encoder.FileIndexes.Add(FloatToStr(Index));
                     Encoder.ListItems.Add(LProgressItem);
                   end;
                 end;
@@ -3076,13 +3077,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(Mp3GainPath);
+                  Encoder.Paths.Add(FMp3GainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etMP3Gain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -3091,19 +3092,19 @@ begin
               begin
                 CreateTagCMD(FileName, Index);
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3145,31 +3146,31 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + '  "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FLACPath);
+                Encoder.Paths.Add(FFLACPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etFLAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 if CodecSettingsForm.FLACUseTTaggerBtn.Checked then
                 begin
                   // write tag
-                  if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                  if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                   begin
                     AudioStr := '';
                     AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                     Encoder.CommandLines.Add(AudioStr);
-                    Encoder.Paths.Add(TTaggerPath);
+                    Encoder.Paths.Add(FTTaggerPath);
                     Encoder.FileNames.Add(FileName);
                     Encoder.TempFiles.Add('');
                     Encoder.Durations.Add('1');
                     Encoder.Infos.Add('Writing Tags');
                     Encoder.ProcessTypes.Add(etTTagger);
-                    Encoder.FileIndexes.Add(FloatToStr(index));
+                    Encoder.FileIndexes.Add(FloatToStr(Index));
                     Encoder.ListItems.Add(LProgressItem);
                   end;
                 end;
@@ -3187,13 +3188,13 @@ begin
                     AudioStr := ' --add-replay-gain "' + RP.Input + '"';
 
                     Encoder.CommandLines.Add(AudioStr);
-                    Encoder.Paths.Add(MetaFlacPath);
+                    Encoder.Paths.Add(FMetaFlacPath);
                     Encoder.FileNames.Add(FileName);
                     Encoder.TempFiles.Add('');
                     Encoder.Infos.Add('ReplayGain');
                     Encoder.Durations.Add('1');
                     Encoder.ProcessTypes.Add(etMetaFlac);
-                    Encoder.FileIndexes.Add(FloatToStr(index));
+                    Encoder.FileIndexes.Add(FloatToStr(Index));
                     Encoder.ListItems.Add(LProgressItem);
                   end;
                 end;
@@ -3230,29 +3231,29 @@ begin
                 AudioStr := CreateTagCMD(FileName, Index) + AudioStr + ' "' + LTmpAudioFileName + '" "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FHGPath);
+                Encoder.Paths.Add(FFHGPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etFHGAAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -3272,13 +3273,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(AACGainPath);
+                  Encoder.Paths.Add(FAACGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etAACGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -3310,29 +3311,29 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(OpusPath);
+                Encoder.Paths.Add(FOpusPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etOpus);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OpusUseTTaggerBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked and CodecSettingsForm.OpusUseTTaggerBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3349,13 +3350,13 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(MPCPath);
+                Encoder.Paths.Add(FMPCPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etMPC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -3365,13 +3366,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(MPCGainPath);
+                  Encoder.Paths.Add(FMPCGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.ProcessTypes.Add(etMPCGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3396,29 +3397,29 @@ begin
                 AudioStr := CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '" ' + AudioStr;
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(MACPath);
+                Encoder.Paths.Add(FMACPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etAPE);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3430,29 +3431,29 @@ begin
                 AudioStr := CreateTagCMD(FileName, Index) + ' -e "' + LTmpAudioFileName + '" -o "' + RP.Input + '" ';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(TTAPath);
+                Encoder.Paths.Add(FTTAPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etTTA);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3495,29 +3496,29 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '" ';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(TAKPath);
+                Encoder.Paths.Add(FTAKPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etTAK);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3555,29 +3556,29 @@ begin
                 AudioStr := CreateTagCMD(FileName, Index) + AudioStr + ' -if "' + LTmpAudioFileName + '" -of "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(NeroEncPath);
+                Encoder.Paths.Add(FNeroEncPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etNeroAAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -3597,13 +3598,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(AACGainPath);
+                  Encoder.Paths.Add(FAACGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etAACGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -3611,32 +3612,32 @@ begin
             etFFmpegALAC: // alac
               begin
                 // last cmd
-                AudioStr := ' -y -i "' + LTmpAudioFileName + '" -c:a alac -vn "' + RP.Input + '" ' + CreateTagCMD(FileName, index) + ' ' + CodecSettingsForm.ALACCMD;
+                AudioStr := ' -y -i "' + LTmpAudioFileName + '" -c:a alac -vn "' + RP.Input + '" ' + CreateTagCMD(FileName, Index) + ' ' + CodecSettingsForm.ALACCMD;
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FFMpegPath);
+                Encoder.Paths.Add(FFFMpegPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etFFmpegALAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3669,29 +3670,29 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(WmaEncodePath);
+                Encoder.Paths.Add(FWmaEncodePath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etWMA);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3737,29 +3738,29 @@ begin
                 AudioStr := AudioStr + CreateTagCMD(FileName, Index) + ' "' + LTmpAudioFileName + '" "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(WavPackPath);
+                Encoder.Paths.Add(FWavPackPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etWavPack);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -3774,13 +3775,13 @@ begin
                     AudioStr := AudioStr + ' -a "' + RP.Input + '"';
 
                     Encoder.CommandLines.Add(AudioStr);
-                    Encoder.Paths.Add(WVGainPath);
+                    Encoder.Paths.Add(FWVGainPath);
                     Encoder.FileNames.Add(FileName);
                     Encoder.TempFiles.Add('');
                     Encoder.Infos.Add('ReplayGain');
                     Encoder.Durations.Add('1');
                     Encoder.ProcessTypes.Add(etWVGain);
-                    Encoder.FileIndexes.Add(FloatToStr(index));
+                    Encoder.FileIndexes.Add(FloatToStr(Index));
                     Encoder.ListItems.Add(LProgressItem);
                   end;
                 end;
@@ -3825,29 +3826,29 @@ begin
                 AudioStr := CreateTagCMD(FileName, Index) + AudioStr + ' "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
                 Encoder.CommandLines.Add(AudioStr);
-                Encoder.Paths.Add(FdkAACPath);
+                Encoder.Paths.Add(FFdkAACPath);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Infos.Add('Encoding');
                 Encoder.Durations.Add('1');
                 Encoder.ProcessTypes.Add(etFDKAAC);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
-                if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                 begin
                   AudioStr := '';
                   AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(TTaggerPath);
+                  Encoder.Paths.Add(FTTaggerPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Durations.Add('1');
                   Encoder.Infos.Add('Writing Tags');
                   Encoder.ProcessTypes.Add(etTTagger);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -3868,13 +3869,13 @@ begin
                   AudioStr := AudioStr + ' "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(AACGainPath);
+                  Encoder.Paths.Add(FAACGainPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etAACGain);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
 
@@ -3885,14 +3886,14 @@ begin
                 AudioStr := AudioStr + ' ' + CodecSettingsForm.AIFFCMD;
                 AudioStr := ' -y -i "' + FileName + '" -f aiff ' + CreateTagCMD(FileName, Index) + ' "' + RP.Input + '"';
 
-                Encoder.Paths.Add(FFMpegPath);
+                Encoder.Paths.Add(FFFMpegPath);
                 Encoder.CommandLines.Add(AudioStr);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etAIFF);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
               end;
             etFLACCL: // flaccl
@@ -3901,21 +3902,21 @@ begin
                 AudioStr := AudioStr + ' ' + CodecSettingsForm.FLACCLCMD;
                 AudioStr := ' -' + CodecSettingsForm.FLACCLLevelList.Text + ' "' + LTmpAudioFileName + '" -o "' + RP.Input + '"';
 
-                Encoder.Paths.Add(FLACCLPath);
+                Encoder.Paths.Add(FFLACCLPath);
                 Encoder.CommandLines.Add(AudioStr);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etFLACCL);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
 
                 // write tag
                 if CodecSettingsForm.FLACCLUseTTaggerBtn.Checked then
                 begin
                   // use ttagger
-                  if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+                  if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
                   begin
                     // to create tag.txt file
                     AudioStr := CreateTagCMD(FileName, Index);
@@ -3923,13 +3924,13 @@ begin
                     AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\' + FloatToStr(Index) + 'tag.txt" "' + RP.Input + '"';
 
                     Encoder.CommandLines.Add(AudioStr);
-                    Encoder.Paths.Add(TTaggerPath);
+                    Encoder.Paths.Add(FTTaggerPath);
                     Encoder.FileNames.Add(FileName);
                     Encoder.TempFiles.Add('');
                     Encoder.Infos.Add('Writing Tags');
                     Encoder.Durations.Add('1');
                     Encoder.ProcessTypes.Add(etTTagger);
-                    Encoder.FileIndexes.Add(FloatToStr(index));
+                    Encoder.FileIndexes.Add(FloatToStr(Index));
                     Encoder.ListItems.Add(LProgressItem);
                   end;
                 end
@@ -3939,13 +3940,13 @@ begin
                   AudioStr := CreateTagCMD(FileName, Index) + '  "' + RP.Input + '" -f -o "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(FLACPath);
+                  Encoder.Paths.Add(FFLACPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add(FileToDeleteStr);
                   Encoder.Infos.Add('Writing tags');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etFLAC);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
                 if SettingsForm.ReplayGainBtn.Checked then
@@ -3955,13 +3956,13 @@ begin
                   AudioStr := ' --add-replay-gain "' + RP.Input + '"';
 
                   Encoder.CommandLines.Add(AudioStr);
-                  Encoder.Paths.Add(MetaFlacPath);
+                  Encoder.Paths.Add(FMetaFlacPath);
                   Encoder.FileNames.Add(FileName);
                   Encoder.TempFiles.Add('');
                   Encoder.Infos.Add('ReplayGain');
                   Encoder.Durations.Add('1');
                   Encoder.ProcessTypes.Add(etMetaFlac);
-                  Encoder.FileIndexes.Add(FloatToStr(index));
+                  Encoder.FileIndexes.Add(FloatToStr(Index));
                   Encoder.ListItems.Add(LProgressItem);
                 end;
               end;
@@ -3971,14 +3972,14 @@ begin
                 AudioStr := AudioStr + ' ' + CodecSettingsForm.DcaencCMD;
                 AudioStr := ' -i "' + LTmpAudioFileName + '" -o "' + RP.Input + '" -b ' + CodecSettingsForm.DCABitrateEdit.Text;
 
-                Encoder.Paths.Add(DCAENCPath);
+                Encoder.Paths.Add(FDCAENCPath);
                 Encoder.CommandLines.Add(AudioStr);
                 Encoder.FileNames.Add(FileName);
                 Encoder.TempFiles.Add(FileToDeleteStr);
                 Encoder.Durations.Add(FileDuration);
                 Encoder.Infos.Add('Encoding');
                 Encoder.ProcessTypes.Add(etDCA);
-                Encoder.FileIndexes.Add(FloatToStr(index));
+                Encoder.FileIndexes.Add(FloatToStr(Index));
                 Encoder.ListItems.Add(LProgressItem);
               end;
           end;
@@ -4040,12 +4041,12 @@ begin
 
           AudioStr := AudioStr + DurationStr + ' "' + RP.Input + '"';
           Encoder.CommandLines.Add(AudioStr);
-          Encoder.Paths.Add(FFMpegPath);
+          Encoder.Paths.Add(FFFMpegPath);
           Encoder.FileNames.Add(FileName);
           Encoder.Durations.Add(FileDuration);
           Encoder.Infos.Add('Extracting');
           Encoder.ProcessTypes.Add(etFFMpeg);
-          Encoder.FileIndexes.Add(FloatToStr(index));
+          Encoder.FileIndexes.Add(FloatToStr(Index));
           Encoder.ListItems.Add(LProgressItem);
 
           // write tags
@@ -4072,14 +4073,14 @@ begin
   end;
   AudioStr := '" " "' + ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\rename' + FloatToStr(Index) + '.txt"';
 
-  Encoder.Paths.Add(RenameToolPath);
+  Encoder.Paths.Add(FRenameToolPath);
   Encoder.CommandLines.Add(AudioStr);
   Encoder.FileNames.Add(FileName);
   Encoder.TempFiles.Add('');
   Encoder.Durations.Add(FileDuration);
   Encoder.Infos.Add('Renaming');
   Encoder.ProcessTypes.Add(etRenameTool);
-  Encoder.FileIndexes.Add(FloatToStr(index));
+  Encoder.FileIndexes.Add(FloatToStr(Index));
   Encoder.ListItems.Add(LProgressItem);
 end;
 
@@ -4156,7 +4157,7 @@ begin
                     // try ffprobe.
                     if FileDuration < 1 then
                     begin
-                      AudioDurationExtractor := TAudioDurationExtractor.Create(CueParser.SongFileName, FFProbePath, SettingsForm.TempEdit.Text);
+                      AudioDurationExtractor := TAudioDurationExtractor.Create(CueParser.SongFileName, FFFProbePath, SettingsForm.TempEdit.Text);
                       AudioDurationExtractor.Start;
                       while AudioDurationExtractor.FFProbeStatus = ffpReading do
                       begin
@@ -4226,7 +4227,7 @@ begin
                         if CueParser.TrackCount > 0 then
                         begin
                           // each track is treated as a file
-                          for I := 0 to CueParser.TrackCount - 1 do
+                          for i := 0 to CueParser.TrackCount - 1 do
                           begin
                             Application.ProcessMessages;
 
@@ -4354,7 +4355,7 @@ begin
       if MediaInfoHandle <> 0 then
       begin
 
-        FileInfo := TFileInfo.Create(FileName, FFProbePath, SettingsForm.TempEdit.Text);
+        FileInfo := TFileInfo.Create(FileName, FFFProbePath, SettingsForm.TempEdit.Text);
         FAudioIndexes := TStringList.Create;
         try
           // Open a file in complete mode
@@ -4373,7 +4374,7 @@ begin
           FileDuration := GetDurationEx(FileName);
           if FileDuration < 1 then
           begin
-            AudioDurationExtractor := TAudioDurationExtractor.Create(FileName, FFProbePath, SettingsForm.TempEdit.Text);
+            AudioDurationExtractor := TAudioDurationExtractor.Create(FileName, FFFProbePath, SettingsForm.TempEdit.Text);
             AudioDurationExtractor.Start;
             while AudioDurationExtractor.FFProbeStatus = ffpReading do
             begin
@@ -4630,6 +4631,7 @@ var
   LprevCount: integer;
   LNow: TDateTime;
 begin
+  // todo: wtf use a constant or someting.
   OpenDialog.InitialDir := FLastDirectory;
   OpenDialog.Filter := 'Supported|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*' + '.mpg;*.flv;*.vob;*.divx;*.wmv;*.mp3;*.wav;*.m4a;*.mpa;*.mp2;*.mka;*.flac;*.ogg;*' + '.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3gp;*.3ga;*.m2ts;' + '*.thd;*.amr;*.m4b;*.aac;*.tak;*.dts;*.mts;*.m2ts;*.aiff;*.aif;*.dtsma;*.cue|Video Files' + '|*.rmvb;*.mp4;*.mkv;*.avi;*.mov;*.m4v;*.mpeg;*.mpg;*.flv;*.vob;*.divx;*.wmv;*.3gp;*.' + 'm2ts;*.mts|Audio Files|*.mp3;*.wav;*.m4a;*.flac;*.ogg;*.tta;*.mpc;*.aac;*.ac3;*.spx;*.opus;*.shn;*.wv;*.mpc;*.ape;*.wma;*.3ga;' + '*.thd;*.amr;*.aac;*.m4b;*.tak;*.dts;*.aiff;*.aif;*.dtsma;*.mpa;*.mp2;*.mka|Cue Sheets|*.cue|All Files|*.*';
   AddingStopped := False;
@@ -4641,7 +4643,7 @@ begin
     ProgressForm.show;
     FileList.Items.BeginUpdate;
     try
-      for I := 0 to OpenDialog.Files.Count - 1 do
+      for i := 0 to OpenDialog.Files.Count - 1 do
       begin
         Application.ProcessMessages;
         if AddingStopped then
@@ -4694,7 +4696,8 @@ begin
           begin
             FileName := OpenFolderDialog.Directory + '\' + Search.Name;
             Extension := LowerCase(ExtractFileExt(FileName));
-            if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension = '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.cue') or (Extension = '.3gpp') then
+            if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension =
+              '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.cue') or (Extension = '.3gpp') then
             begin
               ProgressForm.CurrentFileLabel.Caption := ExtractFileName(FileName);
               AddFile(FileName);
@@ -4889,7 +4892,7 @@ begin
 
         AudioStr := AudioStr + DurationStr + ' "' + LTmpAudioFileName + '"';
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.Infos.Add('Decoding');
@@ -4898,7 +4901,7 @@ begin
         FileToDeleteStr := LTmpAudioFileName + '|';
 
         Encoder.ProcessTypes.Add(etFFMpeg);
-        Encoder.FileIndexes.Add(FloatToStr(index));
+        Encoder.FileIndexes.Add(FloatToStr(Index));
       end;
 
       // in order to show speed
@@ -4958,7 +4961,7 @@ begin
             AudioStr := AudioStr + ' -V6 --show-progress "' + LTmpAudioFileName + '" speed ' + SpeedStr;
 
             Encoder.CommandLines.Add(AudioStr);
-            Encoder.Paths.Add(SoxPath);
+            Encoder.Paths.Add(FSoxPath);
             Encoder.FileNames.Add(FileName);
             Encoder.Infos.Add('Applying effects');
             Encoder.Durations.Add('1');
@@ -4966,7 +4969,7 @@ begin
             Encoder.ListItems.Add(LProgressItem);
             FileToDeleteStr := FileToDeleteStr + LTmpAudioFileName + '|';
             Encoder.ProcessTypes.Add(etSox);
-            Encoder.FileIndexes.Add(FloatToStr(index));
+            Encoder.FileIndexes.Add(FloatToStr(Index));
             Encoder.UsingSox := True;
           end
           else
@@ -5002,14 +5005,14 @@ begin
         LTmpAudioFileName := ChangeFileExt(LTmpAudioFileName, '.lossy.wav');
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(LossyWAVPath);
+        Encoder.Paths.Add(FLossyWAVPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Infos.Add('lossyWAV');
         Encoder.Durations.Add('1');
         Encoder.TempFiles.Add('');
         FileToDeleteStr := FileToDeleteStr + LTmpAudioFileName + '|';
         Encoder.ProcessTypes.Add(etLossyWAV);
-        Encoder.FileIndexes.Add(FloatToStr(index));
+        Encoder.FileIndexes.Add(FloatToStr(Index));
       end;
     end;
 
@@ -5095,11 +5098,11 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.AlbumArtist := AlbumArtistEdit.Text;
-      FTrackInfoList[i] := LT;
+      FTrackInfoList[I] := LT;
     end;
   end;
 end;
@@ -5112,12 +5115,12 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.Album := AlbumEdit.Text;
-      FTrackInfoList[i] := LT;
-      TracksList.Items[i].SubItems[1] := AlbumEdit.Text
+      FTrackInfoList[I] := LT;
+      TracksList.Items[I].SubItems[1] := AlbumEdit.Text
     end;
   end;
 end;
@@ -5160,12 +5163,12 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.Artist := ArtistEdit.Text;
-      FTrackInfoList[i] := LT;
-      TracksList.Items[i].SubItems[2] := ArtistEdit.Text;
+      FTrackInfoList[I] := LT;
+      TracksList.Items[I].SubItems[2] := ArtistEdit.Text;
     end;
   end;
 end;
@@ -5320,10 +5323,10 @@ var
 begin
   for I := 0 to CompressionPairs.Count - 1 do
   begin
-    if FileExists(CompressionPairs[i].SourcePath) and FileExists(CompressionPairs[i].DestinationPath) then
+    if FileExists(CompressionPairs[I].SourcePath) and FileExists(CompressionPairs[I].DestinationPath) then
     begin
-      inc(FirstFile, CalcFileSize(CompressionPairs[i].SourcePath));
-      inc(SecondFile, CalcFileSize(CompressionPairs[i].DestinationPath));
+      inc(FirstFile, CalcFileSize(CompressionPairs[I].SourcePath));
+      inc(SecondFile, CalcFileSize(CompressionPairs[I].DestinationPath));
     end;
   end;
   if FirstFile > 0 then
@@ -5354,7 +5357,7 @@ begin
       for I := 0 to LSplitList.Count - 1 do
       begin
         Application.ProcessMessages;
-        if LExt = LSplitList[i] then
+        if LExt = LSplitList[I] then
         begin
           Result := False;
           Break;
@@ -5672,9 +5675,9 @@ begin
   begin
     Application.ProcessMessages;
 
-    if FTrackInfoList[i].WillBeRipped then
+    if FTrackInfoList[I].WillBeRipped then
     begin
-      case FTrackInfoList[i].TrackState of
+      case FTrackInfoList[I].TrackState of
         tsWaiting:
           begin
             LInt := 1;
@@ -5707,15 +5710,15 @@ begin
           end;
       end;
 
-      if Assigned(CDPRogressList.Items[FTrackInfoList[i].Index - 1]) then
+      if Assigned(CDPRogressList.Items[FTrackInfoList[I].Index - 1]) then
       begin
-        if CDPRogressList.Items[FTrackInfoList[i].Index - 1].StateIndex <> LInt then
+        if CDPRogressList.Items[FTrackInfoList[I].Index - 1].StateIndex <> LInt then
         begin
-          CDPRogressList.Items[FTrackInfoList[i].Index - 1].StateIndex := LInt
+          CDPRogressList.Items[FTrackInfoList[I].Index - 1].StateIndex := LInt
         end;
-        if CDPRogressList.Items[FTrackInfoList[i].Index - 1].SubItems[0] <> LStr then
+        if CDPRogressList.Items[FTrackInfoList[I].Index - 1].SubItems[0] <> LStr then
         begin
-          CDPRogressList.Items[FTrackInfoList[i].Index - 1].SubItems[0] := LStr
+          CDPRogressList.Items[FTrackInfoList[I].Index - 1].SubItems[0] := LStr
         end;
       end;
     end;
@@ -5747,7 +5750,7 @@ begin
   MsgStr := '';
 
   // check each file
-  for I := 0 to FilesToCheck.Count - 1 do
+  for i := 0 to FilesToCheck.Count - 1 do
   begin
 
     if (not FileExists(FilesToCheck[i])) and (CalcFileSize(FilesToCheck[i]) < 1) then
@@ -5976,11 +5979,11 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.Comment := CommentEdit.Text;
-      FTrackInfoList[i] := LT;
+      FTrackInfoList[I] := LT;
     end;
   end;
 end;
@@ -5995,36 +5998,36 @@ begin
   begin
     Application.ProcessMessages;
 
-    if FileExists(CompressionPairs[i].SourcePath) then
+    if FileExists(CompressionPairs[I].SourcePath) then
     begin
-      if FileExists(CompressionPairs[i].DestinationPath) then
+      if FileExists(CompressionPairs[I].DestinationPath) then
       begin
-        LSourceSize := CalcFileSize(CompressionPairs[i].SourcePath);
-        LDestSize := CalcFileSize(CompressionPairs[i].DestinationPath);
+        LSourceSize := CalcFileSize(CompressionPairs[I].SourcePath);
+        LDestSize := CalcFileSize(CompressionPairs[I].DestinationPath);
         if LSourceSize > 0 then
         begin
           if LDestSize > 0 then
           begin
-            AddToLog(19, '[' + FormatFloat('#.###', (100 * LDestSize) / LSourceSize) + '%] ' + CompressionPairs[i].SourcePath + ' to ' + CompressionPairs[i].DestinationPath);
+            AddToLog(19, '[' + FormatFloat('#.###', (100 * LDestSize) / LSourceSize) + '%] ' + CompressionPairs[I].SourcePath + ' to ' + CompressionPairs[I].DestinationPath);
           end
           else
           begin
-            AddToLog(19, 'Destination is empty ' + CompressionPairs[i].DestinationPath);
+            AddToLog(19, 'Destination is empty ' + CompressionPairs[I].DestinationPath);
           end;
         end
         else
         begin
-          AddToLog(19, 'Source is empty ' + CompressionPairs[i].SourcePath);
+          AddToLog(19, 'Source is empty ' + CompressionPairs[I].SourcePath);
         end;
       end
       else
       begin
-        AddToLog(19, 'Destination doesn''t exist ' + CompressionPairs[i].DestinationPath);
+        AddToLog(19, 'Destination doesn''t exist ' + CompressionPairs[I].DestinationPath);
       end;
     end
     else
     begin
-      AddToLog(19, 'Source doesn''t exist ' + CompressionPairs[i].SourcePath);
+      AddToLog(19, 'Source doesn''t exist ' + CompressionPairs[I].SourcePath);
     end;
   end;
   CalcTotalCompression;
@@ -6061,7 +6064,7 @@ begin
               begin
                 // extract embedded artwork
                 ImageFile := ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\' + FloatToStr(FileIndex) + '.' + TagsList[FileIndex].CoverImageType;
-                ArtworkExtractor := TArtworkExtractor.Create(FileName, ChangeFileExt(ImageFile, ''), ArtworkExtractorPath);
+                ArtworkExtractor := TArtworkExtractor.Create(FileName, ChangeFileExt(ImageFile, ''), FArtworkExtractorPath);
                 try
                   ArtworkExtractor.Start;
                   while ArtworkExtractor.AEStatus = aeReading do
@@ -6174,7 +6177,7 @@ begin
                 begin
                   // extract embedded artwork
                   ImageFile := ExcludeTrailingPathDelimiter(SettingsForm.TempEdit.Text) + '\' + FloatToStr(FileIndex) + '.' + TagsList[FileIndex].CoverImageType;
-                  ArtworkExtractor := TArtworkExtractor.Create(FileName, ChangeFileExt(ImageFile, ''), ArtworkExtractorPath);
+                  ArtworkExtractor := TArtworkExtractor.Create(FileName, ChangeFileExt(ImageFile, ''), FArtworkExtractorPath);
                   try
                     ArtworkExtractor.Start;
                     while ArtworkExtractor.AEStatus = aeReading do
@@ -6525,7 +6528,7 @@ begin
   AudioStr := ' -y -f concat -i "' + SettingsForm.TempEdit.Text + '\mergelist.txt' + '" -threads 0 -c copy -loglevel panic "' + LTempAudioFile + '"';
 
   Encoder.CommandLines.Add(AudioStr);
-  Encoder.Paths.Add(FFMpegPath);
+  Encoder.Paths.Add(FFFMpegPath);
   Encoder.FileNames.Add(FileName);
   // Encoder.ProcessTypes.Add(etFFMpeg);
   Encoder.Durations.Add(FileDuration);
@@ -6551,7 +6554,7 @@ begin
         AudioStr := ' -y -i "' + LTempAudioFile + '" ' + AudioStr + ' "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -6598,7 +6601,7 @@ begin
         AudioStr := AudioStr + ' --ignorelength --rate keep "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(QaacPath);
+        Encoder.Paths.Add(FQaacPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Durations.Add('1');
@@ -6631,7 +6634,7 @@ begin
         AudioStr := ' -y -i "' + LTempAudioFile + '" ' + AudioStr + ' -acodec ac3 "' + LTempAudioFile + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -6669,7 +6672,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.OggCMD + ' "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(OggEncPath);
+        Encoder.Paths.Add(FOggEncPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6731,7 +6734,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.LameCMD + '  "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(LamePath);
+        Encoder.Paths.Add(FLamePath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6775,7 +6778,7 @@ begin
         AudioStr := AudioStr + CodecSettingsForm.FLACCMD + '  "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FLACPath);
+        Encoder.Paths.Add(FFLACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6815,7 +6818,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.FHGAACCMD + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FHGPath);
+        Encoder.Paths.Add(FFHGPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6851,7 +6854,7 @@ begin
         AudioStr := AudioStr + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(OpusPath);
+        Encoder.Paths.Add(FOpusPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -6873,7 +6876,7 @@ begin
         AudioStr := AudioStr + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(MPCPath);
+        Encoder.Paths.Add(FMPCPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6902,7 +6905,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.APECMD + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '" ' + AudioStr;
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(MACPath);
+        Encoder.Paths.Add(FMACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6918,7 +6921,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.TTACMD + ' -e "' + LTempAudioFile + '" -o "' + LOutputFilePath + '" ';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(TTAPath);
+        Encoder.Paths.Add(FTTAPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -6966,7 +6969,7 @@ begin
         AudioStr := AudioStr + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '" ';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(TAKPath);
+        Encoder.Paths.Add(FTAKPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -7008,7 +7011,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.NeroAACCMD + ' -if "' + LTempAudioFile + '" -of "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(NeroEncPath);
+        Encoder.Paths.Add(FNeroEncPath);
         Encoder.FileNames.Add(FileName);
         Encoder.Durations.Add(FileDuration);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -7023,7 +7026,7 @@ begin
         AudioStr := ' -y -i "' + LTempAudioFile + '" -c:a alac -vn "' + LOutputFilePath + '" ' + CodecSettingsForm.ALACCMD;
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -7061,7 +7064,7 @@ begin
         AudioStr := AudioStr + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(WmaEncodePath);
+        Encoder.Paths.Add(FWmaEncodePath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -7112,7 +7115,7 @@ begin
         AudioStr := AudioStr + ' "' + LTempAudioFile + '" "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(WavPackPath);
+        Encoder.Paths.Add(FWavPackPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -7160,7 +7163,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.FDKAACCMD + ' "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
         Encoder.CommandLines.Add(AudioStr);
-        Encoder.Paths.Add(FdkAACPath);
+        Encoder.Paths.Add(FFdkAACPath);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
         Encoder.Infos.Add('Encoding');
@@ -7175,7 +7178,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.AIFFCMD;
         AudioStr := ' -y -i "' + FileName + '" -f aiff ' + ' "' + LOutputFilePath + '" ' + AudioStr;
 
-        Encoder.Paths.Add(FFMpegPath);
+        Encoder.Paths.Add(FFFMpegPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -7191,7 +7194,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.FLACCLCMD;
         AudioStr := ' -' + CodecSettingsForm.FLACCLLevelList.Text + ' "' + LTempAudioFile + '" -o "' + LOutputFilePath + '"';
 
-        Encoder.Paths.Add(FLACCLPath);
+        Encoder.Paths.Add(FFLACCLPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -7207,7 +7210,7 @@ begin
         AudioStr := AudioStr + ' ' + CodecSettingsForm.DcaencCMD;
         AudioStr := ' -i "' + LTempAudioFile + '" -o "' + LTempAudioFile + '" -b ' + CodecSettingsForm.DCABitrateEdit.Text;
 
-        Encoder.Paths.Add(DCAENCPath);
+        Encoder.Paths.Add(FDCAENCPath);
         Encoder.CommandLines.Add(AudioStr);
         Encoder.FileNames.Add(FileName);
         Encoder.TempFiles.Add(FileToDeleteStr);
@@ -7222,7 +7225,7 @@ begin
   if MergeTagForm.UseValuesBtn.Checked then
   begin
     // write tag
-    if FileExists(TTaggerPath) and SettingsForm.TagsBtn.Checked then
+    if FileExists(FTTaggerPath) and SettingsForm.TagsBtn.Checked then
     begin
       // write merge tags to a file
       CreateMergeTagTextFile;
@@ -7230,7 +7233,7 @@ begin
       AudioStr := '" " "' + SettingsForm.TempEdit.Text + '\mergetag.txt" "' + LOutputFilePath + '"';
 
       Encoder.CommandLines.Add(AudioStr);
-      Encoder.Paths.Add(TTaggerPath);
+      Encoder.Paths.Add(FTTaggerPath);
       Encoder.FileNames.Add(FileName);
       Encoder.TempFiles.Add('');
       Encoder.Durations.Add('1');
@@ -7769,11 +7772,11 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.Date := DateEdit.Text;
-      FTrackInfoList[i] := LT;
+      FTrackInfoList[I] := LT;
     end;
   end;
 end;
@@ -7838,7 +7841,7 @@ begin
     DeleteFile(AppDataFolder + LogFolder + '\log_main.txt')
   end;
 
-  for I := 1 to 16 do
+  for i := 1 to 16 do
   begin
     if FileExists(AppDataFolder + LogFolder + '\log_encoder' + FloatToStr(i) + '.txt') then
     begin
@@ -7969,7 +7972,7 @@ begin
 
   DragDrop.DropTarget := nil;
 
-  for I := 0 to MainMenu.Items.Count - 1 do
+  for i := 0 to MainMenu.Items.Count - 1 do
   begin
     MainMenu.Items.Items[i].Enabled := False;
   end;
@@ -8012,7 +8015,7 @@ begin
           lv2 := FileList.Items[index];
           try
             // queue list
-            lv := FileList.Items.Insert(Index + 2);
+            lv := FileList.Items.Insert(index + 2);
             lv.Assign(lv2);
             lv2.Delete;
 
@@ -8045,12 +8048,12 @@ begin
 
       for i := 0 to SelectedItems.Count - 1 do
       begin
-        Index := StrToInt(SelectedItems.Strings[i]);
+        index := StrToInt(SelectedItems.Strings[i]);
 
-        if Index < FileList.Items.Count then
+        if index < FileList.Items.Count then
         begin
-          FileList.Items.Item[Index].Selected := True;
-          FileList.Items.Item[Index].Focused := True;
+          FileList.Items.Item[index].Selected := True;
+          FileList.Items.Item[index].Focused := True;
         end;
 
       end;
@@ -8061,7 +8064,7 @@ begin
     FreeAndNil(SelectedItems);
 
     // update remaning items' indexes
-    for I := 0 to FileList.Items.Count - 1 do
+    for i := 0 to FileList.Items.Count - 1 do
     begin
       LII := FileList.Items[i].SubItems.Objects[BITRATE_COLUMN_INDEX] as TIndexItem;
       LII.RealIndex := i;
@@ -8113,17 +8116,8 @@ begin
         end
         else
         begin
-          if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv')
-          or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi')
-          or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv')
-          or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a')
-          or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc')
-          or (Extension = '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus')
-          or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape')
-          or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts')
-          or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b')
-          or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif')
-          or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.ts') or (Extension = '.3gpp') or (Extension = '.cue') then
+          if (Extension = '.mp4') or (Extension = '.mov') or (Extension = '.m4v') or (Extension = '.mkv') or (Extension = '.mpeg') or (Extension = '.mpg') or (Extension = '.flv') or (Extension = '.avi') or (Extension = '.vob') or (Extension = '.avs') or (Extension = '.divx') or (Extension = '.wmv') or (Extension = '.rmvb') or (Extension = '.mp3') or (Extension = '.wav') or (Extension = '.m4a') or (Extension = '.flac') or (Extension = '.ogg') or (Extension = '.tta') or (Extension = '.mpc') or (Extension =
+            '.aac') or (Extension = '.ac3') or (Extension = '.spx') or (Extension = '.opus') or (Extension = '.shn') or (Extension = '.wv') or (Extension = '.mpc') or (Extension = '.ape') or (Extension = '.wma') or (Extension = '.3gp') or (Extension = '.3ga') or (Extension = '.m2ts') or (Extension = '.thd') or (Extension = '.amr') or (Extension = '.aac') or (Extension = '.m4b') or (Extension = '.tak') or (Extension = '.dts') or (Extension = '.mts') or (Extension = '.aif') or (Extension = '.aiff') or (Extension = '.dtsma') or (Extension = '.mpa') or (Extension = '.mp2') or (Extension = '.mka') or (Extension = '.ts') or (Extension = '.3gpp') or (Extension = '.cue') then
           begin
             AddFile(Value[i]);
             ProgressForm.CurrentFileLabel.Caption := ExtractFileName(Value[i]);
@@ -8151,7 +8145,7 @@ begin
       if DirectoriesToSearch.Count > 0 then
       begin
 
-        for I := 0 to DirectoriesToSearch.Count - 1 do
+        for i := 0 to DirectoriesToSearch.Count - 1 do
         begin
           Application.ProcessMessages;
 
@@ -8342,7 +8336,7 @@ begin
     sSkinManager1.RepaintForms(True);
   end;
 
-  for I := 0 to MainMenu.Items.Count - 1 do
+  for i := 0 to MainMenu.Items.Count - 1 do
   begin
     MainMenu.Items.Items[i].Enabled := True;
   end;
@@ -8495,7 +8489,7 @@ begin
     if AudioTrackList.Items.Count > 0 then
     begin
 
-      for I := 0 to AudioTrackList.Items.Count - 1 do
+      for i := 0 to AudioTrackList.Items.Count - 1 do
       begin
         Application.ProcessMessages;
 
@@ -8537,7 +8531,7 @@ begin
   try
     for I := 0 to FileList.Columns.Count - 1 do
     begin
-      FileList.Columns[i].ImageIndex := -1;
+      FileList.Columns[I].ImageIndex := -1;
     end;
     if Column.Index <> FSortedColumn then
     begin
@@ -8588,25 +8582,25 @@ begin
       for I := 0 to FileList.Items.Count - 1 do
       begin
         // get the object
-        LII := FileList.Items[i].SubItems.Objects[BITRATE_COLUMN_INDEX] as TIndexItem;
+        LII := FileList.Items[I].SubItems.Objects[BITRATE_COLUMN_INDEX] as TIndexItem;
 
-        LAudioTracks[i] := AudioTracks[LII.RealIndex];
-        LAudioIndexes[i] := AudioIndexes[LII.RealIndex];
-        LFiles[i] := Files[LII.RealIndex];
-        LDurations[i] := Durations[LII.RealIndex];
-        LExtensionsForCopy[i] := ExtensionsForCopy[LII.RealIndex];
-        LCopyExtension[i] := CopyExtension[LII.RealIndex];
-        LStartPositions[i] := StartPositions[LII.RealIndex];
-        LEndPositions[i] := EndPositions[LII.RealIndex];
-        LConstantDurations[i] := ConstantDurations[LII.RealIndex];
-        LTagsList[i] := TagsList[LII.RealIndex];
+        LAudioTracks[I] := AudioTracks[LII.RealIndex];
+        LAudioIndexes[I] := AudioIndexes[LII.RealIndex];
+        LFiles[I] := Files[LII.RealIndex];
+        LDurations[I] := Durations[LII.RealIndex];
+        LExtensionsForCopy[I] := ExtensionsForCopy[LII.RealIndex];
+        LCopyExtension[I] := CopyExtension[LII.RealIndex];
+        LStartPositions[I] := StartPositions[LII.RealIndex];
+        LEndPositions[I] := EndPositions[LII.RealIndex];
+        LConstantDurations[I] := ConstantDurations[LII.RealIndex];
+        LTagsList[I] := TagsList[LII.RealIndex];
         if FPlaybackIndex = LII.RealIndex then
         begin
-          FPlaybackIndex := i;
+          FPlaybackIndex := I;
         end;
         // re-assign object to list
         LII.RealIndex := I;
-        FileList.Items[i].SubItems.Objects[BITRATE_COLUMN_INDEX] := LII;
+        FileList.Items[I].SubItems.Objects[BITRATE_COLUMN_INDEX] := LII;
       end;
       // clear the real lists
       AudioTracks.Clear;
@@ -8770,17 +8764,17 @@ begin
   ProgressList.Items.Clear;
   for I := 0 to TracksList.Items.Count - 1 do
   begin
-    if FTrackInfoList[i].WillBeRipped then
+    if FTrackInfoList[I].WillBeRipped then
     begin
       LListItem := CDPRogressList.Items.Add;
-      LListItem.Caption := PadInteger(i + 1) + ' - ' + TracksList.Items[i].SubItems[1] + ' - ' + TracksList.Items[i].SubItems[2] + ' - ' + TracksList.Items[i].SubItems[0];
+      LListItem.Caption := PadInteger(I + 1) + ' - ' + TracksList.Items[I].SubItems[1] + ' - ' + TracksList.Items[I].SubItems[2] + ' - ' + TracksList.Items[I].SubItems[0];
       LListItem.SubItems.Add('Waiting');
       LListItem.StateIndex := 1;
     end
     else
     begin
       LListItem := CDPRogressList.Items.Add;
-      LListItem.Caption := PadInteger(i + 1) + ' - ' + TracksList.Items[i].SubItems[1] + ' - ' + TracksList.Items[i].SubItems[2] + ' - ' + TracksList.Items[i].SubItems[0];
+      LListItem.Caption := PadInteger(I + 1) + ' - ' + TracksList.Items[I].SubItems[1] + ' - ' + TracksList.Items[I].SubItems[2] + ' - ' + TracksList.Items[I].SubItems[0];
       LListItem.SubItems.Add('Ignored');
       LListItem.StateIndex := 3;
     end;
@@ -9073,7 +9067,7 @@ begin
 
   AddToLog(0, '');
   AddToLog(0, '----Encoding Summary----');
-  for I := 0 to SummaryView.Items.Count - 1 do
+  for i := 0 to SummaryView.Items.Count - 1 do
   begin
     Application.ProcessMessages;
     if SummaryView.Items.Item[i].HasChildren then
@@ -9133,7 +9127,7 @@ begin
   // profile changes weren't saved otherwise
   CodecSettingsForm.SaveOptions;
 
-  for I := Low(FEncoders) to High(FEncoders) do
+  for i := Low(FEncoders) to High(FEncoders) do
   begin
     FEncoders[i].Stop;
   end;
@@ -9203,7 +9197,7 @@ begin
   end
   else
   begin
-    FHGPath := ExtractFileDir(Application.ExeName) + '\tools\fhgaacenc\fhgaacenc.exe';
+    FFHGPath := ExtractFileDir(Application.ExeName) + '\tools\fhgaacenc\fhgaacenc.exe';
   end;
   if not FileExists(ExtractFileDir(Application.ExeName) + '\renametool.exe') then
   begin
@@ -9212,7 +9206,7 @@ begin
   end
   else
   begin
-    RenameToolPath := ExtractFileDir(Application.ExeName) + '\renametool.exe';
+    FRenameToolPath := ExtractFileDir(Application.ExeName) + '\renametool.exe';
   end;
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\lossywav\lossywav.exe') then
   begin
@@ -9221,7 +9215,7 @@ begin
   end
   else
   begin
-    LossyWAVPath := ExtractFileDir(Application.ExeName) + '\tools\lossywav\lossywav.exe';
+    FLossyWAVPath := ExtractFileDir(Application.ExeName) + '\tools\lossywav\lossywav.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\fdkaac\fdkaac.exe') then
@@ -9231,7 +9225,7 @@ begin
   end
   else
   begin
-    FdkAACPath := ExtractFileDir(Application.ExeName) + '\tools\fdkaac\fdkaac.exe';
+    FFdkAACPath := ExtractFileDir(Application.ExeName) + '\tools\fdkaac\fdkaac.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\wavpack\wavpack.exe') then
@@ -9241,11 +9235,11 @@ begin
   end
   else
   begin
-    WavPackPath := ExtractFileDir(Application.ExeName) + '\tools\wavpack\wavpack.exe';
+    FWavPackPath := ExtractFileDir(Application.ExeName) + '\tools\wavpack\wavpack.exe';
   end;
 
-  NeroEncPath := ExtractFileDir(Application.ExeName) + '\neroaacenc.exe';
-  NeroTagPath := ExtractFileDir(Application.ExeName) + '\neroaactag.exe';
+  FNeroEncPath := ExtractFileDir(Application.ExeName) + '\neroaacenc.exe';
+  FNeroTagPath := ExtractFileDir(Application.ExeName) + '\neroaactag.exe';
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffmpeg.exe') then
   begin
@@ -9254,7 +9248,7 @@ begin
   end
   else
   begin
-    FFMpegPath := ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffmpeg.exe';
+    FFFMpegPath := ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffmpeg.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffprobe.exe') then
@@ -9264,7 +9258,7 @@ begin
   end
   else
   begin
-    FFProbePath := ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffprobe.exe';
+    FFFProbePath := ExtractFileDir(Application.ExeName) + '\tools\ffmpeg\ffprobe.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\ttaenc\ttaenc.exe') then
@@ -9274,7 +9268,7 @@ begin
   end
   else
   begin
-    TTAPath := ExtractFileDir(Application.ExeName) + '\tools\ttaenc\ttaenc.exe';
+    FTTAPath := ExtractFileDir(Application.ExeName) + '\tools\ttaenc\ttaenc.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\ttagger.exe') then
@@ -9284,7 +9278,7 @@ begin
   end
   else
   begin
-    TTaggerPath := ExtractFileDir(Application.ExeName) + '\ttagger.exe';
+    FTTaggerPath := ExtractFileDir(Application.ExeName) + '\ttagger.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\TArtworkExtractor.exe') then
@@ -9294,7 +9288,7 @@ begin
   end
   else
   begin
-    ArtworkExtractorPath := ExtractFileDir(Application.ExeName) + '\TArtworkExtractor.exe';
+    FArtworkExtractorPath := ExtractFileDir(Application.ExeName) + '\TArtworkExtractor.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\lame.exe') then
@@ -9304,7 +9298,7 @@ begin
   end
   else
   begin
-    LamePath := ExtractFileDir(Application.ExeName) + '\tools\lame.exe';
+    FLamePath := ExtractFileDir(Application.ExeName) + '\tools\lame.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\dcaenc.exe') then
@@ -9314,7 +9308,7 @@ begin
   end
   else
   begin
-    DCAENCPath := ExtractFileDir(Application.ExeName) + '\tools\dcaenc.exe';
+    FDCAENCPath := ExtractFileDir(Application.ExeName) + '\tools\dcaenc.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\WMAEncode\WMAEncode.exe') then
@@ -9324,7 +9318,7 @@ begin
   end
   else
   begin
-    WmaEncodePath := ExtractFileDir(Application.ExeName) + '\tools\WMAEncode\WMAEncode.exe';
+    FWmaEncodePath := ExtractFileDir(Application.ExeName) + '\tools\WMAEncode\WMAEncode.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\flaccl\CUETools.FLACCL.cmd.exe') then
@@ -9334,7 +9328,7 @@ begin
   end
   else
   begin
-    FLACCLPath := ExtractFileDir(Application.ExeName) + '\tools\flaccl\CUETools.FLACCL.cmd.exe';
+    FFLACCLPath := ExtractFileDir(Application.ExeName) + '\tools\flaccl\CUETools.FLACCL.cmd.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcenc.exe') then
@@ -9344,7 +9338,7 @@ begin
   end
   else
   begin
-    MPCPath := ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcenc.exe';
+    FMPCPath := ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcenc.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcgain.exe') then
@@ -9354,7 +9348,7 @@ begin
   end
   else
   begin
-    MPCGainPath := ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcgain.exe';
+    FMPCGainPath := ExtractFileDir(Application.ExeName) + '\tools\mpc\mpcgain.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\sox\sox.exe') then
@@ -9364,7 +9358,7 @@ begin
   end
   else
   begin
-    SoxPath := ExtractFileDir(Application.ExeName) + '\tools\sox\sox.exe';
+    FSoxPath := ExtractFileDir(Application.ExeName) + '\tools\sox\sox.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\flac.exe') then
@@ -9374,7 +9368,7 @@ begin
   end
   else
   begin
-    FLACPath := ExtractFileDir(Application.ExeName) + '\tools\flac.exe';
+    FFLACPath := ExtractFileDir(Application.ExeName) + '\tools\flac.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\metaflac.exe') then
@@ -9384,7 +9378,7 @@ begin
   end
   else
   begin
-    MetaFlacPath := ExtractFileDir(Application.ExeName) + '\tools\metaflac.exe';
+    FMetaFlacPath := ExtractFileDir(Application.ExeName) + '\tools\metaflac.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\MAC.exe') then
@@ -9394,7 +9388,7 @@ begin
   end
   else
   begin
-    MACPath := ExtractFileDir(Application.ExeName) + '\tools\MAC.exe';
+    FMACPath := ExtractFileDir(Application.ExeName) + '\tools\MAC.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\Takc.exe') then
@@ -9404,7 +9398,7 @@ begin
   end
   else
   begin
-    TAKPath := ExtractFileDir(Application.ExeName) + '\tools\Takc.exe';
+    FTAKPath := ExtractFileDir(Application.ExeName) + '\tools\Takc.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\opusenc.exe') then
@@ -9414,7 +9408,7 @@ begin
   end
   else
   begin
-    OpusPath := ExtractFileDir(Application.ExeName) + '\tools\opusenc.exe';
+    FOpusPath := ExtractFileDir(Application.ExeName) + '\tools\opusenc.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\qaac\qaac.exe') then
@@ -9424,7 +9418,7 @@ begin
   end
   else
   begin
-    QaacPath := ExtractFileDir(Application.ExeName) + '\tools\qaac\qaac.exe';
+    FQaacPath := ExtractFileDir(Application.ExeName) + '\tools\qaac\qaac.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\oggenc2.exe') then
@@ -9434,7 +9428,7 @@ begin
   end
   else
   begin
-    OggEncPath := ExtractFileDir(Application.ExeName) + '\tools\oggenc2.exe';
+    FOggEncPath := ExtractFileDir(Application.ExeName) + '\tools\oggenc2.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\aacgain\aacgain.exe') then
@@ -9444,7 +9438,7 @@ begin
   end
   else
   begin
-    AACGainPath := ExtractFileDir(Application.ExeName) + '\tools\aacgain\aacgain.exe';
+    FAACGainPath := ExtractFileDir(Application.ExeName) + '\tools\aacgain\aacgain.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\mp3gain.exe') then
@@ -9454,7 +9448,7 @@ begin
   end
   else
   begin
-    Mp3GainPath := ExtractFileDir(Application.ExeName) + '\tools\mp3gain.exe';
+    FMp3GainPath := ExtractFileDir(Application.ExeName) + '\tools\mp3gain.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\vorbisgain.exe') then
@@ -9464,7 +9458,7 @@ begin
   end
   else
   begin
-    VorbisGainPath := ExtractFileDir(Application.ExeName) + '\tools\vorbisgain.exe';
+    FVorbisGainPath := ExtractFileDir(Application.ExeName) + '\tools\vorbisgain.exe';
   end;
 
   if not FileExists(ExtractFileDir(Application.ExeName) + '\tools\wavpack\wvgain.exe') then
@@ -9474,7 +9468,7 @@ begin
   end
   else
   begin
-    WVGainPath := ExtractFileDir(Application.ExeName) + '\tools\wavpack\wvgain.exe';
+    FWVGainPath := ExtractFileDir(Application.ExeName) + '\tools\wavpack\wvgain.exe';
   end;
 
   if not MediaInfoDLL_Load(ExtractFileDir(Application.ExeName) + '\MediaInfo.dll') then
@@ -9528,7 +9522,7 @@ begin
   FPresets := TLamePresetList.Create;
   FPresetFilesList := TStringList.Create;
 
-  for I := Low(FEncoders) to High(FEncoders) do
+  for i := Low(FEncoders) to High(FEncoders) do
   begin
     FEncoders[i] := TEncoder.Create;
   end;
@@ -9538,7 +9532,7 @@ begin
   begin
     if not InitializeTaskbarAPI then
     begin
-      Application.MessageBox('You seem to have Windows 7 but TAudioConverter can''t start taskbar progressbar!', 'Error', MB_ICONERROR);
+      Application.MessageBox('You seem to have Windows 7 or later but TAudioConverter can''t start taskbar progressbar!', 'Error', MB_ICONERROR);
     end;
   end;
 
@@ -9589,7 +9583,7 @@ begin
 
   for I := Low(FEncoders) to High(FEncoders) do
   begin
-    FEncoders[i].Free;
+    FEncoders[I].Free;
   end;
 end;
 
@@ -9885,11 +9879,11 @@ begin
   for I := 0 to TracksList.Items.Count - 1 do
   begin
     Application.ProcessMessages;
-    if TracksList.Items[i].Selected then
+    if TracksList.Items[I].Selected then
     begin
-      LT := FTrackInfoList[i];
+      LT := FTrackInfoList[I];
       LT.TrackTagInfo.Genre := GenreEdit.Text;
-      FTrackInfoList[i] := LT;
+      FTrackInfoList[I] := LT;
     end;
   end;
 end;
@@ -10403,7 +10397,7 @@ begin
   if (FileExists(FileName)) then
   begin
     // ffprobe
-    FFProbeInformer := TFFProbeInformer.Create(FileName, FFProbePath);
+    FFProbeInformer := TFFProbeInformer.Create(FileName, FFFProbePath);
     try
       FFProbeInformer.Start;
       while FFProbeInformer.FFProbeStatus = ffiReading do
@@ -10429,7 +10423,7 @@ begin
         InfoForm.InfoTMP.Text := string(MediaInfo_Inform(MediaInfoHandle, 0));
         if InfoForm.InfoTMP.Count > 0 then
         begin
-          for I := 0 to InfoForm.InfoTMP.Count - 1 do
+          for i := 0 to InfoForm.InfoTMP.Count - 1 do
           begin
             Application.ProcessMessages;
             Line := InfoForm.InfoTMP.Strings[i];
@@ -10861,7 +10855,7 @@ begin
                     CoverImg.Picture.LoadFromFile(ExtractFileDir(Application.ExeName) + '\cd.png');
                 end;
                 // assign this image to all tracks
-                for I := 0 to FTrackInfoList.Count - 1 do
+                for i := 0 to FTrackInfoList.Count - 1 do
                 begin
                   LTrackInfo := FTrackInfoList[i];
                   LTrackInfo.TrackTagInfo.CoverPath := SystemInfo.Folders.Temp + '\cdcover.jpg';
@@ -10901,81 +10895,81 @@ begin
     begin
       with InfoForm do
       begin
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Title';
-        LItem.SubItems.Add(Title);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Title';
+        Litem.SubItems.Add(Title);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Artist';
-        LItem.SubItems.Add(Artist);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Artist';
+        Litem.SubItems.Add(Artist);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Album';
-        LItem.SubItems.Add(Album);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Album';
+        Litem.SubItems.Add(Album);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Genre';
-        LItem.SubItems.Add(Genre);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Genre';
+        Litem.SubItems.Add(Genre);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Date';
-        LItem.SubItems.Add(RecordDate);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Date';
+        Litem.SubItems.Add(RecordDate);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Comment';
-        LItem.SubItems.Add(Comment);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Comment';
+        Litem.SubItems.Add(Comment);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Performer';
-        LItem.SubItems.Add(Performer);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Performer';
+        Litem.SubItems.Add(Performer);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Composer';
-        LItem.SubItems.Add(Composer);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Composer';
+        Litem.SubItems.Add(Composer);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Track';
-        LItem.SubItems.Add(TrackNo);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Track';
+        Litem.SubItems.Add(TrackNo);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Total Track';
-        LItem.SubItems.Add(TrackTotal);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Total Track';
+        Litem.SubItems.Add(TrackTotal);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Disc';
-        LItem.SubItems.Add(DiscNo);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Disc';
+        Litem.SubItems.Add(DiscNo);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Total Disc';
-        LItem.SubItems.Add(DiscTotal);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Total Disc';
+        Litem.SubItems.Add(DiscTotal);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Album Artist';
-        LItem.SubItems.Add(AlbumArtist);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Album Artist';
+        Litem.SubItems.Add(AlbumArtist);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'TitleSort';
-        LItem.SubItems.Add(NameSort);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'TitleSort';
+        Litem.SubItems.Add(NameSort);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'AlbumSort';
-        LItem.SubItems.Add(AlbumSort);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'AlbumSort';
+        Litem.SubItems.Add(AlbumSort);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'AlbumArtistSort';
-        LItem.SubItems.Add(AlbumArtistSort);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'AlbumArtistSort';
+        Litem.SubItems.Add(AlbumArtistSort);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'ComposerSort';
-        LItem.SubItems.Add(ComposerSort);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'ComposerSort';
+        Litem.SubItems.Add(ComposerSort);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'AlbumComposer';
-        LItem.SubItems.Add(AlbumComposer);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'AlbumComposer';
+        Litem.SubItems.Add(AlbumComposer);
 
-        LItem := TagList.Items.Add;
-        LItem.Caption := 'Artwork type';
-        LItem.SubItems.Add(CoverImageType);
+        Litem := TagList.Items.Add;
+        Litem.Caption := 'Artwork type';
+        Litem.SubItems.Add(CoverImageType);
       end;
     end;
     InfoForm.show;
@@ -11235,7 +11229,7 @@ var
   i: Integer;
 begin
 
-  for I := 0 to ProcessCount - 1 do
+  for i := 0 to ProcessCount - 1 do
   begin
     FEncoders[i].Start;
   end;
@@ -11263,6 +11257,7 @@ begin
     end;
   except
     on E: Exception do
+
 
   end;
 end;
@@ -12530,7 +12525,7 @@ begin
       if SettingsForm.UseMediaInfoBtn.Checked and (not AudioOnly) then
       begin
         // get cover image type
-        ImageType := TImageTypeExtractor.Create(FileName, ArtworkExtractorPath);
+        ImageType := TImageTypeExtractor.Create(FileName, FArtworkExtractorPath);
         try
           ImageType.Start;
           while ImageType.IEStatus = ieReading do
@@ -12547,7 +12542,7 @@ begin
         // if Source is lossless
         if IsSourceLossless(FileName) then
         begin
-          RGInfoExtractor := TRGInfoExtractor.Create(FileName, FFProbePath);
+          RGInfoExtractor := TRGInfoExtractor.Create(FileName, FFFProbePath);
           RGInfoExtractor.Start;
           try
             while RGInfoExtractor.RGInfoStatus = rsReading do
@@ -12611,7 +12606,7 @@ begin
 
   FileList.Items.BeginUpdate;
   try
-    for I := FileList.Items.Count - 1 downto 0 do
+    for i := FileList.Items.Count - 1 downto 0 do
     begin
       Application.ProcessMessages;
 
@@ -12636,7 +12631,7 @@ begin
     end;
 
     // update remaning items' indexes
-    for I := 0 to FileList.Items.Count - 1 do
+    for i := 0 to FileList.Items.Count - 1 do
     begin
       LII := FileList.Items[i].SubItems.Objects[BITRATE_COLUMN_INDEX] as TIndexItem;
       LII.RealIndex := i;
@@ -12756,7 +12751,7 @@ begin
   // check nero exe
   if FAudioEncoderType = etNeroAAC then
   begin
-    if not FileExists(NeroEncPath) then
+    if not FileExists(FNeroEncPath) then
     begin
       Application.MessageBox('Cannot find neroaacenc.exe. Please download it and place it in program folder.', 'Error', MB_ICONERROR);
       Exit;
@@ -12786,7 +12781,7 @@ begin
     CDDBInfo.Email := SettingsForm.CDEmailEdit.Text;
     CDDBInfo.Server := SettingsForm.CDServerEdit.Text;
 
-    for I := 0 to TracksList.Items.Count - 1 do
+    for i := 0 to TracksList.Items.Count - 1 do
     begin
       LT := FTrackInfoList[i];
       LT.WillBeRipped := TracksList.Items[i].Checked;
@@ -12815,7 +12810,7 @@ begin
       ProgressStatePanel.BringToFront;
       CDProgressTimer.Enabled := True;
       Self.Caption := '0% [Rip to WAV] [TAudioConverter]';
-      for I := 0 to MainMenu.Items.Count - 1 do
+      for i := 0 to MainMenu.Items.Count - 1 do
       begin
         MainMenu.Items[i].Enabled := False;
       end;
@@ -12853,7 +12848,7 @@ begin
   begin
     // extract embedded artwork
     ImageFile := ExcludeTrailingPathDelimiter(OutputFolder) + '\' + FloatToStr(FileIndex) + '.' + TagsList[FileIndex].CoverImageType;
-    ArtworkExtractor := TArtworkExtractor.Create(SourceFileName, ChangeFileExt(DestFile, ''), ArtworkExtractorPath);
+    ArtworkExtractor := TArtworkExtractor.Create(SourceFileName, ChangeFileExt(DestFile, ''), FArtworkExtractorPath);
     try
       ArtworkExtractor.Start;
       while ArtworkExtractor.AEStatus = aeReading do
@@ -12948,7 +12943,7 @@ begin
     with LogForm do
     begin
       // encoder logs
-      for I := 0 to 15 do
+      for i := 0 to 15 do
       begin
         Application.ProcessMessages;
         if FEncoders[i].GetConsoleOutput.Count > 0 then
@@ -13094,7 +13089,7 @@ begin
     // reset SummaryView.Items.Clear;
     FilesToCheck.Clear;
     FTimePassed := 0;
-    for I := Low(FEncoders) to High(FEncoders) do
+    for i := Low(FEncoders) to High(FEncoders) do
     begin
       FEncoders[i].ResetValues;
     end;
@@ -13152,7 +13147,7 @@ begin
       // add process info to log
       AddToLog(0, '');
       AddToLog(0, 'Number of commands per process are as follows:');
-      for I := Low(FEncoders) to High(FEncoders) do
+      for i := Low(FEncoders) to High(FEncoders) do
       begin
         AddToLog(0, 'Encoder' + FloatToStr(i + 1) + ': ' + FloatToStr(FEncoders[i].CommandCount));
       end;
@@ -13168,7 +13163,7 @@ begin
     if not SettingsForm.LogEnableBtn.Checked then
     begin
       AddToLog(0, 'Writing commands to logs');
-      for I := Low(FEncoders) to High(FEncoders) do
+      for i := Low(FEncoders) to High(FEncoders) do
       begin
         if FEncoders[i].CommandCount > 0 then
         begin
@@ -13185,7 +13180,7 @@ begin
 
     // calculate the total number of processes.
     // exclude merge process
-    for I := 0 to 15 do
+    for i := 0 to 15 do
     begin
       inc(FTotalCMDCount, FEncoders[i].CommandCount);
     end;
@@ -13404,7 +13399,7 @@ begin
     // check nero exe
     if FAudioEncoderType = etNeroAAC then
     begin
-      if not FileExists(NeroEncPath) then
+      if not FileExists(FNeroEncPath) then
       begin
         Application.MessageBox('Cannot find neroaacenc.exe. Please download it and place it in program folder.', 'Error', MB_ICONERROR);
         Exit;
@@ -13418,7 +13413,7 @@ begin
       SummaryView.Items.Clear;
       FilesToCheck.Clear;
       FTimePassed := 0;
-      for I := Low(FEncoders) to High(FEncoders) do
+      for i := Low(FEncoders) to High(FEncoders) do
       begin
         FEncoders[i].ResetValues;
       end;
@@ -13472,7 +13467,7 @@ begin
         CreateCMDPanel.BringToFront;
 
         // create command lines for files in the list
-        for I := 0 to FileList.Items.Count - 1 do
+        for i := 0 to FileList.Items.Count - 1 do
         begin
           Application.ProcessMessages;
 
@@ -13509,7 +13504,7 @@ begin
         // add process info to log
         AddToLog(0, '');
         AddToLog(0, 'Number of commands per process are as follows:');
-        for I := Low(FEncoders) to High(FEncoders) do
+        for i := Low(FEncoders) to High(FEncoders) do
         begin
           AddToLog(0, 'Encoder' + FloatToStr(i + 1) + ': ' + FloatToStr(FEncoders[i].CommandCount));
         end;
@@ -13525,7 +13520,7 @@ begin
       if not SettingsForm.LogEnableBtn.Checked then
       begin
         AddToLog(0, 'Writing commands to logs');
-        for I := Low(FEncoders) to High(FEncoders) do
+        for i := Low(FEncoders) to High(FEncoders) do
         begin
           if FEncoders[i].CommandCount > 0 then
           begin
@@ -13540,7 +13535,7 @@ begin
         if AudioMethodList.ItemIndex = 2 then
         begin
           AddToLog(18, 'Merging commands: ');
-          for I := 0 to FMergeProcess.CommandCount - 1 do
+          for i := 0 to FMergeProcess.CommandCount - 1 do
           begin
             AddToLog(18, '  ' + FMergeProcess.CommandLines[i]);
           end;
@@ -13551,7 +13546,7 @@ begin
 
       // calculate number of tasks.
       // exclude merge process
-      for I := Low(FEncoders) to High(FEncoders) - 1 do
+      for i := Low(FEncoders) to High(FEncoders) - 1 do
       begin
         inc(FTotalCMDCount, FEncoders[i].CommandCount);
       end;
@@ -13600,7 +13595,7 @@ begin
     MergeTimer.Enabled := False;
     for I := Low(FEncoders) to High(FEncoders) do
     begin
-      FEncoders[i].Stop;
+      FEncoders[I].Stop;
     end;
     FMergeProcess.Stop;
 
@@ -13654,7 +13649,7 @@ begin
     StatusLabel.Caption := '';
     ProgressStatePanel.Visible := False;
     ProgressList.Items.Clear;
-    for I := 0 to MainMenu.Items.Count - 1 do
+    for i := 0 to MainMenu.Items.Count - 1 do
     begin
       MainMenu.Items[i].Enabled := True;
     end;
@@ -13855,10 +13850,10 @@ begin
   Index := FileList.ItemIndex;
   if (Index > -1) and (TagsList[Index].FileType <> 'cue') then
   begin
-    TrimmerForm.FileIndex := index;
-    TrimmerForm.StartPosition := StrToInt(StartPositions[index]);
-    TrimmerForm.EndPosition := StrToInt(EndPositions[index]);
-    TrimmerForm.Duration := StrToInt(Durations[index]);
+    TrimmerForm.FileIndex := Index;
+    TrimmerForm.StartPosition := StrToInt(StartPositions[Index]);
+    TrimmerForm.EndPosition := StrToInt(EndPositions[Index]);
+    TrimmerForm.Duration := StrToInt(Durations[Index]);
     Self.Enabled := False;
     TrimmerForm.show;
   end;
@@ -13909,7 +13904,7 @@ begin
   end;
 
   // update remaning items' indexes
-  for I := 0 to FileList.Items.Count - 1 do
+  for i := 0 to FileList.Items.Count - 1 do
   begin
     LII := FileList.Items[i].SubItems.Objects[BITRATE_COLUMN_INDEX] as TIndexItem;
     LII.RealIndex := i;
@@ -14153,4 +14148,5 @@ begin
 end;
 
 end.
+
 
